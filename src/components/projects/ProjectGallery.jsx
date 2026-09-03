@@ -1,0 +1,285 @@
+import React, { useState } from 'react';
+import resumeData from '../../../data/resume_data.json';
+import { ProjectModal } from './ProjectModal.jsx';
+import { ArrowUpRight, Database, Terminal, Cpu, Sparkles } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext.jsx';
+
+export const ProjectGallery = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const { theme } = useTheme();
+  const isTsushima = theme === 'tsushima';
+
+  const getProjectIcon = (id) => {
+    switch (id) {
+      case 'retailsink': return <Database size={18} />;
+      case 'opendesign': return <Terminal size={18} />;
+      case 'frame-order-restoration': return <Cpu size={18} />;
+      default: return <Sparkles size={18} />;
+    }
+  };
+
+  return (
+    <section id="projects" className="projects-section">
+      <div className="container">
+        
+        {/* Section Header */}
+        <div className="section-head">
+          <div className="section-tag">
+            <span className="mono">{isTsushima ? '// 匠 — ARCHITECTURE & CODE' : '// ARTIFACTS_INDEX.SYS'}</span>
+          </div>
+          <h2 className="section-title">
+            {isTsushima ? 'Selected Systems & Open Works' : 'Systems Architecture & Engineering Projects'}
+          </h2>
+          <p className="section-subtitle">
+            Engineered systems spanning real-time analytical lakehouses, heuristic video reconstruction, and production deployment automation.
+          </p>
+        </div>
+
+        {/* Asymmetric Project Grid */}
+        <div className="projects-grid">
+          {resumeData.projects.map((project, idx) => {
+            const isFeatured = idx === 0; // First project has prominent visual weight
+
+            return (
+              <div
+                key={project.id}
+                className={`project-card ${isFeatured ? 'is-featured' : ''}`}
+                onClick={() => setSelectedProject(project)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedProject(project);
+                  }
+                }}
+                aria-label={`Open case study for ${project.title}`}
+              >
+                {/* Top Meta */}
+                <div className="card-top">
+                  <div className="card-category mono">
+                    <span className="category-icon">{getProjectIcon(project.id)}</span>
+                    <span>{project.category}</span>
+                  </div>
+                  <div className="card-arrow" aria-hidden="true">
+                    <ArrowUpRight size={18} />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="card-content">
+                  <h3 className="card-title">{project.title}</h3>
+                  <p className="card-summary">{project.summary}</p>
+
+                  {/* Highlights preview */}
+                  <ul className="card-features">
+                    {project.key_features.slice(0, isFeatured ? 3 : 2).map((feat, fIdx) => (
+                      <li key={fIdx} className="feature-line">
+                        <span className="bullet">›</span> {feat}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Tech Pills */}
+                <div className="card-tech">
+                  {project.tech.map((t) => (
+                    <span key={t} className="tech-badge mono">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Subtle Interactive Prompt */}
+                <div className="card-action-bar">
+                  <span className="mono action-text">Click to Inspect Architecture Diagram &rarr;</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+
+      {/* Deep-Dive Modal */}
+      {selectedProject && (
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      )}
+
+      <style>{`
+        .projects-section {
+          position: relative;
+          padding: var(--space-16) 0;
+          z-index: var(--z-content);
+          border-top: 1px solid var(--border-subtle);
+        }
+
+        .section-head {
+          margin-bottom: var(--space-12);
+        }
+
+        .section-tag {
+          font-size: 0.75rem;
+          color: var(--accent-primary);
+          margin-bottom: var(--space-2);
+          letter-spacing: 0.05em;
+        }
+
+        .section-title {
+          font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+          font-weight: 700;
+          color: var(--text-primary);
+          margin-bottom: var(--space-3);
+        }
+
+        .section-subtitle {
+          font-size: 1.0625rem;
+          color: var(--text-secondary);
+          max-width: 650px;
+        }
+
+        /* Asymmetric Layout */
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--space-6);
+        }
+
+        .project-card {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: var(--space-8);
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-md);
+          cursor: pointer;
+          transition: border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
+          position: relative;
+        }
+
+        .project-card:hover {
+          border-color: var(--accent-primary);
+          transform: translateY(-2px);
+          background: var(--bg-surface-elevated);
+        }
+
+        .project-card.is-featured {
+          grid-column: span 2;
+          background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+          border-color: var(--border-prominent);
+        }
+
+        .card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: var(--space-4);
+        }
+
+        .card-category {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.75rem;
+          color: var(--accent-primary);
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+
+        .category-icon {
+          display: flex;
+          align-items: center;
+        }
+
+        .card-arrow {
+          color: var(--text-muted);
+          transition: transform var(--transition-fast), color var(--transition-fast);
+        }
+
+        .project-card:hover .card-arrow {
+          color: var(--accent-primary);
+          transform: translate(2px, -2px);
+        }
+
+        .card-content {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3);
+          margin-bottom: var(--space-6);
+        }
+
+        .card-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          line-height: 1.25;
+        }
+
+        .card-summary {
+          font-size: 0.9375rem;
+          line-height: 1.6;
+          color: var(--text-secondary);
+        }
+
+        .card-features {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          margin-top: var(--space-2);
+        }
+
+        .feature-line {
+          font-size: 0.875rem;
+          color: var(--text-muted);
+          line-height: 1.45;
+        }
+
+        .bullet {
+          color: var(--accent-primary);
+          font-weight: bold;
+        }
+
+        .card-tech {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: var(--space-4);
+        }
+
+        .tech-badge {
+          font-size: 0.75rem;
+          padding: 3px 9px;
+          background: var(--bg-primary);
+          border: 1px solid var(--border-subtle);
+          color: var(--text-secondary);
+          border-radius: var(--radius-sm);
+        }
+
+        .card-action-bar {
+          padding-top: var(--space-3);
+          border-top: 1px solid var(--border-subtle);
+        }
+
+        .action-text {
+          font-size: 0.75rem;
+          color: var(--accent-primary);
+          letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 860px) {
+          .projects-grid {
+            grid-template-columns: 1fr;
+          }
+          .project-card.is-featured {
+            grid-column: span 1;
+          }
+          .project-card {
+            padding: var(--space-6);
+          }
+        }
+      `}</style>
+    </section>
+  );
+};

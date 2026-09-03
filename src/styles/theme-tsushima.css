@@ -1,0 +1,52 @@
+/* Variation B: Ghost of Tsushima — Cinematic Feudal Japanese Aesthetic */
+[data-theme="tsushima"] {
+  /* Surface Layers */
+  --bg-primary: #0B0C0E;          /* Pure Sumi soot ink */
+  --bg-surface: #13151A;          /* Wet mountain slate */
+  --bg-surface-elevated: #1B1E26; /* Chiseled volcanic stone */
+  --bg-surface-hover: #222631;    /* Polished basalt */
+  --bg-overlay: rgba(11, 12, 14, 0.88);
+  --bg-blur: blur(16px);
+
+  /* Typography Colors */
+  --text-primary: #F4EFE6;        /* Raw washi paper cream */
+  --text-secondary: #C4BDAF;      /* Bleached flax */
+  --text-muted: #7E786E;          /* Weathered cedar grain */
+  --text-inverse: #0B0C0E;
+
+  /* Cinnabar Vermilion (Inkan Seal Accent) */
+  --accent-primary: #C83226;      /* Imperial cinnabar vermilion */
+  --accent-hover: #DD3B2E;
+  --accent-subtle: rgba(200, 50, 38, 0.12);
+  --accent-glow: rgba(200, 50, 38, 0.28);
+  --accent-text: #FFFFFF;
+
+  /* Secondary Natural Hue (Bamboo / Moss) */
+  --accent-secondary: #4A5844;
+  --accent-secondary-subtle: rgba(74, 88, 68, 0.2);
+
+  /* Subtle Hairline Borders */
+  --border-subtle: rgba(244, 239, 230, 0.08);
+  --border-prominent: rgba(244, 239, 230, 0.18);
+  --border-accent: rgba(200, 50, 38, 0.45);
+
+  /* Shape & Radii (Organic, subtly softened) */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* Font Families */
+  --font-display: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+  --font-body: 'Newsreader', serif;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* Shadow & Ambient Occlusion */
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-prominent: 0 12px 40px rgba(0, 0, 0, 0.6);
+  --shadow-accent: 0 0 25px rgba(200, 50, 38, 0.25);
+
+  /* Atmosphere & Mood */
+  --vignette: radial-gradient(circle at center, transparent 40%, rgba(5, 6, 8, 0.8) 100%);
+}

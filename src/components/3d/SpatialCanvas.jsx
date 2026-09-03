@@ -1,0 +1,135 @@
+import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { useTheme } from '../../context/ThemeContext.jsx';
+import { TsushimaScene } from './TsushimaScene.js';
+import { ArchitecturalScene } from './ArchitecturalScene.js';
+
+export const SpatialCanvas = () => {
+  const containerRef = useRef(null);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Check reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. Scene, Camera, Renderer Setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      100
+    );
+    camera.position.set(0, 0, 8);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    container.appendChild(renderer.domElement);
+
+    // 2. Active Scene Controller
+    let activeSceneController = null;
+    const initSceneController = (themeName) => {
+      if (activeSceneController) {
+        activeSceneController.dispose();
+        // Clear children
+        while (scene.children.length > 0) {
+          scene.remove(scene.children[0]);
+        }
+      }
+
+      if (themeName === 'tsushima') {
+        activeSceneController = new TsushimaScene(scene, camera);
+      } else {
+        activeSceneController = new ArchitecturalScene(scene, camera);
+      }
+    };
+
+    initSceneController(theme);
+
+    // 3. Mouse & Scroll Tracking
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let scrollOffset = 0;
+
+    const handleMouseMove = (e) => {
+      mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    const handleScroll = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      scrollOffset = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+    };
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    // 4. Render Loop
+    let animationFrameId;
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+
+      if (!prefersReducedMotion) {
+        // Smooth lerp mouse coordinates
+        mouse.x += (mouse.targetX - mouse.x) * 0.05;
+        mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+        if (activeSceneController) {
+          activeSceneController.update(mouse, scrollOffset);
+        }
+      }
+
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // 5. Cleanup
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+
+      if (activeSceneController) {
+        activeSceneController.dispose();
+      }
+      renderer.dispose();
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+    };
+  }, [theme]);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 1,
+        overflow: 'hidden'
+      }}
+      aria-hidden="true"
+    />
+  );
+};
