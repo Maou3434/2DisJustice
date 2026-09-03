@@ -1,0 +1,163 @@
+{
+  "personal": {
+    "name": "Abimanyu Jayaganesh",
+    "location": "Coimbatore, TN, India",
+    "email": "abimanyu.jayaganesh@gmail.com",
+    "phone": "(+91) 73396 66043",
+    "links": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "portfolio": "https://portfolio.local"
+    },
+    "headline": "CS Engineer & Creative Technologist specializing in Physics-Informed ML, Data Systems, and GPU-Accelerated Pipelines",
+    "education": {
+      "institution": "Vellore Institute of Technology (VIT)",
+      "location": "Vellore, TN",
+      "degree": "B.Tech. in Computer Science and Engineering",
+      "graduation": "Expected June 2027",
+      "cgpa": "8.47 / 10"
+    }
+  },
+  "technical_skills": {
+    "languages": ["Python", "Java", "C++", "JavaScript", "SQL"],
+    "frameworks_development": ["FastAPI", "Spring Boot", "Django", "React", "REST APIs", "Docker", "HTML5/CSS3"],
+    "ai_ml": ["PyTorch", "Scikit-Learn", "Sentence Transformers", "XGBoost", "Physics-Informed Neural Networks (PINN)", "Feature Engineering"],
+    "databases_data_engineering": ["DuckDB", "Delta Lake", "MySQL", "MongoDB", "SQLite", "DynamoDB", "Medallion Architecture", "SCD Type 2"],
+    "cloud_tools": ["AWS (EC2, S3, DynamoDB)", "Git", "SonarQube", "DirectML", "CUDA C/C++", "Simulink", "Agile Methodologies"]
+  },
+  "professional_experience": [
+    {
+      "role": "Research Intern",
+      "organization": "Automotive Research Centre, VIT",
+      "location": "Vellore, TN",
+      "period": "May 2026 – Jul 2026",
+      "highlights": [
+        "Designed and evaluated a Physics-Informed Neural Network (PINN) digital twin for EV battery thermal state estimation using PyTorch, Simulink, and ODE-based physics constraints across 522 trajectories and 78M+ time steps.",
+        "Reduced unseen WLTP2 autoregressive rollout MAE by 31.2% and maximum error by 65.6% through physics-loss regularization, input noise injection, and GPU-accelerated training with AMP/TF32."
+      ],
+      "tags": ["PyTorch", "PINN", "Digital Twin", "Simulink", "AMP/TF32", "ODEs"]
+    },
+    {
+      "role": "Software Engineering Intern",
+      "organization": "VVDN Technologies",
+      "location": "Pollachi, TN",
+      "period": "Jun 2025 – Jul 2025",
+      "highlights": [
+        "Engineered a full-stack online learning platform using Spring Boot, MySQL, and MongoDB, developing REST APIs and asynchronous data synchronization.",
+        "Maintained Grade-A SonarQube quality across 1.6k LOC with 1.8% duplication while applying layered architecture and Agile development practices."
+      ],
+      "tags": ["Spring Boot", "MySQL", "MongoDB", "REST APIs", "SonarQube"]
+    },
+    {
+      "role": "IoT Development Intern",
+      "organization": "IMIK Technologies",
+      "location": "Coimbatore, TN",
+      "period": "May 2024 – Jun 2024",
+      "highlights": [
+        "Built a Django-based IoT monitoring platform on AWS EC2, integrating MQTT for real-time device communication and reducing infrastructure costs by 1.5×.",
+        "Optimized the RMS data-processing pipeline for high-frequency sensor data, achieving 10× faster visualization and contributing to 3 approved POCs."
+      ],
+      "tags": ["Django", "AWS EC2", "MQTT", "IoT", "High-Frequency Pipeline"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "retailsink",
+      "title": "RetailSink: Real-Time Data Engineering Pipeline",
+      "tech": ["Python", "DuckDB", "Delta Lake", "FastAPI", "React"],
+      "summary": "Architected an end-to-end retail analytics lakehouse using DuckDB, Delta Lake, FastAPI, and React, implementing Medallion Architecture and SCD Type 2 tracking across 4+ retail data sources.",
+      "category": "Data Engineering & Systems Architecture",
+      "key_features": [
+        "Medallion Architecture (Bronze raw ingestion -> Silver cleansed/conformed -> Gold aggregate analytics)",
+        "Slowly Changing Dimensions (SCD Type 2) tracking for historical auditability",
+        "Sub-second OLAP queries powered by vectorized DuckDB over Parquet/Delta Lake format"
+      ]
+    },
+    {
+      "id": "opendesign",
+      "title": "OpenDesign Open Source Contribution",
+      "tech": ["TypeScript", "GitHub APIs", "Netlify", "Render", "Railway"],
+      "summary": "Contributed production-grade deployment infrastructure enabling one-click deployment of generated applications to Netlify, Render, and Railway directly from the platform UI.",
+      "category": "Cloud Infrastructure & Open Source",
+      "key_features": [
+        "Automated GitHub repository provisioning with OAuth app authorization",
+        "Cryptographic deploy-key workflows and repository webhook orchestration",
+        "Multi-provider deployment state machine across Netlify, Render, and Railway"
+      ]
+    },
+    {
+      "id": "frame-order-restoration",
+      "title": "Frame Order Restoration System",
+      "tech": ["Python", "OpenCV", "PyTorch", "DirectML"],
+      "summary": "Engineered a video reconstruction pipeline using TSP algorithms (Beam Search, 2-Opt) to restore temporal frame order with greater than 99% frame similarity.",
+      "category": "Computer Vision & Heuristic Optimization",
+      "key_features": [
+        "Parallel feature extraction fusing ORB local descriptors, HSV color histograms, and perceptual hashing (pHash)",
+        "GPU-accelerated distance matrix calculation using DirectML execution provider",
+        "Traveling Salesperson formulation with Beam Search heuristic and 2-Opt local search refinement"
+      ]
+    },
+    {
+      "id": "emotional-dependency-detection",
+      "title": "Emotional Dependency Detection System",
+      "tech": ["Python", "Sentence Transformers", "XGBoost"],
+      "summary": "Developed an NLP system for quantifying emotional dependency in user-LLM interactions using Sentence Transformers and XGBoost, achieving R^2 ≈ 0.81 on 4,000+ annotated prompts.",
+      "category": "Natural Language Processing & AI Alignment",
+      "key_features": [
+        "Fine-tuned embedding representations via Sentence Transformers capturing conversational attachment signals",
+        "Gradient boosted regression pipeline with engineered psycholinguistic feature vectors",
+        "Cross-validated empirical score of R^2 ≈ 0.81 over a multi-annotator dataset of 4,000+ prompts"
+      ]
+    }
+  ],
+  "patents": [
+    {
+      "title": "Garment Colour Matching System",
+      "application_number": "202641027735",
+      "jurisdiction": "IP India",
+      "status": "Published",
+      "summary": "Automated computer vision and spectral analysis system for high-accuracy garment colour coordination and dye matching."
+    },
+    {
+      "title": "Closed-Loop Physiological Monitoring System",
+      "application_number": "202641068237",
+      "jurisdiction": "IP India",
+      "status": "Published",
+      "summary": "Real-time edge IoT biomedical apparatus with closed-loop adaptive telemetry for continuous patient vital sign tracking."
+    }
+  ],
+  "achievements": [
+    {
+      "title": "2nd Place, IEEE IAS CodeDoc Hackathon",
+      "organization": "VIT Vellore",
+      "note": "Only freshman in the top 5 finalist teams"
+    },
+    {
+      "title": "IMIK Technologies Recognition Award",
+      "organization": "IMIK Technologies",
+      "note": "Awarded cash recognition for high-impact IoT sensor pipeline optimization"
+    },
+    {
+      "title": "Model UN Honors",
+      "organization": "IIMUN & KCT MUN",
+      "note": "Best Delegate (IIMUN) and Runner-Up (KCT MUN)"
+    },
+    {
+      "title": "National Cadet Corps (NCC) Honors",
+      "organization": "NCC India",
+      "note": "2 Silver Medals (Aeromodelling & Precision Shooting), Best Cadet Finalist"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Oracle Cloud Infrastructure - Generative AI Professional",
+      "year": "2025",
+      "issuer": "Oracle"
+    },
+    {
+      "name": "NVIDIA - Accelerated Computing in CUDA C/C++",
+      "year": "2025",
+      "issuer": "NVIDIA Deep Learning Institute"
+    }
+  ]
+}
