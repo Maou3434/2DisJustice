@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { X, CheckCircle2, Layers, Cpu, Database, ExternalLink } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
 
-export const ProjectModal = ({ project, onClose }) => {
+export const ProjectModal = ({ project, projectImage, onClose }) => {
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -33,6 +33,20 @@ export const ProjectModal = ({ project, onClose }) => {
             <X size={20} />
           </button>
         </div>
+
+        {/* High-Resolution Architectural Media Display */}
+        {projectImage && (
+          <div className="modal-media-wrap">
+            <img
+              src={projectImage}
+              alt={`${project.title} High-Resolution Topology`}
+              className="modal-schematic-img"
+            />
+            <div className="modal-media-caption mono">
+              <span>SYSTEM ARCHITECTURE SCHEMATIC &amp; EMPIRICAL PIPELINE TOPOLOGY</span>
+            </div>
+          </div>
+        )}
 
         {/* Tech Stack Bar */}
         <div className="modal-tech-row">
@@ -146,8 +160,8 @@ export const ProjectModal = ({ project, onClose }) => {
         .project-modal-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.75);
-          backdrop-filter: blur(8px);
+          background: rgba(0, 0, 0, 0.82);
+          backdrop-filter: blur(12px);
           z-index: var(--z-modal);
           display: flex;
           align-items: center;
@@ -158,8 +172,8 @@ export const ProjectModal = ({ project, onClose }) => {
 
         .project-modal-card {
           width: 100%;
-          max-width: 820px;
-          max-height: 90vh;
+          max-width: 860px;
+          max-height: 92vh;
           overflow-y: auto;
           background: var(--bg-surface-elevated);
           border: 1px solid var(--border-prominent);
@@ -202,6 +216,29 @@ export const ProjectModal = ({ project, onClose }) => {
         .modal-close-btn:hover {
           color: var(--text-primary);
           background: var(--bg-surface);
+        }
+
+        .modal-media-wrap {
+          width: 100%;
+          background: var(--bg-primary);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-sm);
+          overflow: hidden;
+        }
+
+        .modal-schematic-img {
+          width: 100%;
+          height: auto;
+          display: block;
+          object-fit: cover;
+        }
+
+        .modal-media-caption {
+          padding: 8px 12px;
+          font-size: 0.6875rem;
+          color: var(--text-muted);
+          background: var(--bg-primary);
+          border-top: 1px solid var(--border-subtle);
         }
 
         .modal-tech-row {

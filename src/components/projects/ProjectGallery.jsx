@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { ProjectModal } from './ProjectModal.jsx';
-import { ArrowUpRight, Database, Terminal, Cpu, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Database, Terminal, Cpu, Sparkles, ZoomIn } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const ProjectGallery = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const { theme } = useTheme();
   const isTsushima = theme === 'tsushima';
+
+  const getProjectImage = (id) => {
+    switch (id) {
+      case 'retailsink':
+        return '/images/retailsink-architecture.jpg';
+      case 'frame-order-restoration':
+        return '/images/video-frame-tsp.jpg';
+      case 'opendesign':
+        return '/images/pinn-thermal-twin.jpg'; // high-tech cloud infrastructure schematic
+      default:
+        return '/images/pinn-thermal-twin.jpg';
+    }
+  };
 
   const getProjectIcon = (id) => {
     switch (id) {
@@ -35,10 +48,11 @@ export const ProjectGallery = () => {
           </p>
         </div>
 
-        {/* Asymmetric Project Grid */}
+        {/* Project Grid with Rich Visual Schematics */}
         <div className="projects-grid">
           {resumeData.projects.map((project, idx) => {
-            const isFeatured = idx === 0; // First project has prominent visual weight
+            const isFeatured = idx === 0;
+            const projectImg = getProjectImage(project.id);
 
             return (
               <div
@@ -55,19 +69,35 @@ export const ProjectGallery = () => {
                 }}
                 aria-label={`Open case study for ${project.title}`}
               >
-                {/* Top Meta */}
-                <div className="card-top">
-                  <div className="card-category mono">
-                    <span className="category-icon">{getProjectIcon(project.id)}</span>
-                    <span>{project.category}</span>
-                  </div>
-                  <div className="card-arrow" aria-hidden="true">
-                    <ArrowUpRight size={18} />
+                {/* Visual Architecture Image Banner */}
+                <div className="card-visual-media">
+                  <img
+                    src={projectImg}
+                    alt={`${project.title} Architectural Schematic`}
+                    className="card-media-img"
+                    loading="lazy"
+                  />
+                  <div className="media-overlay">
+                    <div className="media-inspect-btn mono">
+                      <ZoomIn size={14} />
+                      <span>Inspect Topology</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="card-content">
+                {/* Card Body */}
+                <div className="card-body-content">
+                  {/* Top Meta */}
+                  <div className="card-top">
+                    <div className="card-category mono">
+                      <span className="category-icon">{getProjectIcon(project.id)}</span>
+                      <span>{project.category}</span>
+                    </div>
+                    <div className="card-arrow" aria-hidden="true">
+                      <ArrowUpRight size={18} />
+                    </div>
+                  </div>
+
                   <h3 className="card-title">{project.title}</h3>
                   <p className="card-summary">{project.summary}</p>
 
@@ -79,21 +109,17 @@ export const ProjectGallery = () => {
                       </li>
                     ))}
                   </ul>
+
+                  {/* Tech Pills */}
+                  <div className="card-tech">
+                    {project.tech.map((t) => (
+                      <span key={t} className="tech-badge mono">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Tech Pills */}
-                <div className="card-tech">
-                  {project.tech.map((t) => (
-                    <span key={t} className="tech-badge mono">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Subtle Interactive Prompt */}
-                <div className="card-action-bar">
-                  <span className="mono action-text">Click to Inspect Architecture Diagram &rarr;</span>
-                </div>
               </div>
             );
           })}
@@ -103,13 +129,17 @@ export const ProjectGallery = () => {
 
       {/* Deep-Dive Modal */}
       {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+        <ProjectModal
+          project={selectedProject}
+          projectImage={getProjectImage(selectedProject.id)}
+          onClose={() => setSelectedProject(null)}
+        />
       )}
 
       <style>{`
         .projects-section {
           position: relative;
-          padding: var(--space-16) 0;
+          padding: var(--space-20) 0;
           z-index: var(--z-content);
           border-top: 1px solid var(--border-subtle);
         }
@@ -138,43 +168,100 @@ export const ProjectGallery = () => {
           max-width: 650px;
         }
 
-        /* Asymmetric Layout */
+        /* Project Grid */
         .projects-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-6);
+          gap: var(--space-8);
         }
 
         .project-card {
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
-          padding: var(--space-8);
           background: var(--bg-surface);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-md);
+          overflow: hidden;
           cursor: pointer;
-          transition: border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
-          position: relative;
+          transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .project-card:hover {
           border-color: var(--accent-primary);
-          transform: translateY(-2px);
-          background: var(--bg-surface-elevated);
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-prominent);
         }
 
         .project-card.is-featured {
           grid-column: span 2;
-          background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
-          border-color: var(--border-prominent);
+        }
+
+        /* Visual Media Banner */
+        .card-visual-media {
+          position: relative;
+          width: 100%;
+          height: 240px;
+          background: var(--bg-primary);
+          overflow: hidden;
+        }
+
+        .project-card.is-featured .card-visual-media {
+          height: 340px;
+        }
+
+        .card-media-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          transition: transform 500ms ease;
+        }
+
+        .project-card:hover .card-media-img {
+          transform: scale(1.03);
+        }
+
+        .media-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(14, 16, 22, 0.95) 0%, transparent 60%);
+          display: flex;
+          align-items: flex-end;
+          padding: var(--space-4);
+          opacity: 0.85;
+          transition: opacity var(--transition-fast);
+        }
+
+        .project-card:hover .media-overlay {
+          opacity: 1;
+        }
+
+        .media-inspect-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          background: rgba(10, 11, 14, 0.75);
+          backdrop-filter: blur(8px);
+          border: 1px solid var(--border-prominent);
+          border-radius: var(--radius-sm);
+          font-size: 0.6875rem;
+          color: var(--text-primary);
+        }
+
+        /* Body Content */
+        .card-body-content {
+          padding: var(--space-6) var(--space-8) var(--space-8);
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3);
+          flex: 1;
         }
 
         .card-top {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: var(--space-4);
         }
 
         .card-category {
@@ -200,13 +287,6 @@ export const ProjectGallery = () => {
         .project-card:hover .card-arrow {
           color: var(--accent-primary);
           transform: translate(2px, -2px);
-        }
-
-        .card-content {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-3);
-          margin-bottom: var(--space-6);
         }
 
         .card-title {
@@ -245,7 +325,8 @@ export const ProjectGallery = () => {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
-          margin-bottom: var(--space-4);
+          margin-top: auto;
+          padding-top: var(--space-4);
         }
 
         .tech-badge {
@@ -257,17 +338,6 @@ export const ProjectGallery = () => {
           border-radius: var(--radius-sm);
         }
 
-        .card-action-bar {
-          padding-top: var(--space-3);
-          border-top: 1px solid var(--border-subtle);
-        }
-
-        .action-text {
-          font-size: 0.75rem;
-          color: var(--accent-primary);
-          letter-spacing: 0.02em;
-        }
-
         @media (max-width: 860px) {
           .projects-grid {
             grid-template-columns: 1fr;
@@ -275,8 +345,12 @@ export const ProjectGallery = () => {
           .project-card.is-featured {
             grid-column: span 1;
           }
-          .project-card {
-            padding: var(--space-6);
+          .card-visual-media,
+          .project-card.is-featured .card-visual-media {
+            height: 200px;
+          }
+          .card-body-content {
+            padding: var(--space-5);
           }
         }
       `}</style>

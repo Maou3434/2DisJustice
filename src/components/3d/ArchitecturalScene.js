@@ -1,103 +1,92 @@
 import * as THREE from 'three';
+import { createBatteryPack } from './BatteryModel.js';
 
 export class ArchitecturalScene {
   constructor(scene, camera) {
     this.scene = scene;
     this.camera = camera;
-    this.terrainGroup = new THREE.Group();
+    this.batteryPack = null;
+    this.wireframeGrid = null;
     this.clock = new THREE.Clock();
 
     this.init();
   }
 
   init() {
-    // 1. Technical Lighting
-    this.ambientLight = new THREE.AmbientLight(0xF5F7FA, 0.5);
+    // 1. High-Contrast Technical Lighting
+    this.ambientLight = new THREE.AmbientLight(0xF5F7FA, 0.7);
     this.scene.add(this.ambientLight);
 
-    this.directionalLight = new THREE.DirectionalLight(0xF5F7FA, 1.4);
-    this.directionalLight.position.set(6, 10, 8);
+    this.directionalLight = new THREE.DirectionalLight(0xF5F7FA, 1.8);
+    this.directionalLight.position.set(6, 12, 8);
     this.scene.add(this.directionalLight);
 
-    // Amber Telemetry Spotlight
-    this.spotLight = new THREE.SpotLight(0xF59E0B, 3, 25, Math.PI / 4, 0.4);
-    this.spotLight.position.set(-5, 6, 4);
+    // Laser Telemetry Spot
+    this.spotLight = new THREE.SpotLight(0xF59E0B, 4, 30, Math.PI / 4, 0.3);
+    this.spotLight.position.set(-4, 8, 6);
     this.scene.add(this.spotLight);
 
-    // 2. PINN Loss Surface Manifold (3D Wireframe Plane)
-    const width = 12;
-    const height = 12;
-    const segments = 42;
-    this.geometry = new THREE.PlaneGeometry(width, height, segments, segments);
+    // Specular Cursor Follow Light
+    this.cursorLight = new THREE.PointLight(0xF59E0B, 2.0, 10);
+    this.cursorLight.position.set(0, 3, 4);
+    this.scene.add(this.cursorLight);
 
-    // Compute initial mathematical topography: ODE thermal manifold
-    const pos = this.geometry.attributes.position;
-    this.originalZ = new Float32Array(pos.count);
+    // 2. Add Realistic 3D EV Battery Pack Module (PINN Digital Twin)
+    this.batteryPack = createBatteryPack();
+    this.batteryPack.position.set(3.2, 0.1, -1.0);
+    // Isometric angle presentation
+    this.batteryPack.rotation.x = 0.55;
+    this.batteryPack.rotation.y = -0.55;
+    this.batteryPack.rotation.z = 0.12;
+    this.batteryPack.scale.set(1.0, 1.0, 1.0);
+    this.scene.add(this.batteryPack);
 
-    for (let i = 0; i < pos.count; i++) {
-      const x = pos.getX(i);
-      const y = pos.getY(i);
-      // Mathematical wave packet simulating ODE thermal gradients
-      const dist = Math.sqrt(x * x + y * y);
-      const z = Math.sin(x * 0.7) * Math.cos(y * 0.7) * 0.85 + Math.exp(-dist * 0.25) * 0.6;
-      pos.setZ(i, z);
-      this.originalZ[i] = z;
-    }
-    this.geometry.computeVertexNormals();
-
-    // Technical Blueprint Material
-    this.material = new THREE.MeshStandardMaterial({
-      color: 0x12151C,
-      emissive: 0x08090C,
-      roughness: 0.2,
-      metalness: 0.85,
-      wireframe: true
-    });
-
-    this.terrainMesh = new THREE.Mesh(this.geometry, this.material);
-    this.terrainGroup.add(this.terrainMesh);
-
-    // Solid Substrate Base Underneath Wireframe
-    const baseMat = new THREE.MeshBasicMaterial({
-      color: 0x08090C,
-      transparent: true,
-      opacity: 0.8
-    });
-    this.baseMesh = new THREE.Mesh(this.geometry, baseMat);
-    this.baseMesh.position.z = -0.05;
-    this.terrainGroup.add(this.baseMesh);
-
-    // Position & Orientation: Orthographic Isometric Angle
-    this.terrainGroup.rotation.x = -Math.PI / 3;
-    this.terrainGroup.rotation.z = Math.PI / 6;
-    this.terrainGroup.position.set(3.2, -0.5, -2);
-    this.scene.add(this.terrainGroup);
+    // 3. Ground Orthographic Floor Grid (Blueprint Matrix)
+    const gridHelper = new THREE.GridHelper(24, 24, 0xF59E0B, 0x1F2430);
+    gridHelper.position.set(0, -3.5, 0);
+    this.wireframeGrid = gridHelper;
+    this.scene.add(this.wireframeGrid);
   }
 
   update(mouse, scrollOffset) {
     const elapsedTime = this.clock.getElapsedTime();
 
-    // Undulate the topological PINN loss manifold gently
-    if (this.geometry) {
-      const pos = this.geometry.attributes.position;
-      for (let i = 0; i < pos.count; i++) {
-        const x = pos.getX(i);
-        const y = pos.getY(i);
-        const wave = Math.sin(x * 0.8 + elapsedTime * 0.6) * Math.cos(y * 0.8 + elapsedTime * 0.4) * 0.18;
-        pos.setZ(i, this.originalZ[i] + wave);
+    if (this.batteryPack) {
+      // Gentle breathing elevation
+      const floatY = Math.sin(elapsedTime * 0.8) * 0.06;
+
+      // Mouse-guided isometric rotation
+      const targetRotY = -0.55 + (mouse.x * 0.4);
+      const targetRotX = 0.55 + (mouse.y * 0.3);
+
+      this.batteryPack.rotation.y += (targetRotY - this.batteryPack.rotation.y) * 0.05;
+      this.batteryPack.rotation.x += (targetRotX - this.batteryPack.rotation.x) * 0.05;
+
+      // Vertical position tied to scroll
+      this.batteryPack.position.y = 0.1 + floatY - (scrollOffset * 2.2);
+
+      // Pulse cell heights and emissive heat based on simulated ODE thermal wave
+      const { cells, badge } = this.batteryPack.userData;
+      if (cells) {
+        for (let i = 0; i < cells.length; i++) {
+          const cell = cells[i];
+          const heat = cell.userData.heat;
+          const pulse = Math.sin(elapsedTime * 2.5 + cell.userData.phase) * 0.04 * heat;
+          cell.position.y = cell.userData.initialY + pulse;
+        }
       }
-      this.geometry.computeVertexNormals();
-      this.geometry.attributes.position.needsUpdate = true;
+
+      if (badge) {
+        badge.rotation.z = elapsedTime * 0.8;
+      }
+
+      // Cursor light follow
+      this.cursorLight.position.x = mouse.x * 4;
+      this.cursorLight.position.y = mouse.y * 3 + 1;
     }
 
-    // Dynamic camera / orientation response to mouse
-    if (this.terrainGroup) {
-      const targetRotX = -Math.PI / 3 + (mouse.y * 0.2);
-      const targetRotZ = Math.PI / 6 + (mouse.x * 0.25);
-
-      this.terrainGroup.rotation.x += (targetRotX - this.terrainGroup.rotation.x) * 0.05;
-      this.terrainGroup.rotation.z += (targetRotZ - this.terrainGroup.rotation.z) * 0.05;
-      this.terrainGroup.position.y = -0.5 - (scrollOffset * 1.8);
+    if (this.wireframeGrid) {
+      this.wireframeGrid.rotation.y = elapsedTime * 0.02;
     }
   }
 
@@ -105,11 +94,22 @@ export class ArchitecturalScene {
     this.scene.remove(this.ambientLight);
     this.scene.remove(this.directionalLight);
     this.scene.remove(this.spotLight);
-    if (this.terrainGroup) {
-      this.scene.remove(this.terrainGroup);
-      this.geometry.dispose();
-      this.material.dispose();
-      this.baseMesh.material.dispose();
+    this.scene.remove(this.cursorLight);
+
+    if (this.batteryPack) {
+      this.scene.remove(this.batteryPack);
+      this.batteryPack.traverse((child) => {
+        if (child.isMesh) {
+          child.geometry.dispose();
+          if (child.material.isMaterial) child.material.dispose();
+        }
+      });
+    }
+
+    if (this.wireframeGrid) {
+      this.scene.remove(this.wireframeGrid);
+      this.wireframeGrid.geometry.dispose();
+      this.wireframeGrid.material.dispose();
     }
   }
 }
