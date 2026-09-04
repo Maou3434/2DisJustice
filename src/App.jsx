@@ -64,7 +64,7 @@ const AppContent = () => {
         .portfolio-app-root {
           position: relative;
           min-height: 100vh;
-          background: var(--bg-primary);
+          background: transparent;
           color: var(--text-primary);
         }
 
