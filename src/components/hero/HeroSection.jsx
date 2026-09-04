@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTheme } from '../../context/ThemeContext.jsx';
-import { ArrowDownRight, FileCode, ShieldCheck, Cpu, Eye, Sparkles } from 'lucide-react';
+import { ArrowDownRight, Compass, ShieldCheck, Sparkles } from 'lucide-react';
 import resumeData from '../../../data/resume_data.json';
 
 export const HeroSection = () => {
   const { theme } = useTheme();
   const isTsushima = theme === 'tsushima';
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMove = (e) => {
-      setCursorPos({
-        x: Math.round((e.clientX / window.innerWidth) * 100),
-        y: Math.round((e.clientY / window.innerHeight) * 100)
-      });
-    };
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
 
   return (
     <section id="top" className="hero-section">
@@ -26,154 +14,135 @@ export const HeroSection = () => {
       <div className="hero-vignette-overlay" aria-hidden="true" />
 
       <div className="container hero-container">
-        
-        {/* Main Content Split: Left Text / Right 3D HUD */}
         <div className="hero-split">
           
-          {/* Left Hero Narrative */}
+          {/* Left: Welcoming Narrative */}
           <div className="hero-text-block">
-            {/* Top Status Telemetry / Poetic Kicker */}
-            <div className="hero-kicker">
+            
+            {/* Warm Welcoming Salutation */}
+            <div className="hero-greeting">
               {isTsushima ? (
-                <div className="kicker-tsushima">
-                  <span className="kanji-badge">道</span>
-                  <span className="mono">VELLORE INSTITUTE OF TECHNOLOGY // CLASS OF 2027</span>
+                <div className="greeting-tsushima">
+                  <span className="kanji-seal">迎</span>
+                  <span className="greeting-label">ようこそ · WELCOME TO MY WORKSHOP &amp; RESEARCH ARCHIVE</span>
                 </div>
               ) : (
-                <div className="kicker-architectural">
-                  <span className="pulse-indicator" />
-                  <span className="mono">SYS_STATUS: ACTIVE // CGPA: 8.47 // COIMBATORE, TN</span>
+                <div className="greeting-architectural">
+                  <span className="greeting-dot" />
+                  <span className="greeting-label">HELLO · PORTFOLIO &amp; RESEARCH LOG OF ABIMANYU JAYAGANESH</span>
                 </div>
               )}
             </div>
 
+            {/* Main Welcoming Headline */}
             <h1 className="hero-title">
               {isTsushima ? (
                 <>
-                  Disciplined <span className="highlight-text">Physics</span> &amp; High-Velocity <span className="highlight-text">Systems</span>
+                  Crafting <span className="highlight-text">Physics-ML</span> &amp; High-Throughput <span className="highlight-text">Systems</span>
                 </>
               ) : (
                 <>
-                  Physics-Informed ML <span className="slash">/</span> Real-Time Lakehouses
+                  Physics-Informed ML <span className="slash">&amp;</span> High-Throughput Lakehouses
                 </>
               )}
             </h1>
 
-            <p className="hero-thesis">
-              I am <strong className="hero-name">{resumeData.personal.name}</strong>, a Computer Science Engineer and researcher developing Physics-Informed Neural Network (PINN) digital twins, high-frequency IoT pipelines, and scalable Delta Lake data platforms.
+            {/* Warm Human Intro */}
+            <p className="hero-bio">
+              I am <strong className="hero-name">{resumeData.personal.name}</strong>, a Computer Science Engineer and researcher at Vellore Institute of Technology (VIT). I specialize in Physics-Informed Neural Network (PINN) digital twins for battery electrochemistry, accelerated computing, and real-time analytical lakehouses.
             </p>
 
-            {/* Empirical Evidence Badges */}
-            <div className="hero-metrics-grid">
-              <div className="metric-card">
-                <div className="metric-header">
-                  <Cpu size={15} className="metric-icon" />
-                  <span className="metric-label">EV Battery PINN</span>
-                </div>
-                <div className="metric-value">78M+</div>
-                <div className="metric-detail">Time steps evaluated across 522 thermal trajectories</div>
+            {/* Completely Unboxed Stat Ribbon */}
+            <div className="hero-stat-ribbon">
+              <div className="stat-item">
+                <span className="stat-number">78M+</span>
+                <span className="stat-desc">Time steps evaluated across 522 thermal cycles</span>
               </div>
 
-              <div className="metric-card">
-                <div className="metric-header">
-                  <FileCode size={15} className="metric-icon" />
-                  <span className="metric-label">Rollout Accuracy</span>
-                </div>
-                <div className="metric-value">−65.6%</div>
-                <div className="metric-detail">Max error reduction on unseen WLTP2 drive cycles</div>
+              <div className="stat-divider" aria-hidden="true" />
+
+              <div className="stat-item">
+                <span className="stat-number">−65.6%</span>
+                <span className="stat-desc">Max rollout error reduction in battery PINN</span>
               </div>
 
-              <div className="metric-card">
-                <div className="metric-header">
-                  <ShieldCheck size={15} className="metric-icon" />
-                  <span className="metric-label">Intellectual Property</span>
-                </div>
-                <div className="metric-value">2 Patents</div>
-                <div className="metric-detail">Published with IP India (Colour Matching &amp; Physiological IoT)</div>
+              <div className="stat-divider" aria-hidden="true" />
+
+              <div className="stat-item">
+                <span className="stat-number">2 Patents</span>
+                <span className="stat-desc">Published with IP India (Colour &amp; Physiology IoT)</span>
               </div>
             </div>
 
-            {/* Action Row */}
+            {/* Welcoming Action Buttons */}
             <div className="hero-actions">
               <a href="#projects" className="primary-btn">
-                <span>Explore Engineering Work</span>
+                <span>Explore Selected Projects</span>
                 <ArrowDownRight size={16} />
               </a>
               <a href="#patents" className="secondary-btn">
-                <span>Published Patents</span>
+                <span>View Published Patents</span>
               </a>
-              <a href="#contact" className="text-btn">
-                <span>Direct Terminal &rarr;</span>
+              <a href="#contact" className="warm-link">
+                <span>Get in touch &rarr;</span>
               </a>
             </div>
+
           </div>
 
-          {/* Right 3D Model HUD / Narrative Framing */}
-          <div className="hero-hud-block">
-            <div className="hud-card">
-              <div className="hud-header mono">
-                <div className="hud-title-row">
-                  <span className="hud-blip" />
-                  <span>{isTsushima ? 'INTERACTIVE 3D BLADE' : '3D DIGITAL TWIN'}</span>
-                </div>
-                <span className="hud-coords">{cursorPos.x}°X / {cursorPos.y}°Y</span>
+          {/* Right: Unboxed 3D Artifact Showcase with Natural Breathing Space */}
+          <div className="hero-canvas-guide">
+            <div className="artifact-descriptor">
+              <div className="descriptor-title">
+                {isTsushima ? '3D Ceremonial Katana' : '3D PINN Battery Digital Twin'}
               </div>
-
-              <div className="hud-viewport-spacer" />
-
-              <div className="hud-caption">
-                <h4 className="hud-caption-title">
-                  {isTsushima ? 'Forged Tamahagane Katana' : '60-Cell PINN Battery Pack'}
-                </h4>
-                <p className="hud-caption-text">
-                  {isTsushima
-                    ? 'Hand-crafted 3D Katana blade resting on ceremonial kake stand. Move cursor across viewport to inspect dynamic specular reflections along the steel temper line.'
-                    : 'Interactive 3D finite-element battery module. Real-time temperature gradient and ODE thermal flux vectors respond to spatial mouse coordinates.'}
-                </p>
-                <div className="hud-hint mono">
-                  <Eye size={13} className="hint-icon" />
-                  <span>Interactive 3D Layer · Drag &amp; Hover to inspect specular light</span>
-                </div>
+              <p className="descriptor-note">
+                {isTsushima
+                  ? 'Procedural Tamahagane steel blade with sori curvature & hamon temper line. Hover and move your cursor across the scene to catch the light along the razor edge.'
+                  : 'Procedural 60-cell lithium module with finite-element thermal gradients. Cells pulse with simulated heat wave propagation and ODE constraints.'}
+              </p>
+              <div className="descriptor-subtle-hint">
+                <Sparkles size={13} className="hint-star" />
+                <span>Move cursor to illuminate reflections &amp; tilt the view</span>
               </div>
             </div>
           </div>
 
         </div>
-
       </div>
 
       <style>{`
         .hero-section {
           position: relative;
-          padding-top: calc(var(--space-24) + 20px);
+          padding-top: calc(var(--space-24) + 28px);
           padding-bottom: var(--space-20);
           z-index: var(--z-content);
-          min-height: 92vh;
+          min-height: 94vh;
           display: flex;
           align-items: center;
           overflow: hidden;
         }
 
-        /* Cinematic Background Image Layer */
+        /* Cinematic Background Layer */
         .hero-photographic-backdrop {
           position: absolute;
           inset: 0;
           background-image: var(--hero-bg-image);
           background-size: cover;
-          background-position: center 30%;
-          opacity: 0.38;
+          background-position: center 35%;
+          opacity: 0.32;
           z-index: -2;
-          filter: contrast(1.15) brightness(0.9);
+          filter: contrast(1.1) brightness(0.85);
           transition: background-image 600ms ease, opacity 600ms ease;
         }
 
-        /* Seamless Gradient Vignette into Page Body */
+        /* Soft Gradient Vignette that naturally welcomes the visitor */
         .hero-vignette-overlay {
           position: absolute;
           inset: 0;
           background: 
             linear-gradient(to bottom, transparent 0%, rgba(10, 11, 14, 0.4) 60%, var(--bg-primary) 100%),
-            radial-gradient(ellipse at 75% 45%, transparent 20%, var(--bg-primary) 90%);
+            radial-gradient(ellipse at 80% 45%, transparent 25%, var(--bg-primary) 90%);
           z-index: -1;
           pointer-events: none;
         }
@@ -185,8 +154,8 @@ export const HeroSection = () => {
 
         .hero-split {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: var(--space-8);
+          grid-template-columns: 1.25fr 0.75fr;
+          gap: var(--space-10);
           align-items: center;
         }
 
@@ -197,65 +166,63 @@ export const HeroSection = () => {
           max-width: 680px;
         }
 
-        .hero-kicker {
+        /* Welcoming Greeting */
+        .hero-greeting {
           display: flex;
           align-items: center;
         }
 
-        .kicker-tsushima {
+        .greeting-tsushima {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
-          padding: 4px 12px 4px 6px;
-          background: rgba(18, 20, 26, 0.85);
-          backdrop-filter: blur(8px);
-          border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-sm);
+          gap: 12px;
+          color: var(--text-secondary);
         }
 
-        .kanji-badge {
-          width: 22px;
-          height: 22px;
+        .kanji-seal {
+          width: 24px;
+          height: 24px;
           background: var(--accent-primary);
           color: #FFF;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: serif;
-          font-size: 0.8125rem;
+          font-family: var(--font-heading);
+          font-size: 0.875rem;
+          font-weight: 700;
           border-radius: 2px;
+          box-shadow: var(--shadow-accent);
         }
 
-        .kicker-architectural {
+        .greeting-label {
+          font-family: var(--font-mono);
+          font-size: 0.75rem;
+          letter-spacing: 0.08em;
+          color: var(--text-muted);
+        }
+
+        .greeting-architectural {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          padding: 6px 14px;
-          background: rgba(14, 16, 21, 0.85);
-          backdrop-filter: blur(8px);
-          border-left: 3px solid var(--accent-primary);
-          border-top: 1px solid var(--border-subtle);
-          border-right: 1px solid var(--border-subtle);
-          border-bottom: 1px solid var(--border-subtle);
-          font-size: 0.75rem;
-          color: var(--text-secondary);
         }
 
-        .pulse-indicator {
-          width: 7px;
-          height: 7px;
+        .greeting-dot {
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
           background: var(--accent-primary);
-          box-shadow: 0 0 8px var(--accent-primary);
+          box-shadow: 0 0 10px var(--accent-primary);
         }
 
         .hero-title {
-          font-size: clamp(2.4rem, 4.8vw, 4.2rem);
-          font-weight: 800;
-          letter-spacing: -0.03em;
-          line-height: 1.08;
+          font-family: var(--font-display);
+          font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          line-height: 1.1;
           color: var(--text-primary);
-          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+          text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
         }
 
         .highlight-text {
@@ -266,12 +233,13 @@ export const HeroSection = () => {
         .slash {
           color: var(--accent-primary);
           font-weight: 300;
-          margin: 0 8px;
+          margin: 0 4px;
         }
 
-        .hero-thesis {
-          font-size: clamp(1.0625rem, 1.5vw, 1.2rem);
-          line-height: 1.65;
+        .hero-bio {
+          font-family: var(--font-body);
+          font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+          line-height: 1.7;
           color: var(--text-secondary);
         }
 
@@ -280,68 +248,49 @@ export const HeroSection = () => {
           font-weight: 600;
         }
 
-        /* Empirical Metrics Grid */
-        .hero-metrics-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: var(--space-4);
-          margin-top: var(--space-2);
-        }
-
-        .metric-card {
-          padding: var(--space-4);
-          background: rgba(18, 20, 26, 0.75);
-          backdrop-filter: blur(12px);
-          border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-md);
-          box-shadow: var(--shadow-subtle);
-          transition: border-color var(--transition-fast), transform var(--transition-fast);
-        }
-
-        .metric-card:hover {
-          border-color: var(--accent-primary);
-          transform: translateY(-2px);
-        }
-
-        .metric-header {
+        /* Completely Unboxed Stats Ribbon */
+        .hero-stat-ribbon {
           display: flex;
           align-items: center;
-          gap: 6px;
-          margin-bottom: var(--space-2);
+          gap: var(--space-6);
+          padding: var(--space-4) 0;
+          border-top: 1px solid var(--border-subtle);
+          border-bottom: 1px solid var(--border-subtle);
         }
 
-        .metric-icon {
-          color: var(--accent-primary);
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
         }
 
-        .metric-label {
-          font-family: var(--font-mono);
-          font-size: 0.6875rem;
-          color: var(--text-muted);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .metric-value {
+        .stat-number {
           font-family: var(--font-heading);
-          font-size: 1.625rem;
+          font-size: 1.875rem;
           font-weight: 700;
           color: var(--text-primary);
           line-height: 1.1;
-          margin-bottom: var(--space-1);
         }
 
-        .metric-detail {
+        .stat-desc {
           font-size: 0.75rem;
-          line-height: 1.4;
           color: var(--text-muted);
+          line-height: 1.35;
+          max-width: 170px;
         }
 
-        /* Action Row */
+        .stat-divider {
+          width: 1px;
+          height: 42px;
+          background: var(--border-subtle);
+          flex-shrink: 0;
+        }
+
+        /* Welcoming Actions */
         .hero-actions {
           display: flex;
           align-items: center;
-          gap: var(--space-4);
+          gap: var(--space-5);
           flex-wrap: wrap;
           margin-top: var(--space-2);
         }
@@ -350,13 +299,13 @@ export const HeroSection = () => {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          padding: 14px 26px;
+          padding: 13px 26px;
           background: var(--accent-primary);
           color: var(--accent-text);
-          font-family: var(--font-mono);
-          font-size: 0.875rem;
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
           font-weight: 600;
-          letter-spacing: 0.02em;
+          letter-spacing: 0.01em;
           border-radius: var(--radius-md);
           box-shadow: var(--shadow-accent);
           transition: transform var(--transition-fast), background-color var(--transition-fast);
@@ -364,131 +313,79 @@ export const HeroSection = () => {
 
         .primary-btn:hover {
           background: var(--accent-hover);
-          transform: translateY(-1px);
+          transform: translateY(-2px);
         }
 
         .secondary-btn {
           display: inline-flex;
           align-items: center;
-          padding: 13px 22px;
-          background: rgba(18, 20, 26, 0.75);
-          backdrop-filter: blur(8px);
+          padding: 12px 22px;
+          background: transparent;
           border: 1px solid var(--border-prominent);
           color: var(--text-primary);
-          font-family: var(--font-mono);
-          font-size: 0.875rem;
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
           font-weight: 500;
           border-radius: var(--radius-md);
-          transition: border-color var(--transition-fast), background-color var(--transition-fast);
+          transition: border-color var(--transition-fast), color var(--transition-fast);
         }
 
         .secondary-btn:hover {
           border-color: var(--accent-primary);
-          background: var(--bg-surface-elevated);
+          color: var(--accent-primary);
         }
 
-        .text-btn {
-          display: inline-flex;
-          align-items: center;
-          padding: 12px 16px;
-          font-family: var(--font-mono);
-          font-size: 0.875rem;
-          color: var(--text-muted);
+        .warm-link {
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          color: var(--text-secondary);
+          padding: 8px 12px;
           transition: color var(--transition-fast);
         }
 
-        .text-btn:hover {
+        .warm-link:hover {
           color: var(--text-primary);
         }
 
-        /* Right HUD Card */
-        .hero-hud-block {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .hud-card {
-          width: 100%;
-          max-width: 440px;
-          background: rgba(14, 16, 22, 0.65);
-          backdrop-filter: blur(16px);
-          border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-lg);
-          padding: var(--space-6);
-          box-shadow: var(--shadow-prominent);
+        /* Right Unboxed 3D Artifact Showcase */
+        .hero-canvas-guide {
           display: flex;
           flex-direction: column;
-          gap: var(--space-4);
-          position: relative;
+          align-items: flex-end;
+          pointer-events: none;
         }
 
-        .hud-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-size: 0.6875rem;
-          color: var(--text-muted);
-          padding-bottom: var(--space-3);
-          border-bottom: 1px solid var(--border-subtle);
+        .artifact-descriptor {
+          max-width: 320px;
+          text-align: right;
+          margin-top: 240px; /* Sits naturally under the 3D blade/battery in the canvas */
+          pointer-events: auto;
         }
 
-        .hud-title-row {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          color: var(--accent-primary);
-          font-weight: 700;
-        }
-
-        .hud-blip {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: var(--accent-primary);
-          box-shadow: 0 0 6px var(--accent-primary);
-        }
-
-        .hud-coords {
-          color: var(--text-muted);
-        }
-
-        /* Spacer for the 3D Canvas visible underneath */
-        .hud-viewport-spacer {
-          height: 180px;
-          position: relative;
-        }
-
-        .hud-caption {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-2);
-          padding-top: var(--space-4);
-          border-top: 1px solid var(--border-subtle);
-        }
-
-        .hud-caption-title {
+        .descriptor-title {
+          font-family: var(--font-heading);
           font-size: 1.125rem;
-          font-weight: 700;
+          font-weight: 600;
           color: var(--text-primary);
+          margin-bottom: 6px;
         }
 
-        .hud-caption-text {
+        .descriptor-note {
           font-size: 0.8125rem;
-          line-height: 1.5;
-          color: var(--text-secondary);
+          line-height: 1.6;
+          color: var(--text-muted);
+          margin-bottom: 8px;
         }
 
-        .hud-hint {
-          display: flex;
+        .descriptor-subtle-hint {
+          display: inline-flex;
           align-items: center;
           gap: 6px;
           font-size: 0.6875rem;
           color: var(--accent-primary);
-          margin-top: 4px;
         }
 
-        .hint-icon {
+        .hint-star {
           flex-shrink: 0;
         }
 
@@ -496,11 +393,17 @@ export const HeroSection = () => {
           .hero-split {
             grid-template-columns: 1fr;
           }
-          .hero-metrics-grid {
-            grid-template-columns: 1fr;
+          .hero-stat-ribbon {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--space-4);
           }
-          .hud-viewport-spacer {
-            height: 140px;
+          .stat-divider {
+            display: none;
+          }
+          .artifact-descriptor {
+            margin-top: 20px;
+            text-align: left;
           }
         }
       `}</style>
