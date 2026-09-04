@@ -1,57 +1,50 @@
 import * as THREE from 'three';
 
 export class MapleLeaves {
-  constructor(scene, count = 75) {
+  constructor(scene, count = 65) {
     this.scene = scene;
     this.count = count;
     this.leafGroup = new THREE.Group();
     this.leaves = [];
 
-    // Leaf Geometry (A 5-point stylized maple leaf shape)
-    const leafShape = new THREE.Shape();
-    leafShape.moveTo(0, 0);
-    leafShape.lineTo(0.04, 0.08);
-    leafShape.lineTo(0.12, 0.06);
-    leafShape.lineTo(0.06, 0.14);
-    leafShape.lineTo(0.14, 0.22);
-    leafShape.lineTo(0.04, 0.20);
-    leafShape.lineTo(0, 0.28); // Tip
-    leafShape.lineTo(-0.04, 0.20);
-    leafShape.lineTo(-0.14, 0.22);
-    leafShape.lineTo(-0.06, 0.14);
-    leafShape.lineTo(-0.12, 0.06);
-    leafShape.lineTo(-0.04, 0.08);
-    leafShape.closePath();
+    const loader = new THREE.TextureLoader();
+    const redTexture = loader.load('/images/momiji-leaf-red.png');
+    const goldTexture = loader.load('/images/momiji-leaf-gold.png');
 
-    const leafGeom = new THREE.ShapeGeometry(leafShape);
-
-    // Two color palettes: Crimson Momiji & Golden Ginkgo
-    const crimsonMat = new THREE.MeshStandardMaterial({
-      color: 0xC83226,
+    const redMaterial = new THREE.MeshStandardMaterial({
+      map: redTexture,
+      transparent: true,
+      alphaTest: 0.08,
       side: THREE.DoubleSide,
       roughness: 0.6,
       metalness: 0.1
     });
 
-    const goldMat = new THREE.MeshStandardMaterial({
-      color: 0xD97706,
+    const goldMaterial = new THREE.MeshStandardMaterial({
+      map: goldTexture,
+      transparent: true,
+      alphaTest: 0.08,
       side: THREE.DoubleSide,
       roughness: 0.6,
       metalness: 0.1
     });
+
+    // Square quad geometry with slight natural bend
+    const geom = new THREE.PlaneGeometry(0.52, 0.52, 2, 2);
 
     for (let i = 0; i < this.count; i++) {
-      const mat = Math.random() > 0.35 ? crimsonMat : goldMat;
-      const mesh = new THREE.Mesh(leafGeom, mat);
+      const mat = Math.random() > 0.45 ? redMaterial : goldMaterial;
+      const mesh = new THREE.Mesh(geom, mat);
 
-      // Random scale and starting position
-      const scale = 0.5 + Math.random() * 0.7;
+      // Random scale for realistic depth variation
+      const scale = 0.65 + Math.random() * 0.75;
       mesh.scale.set(scale, scale, scale);
 
+      // Distribute widely across the entire screen and depth
       mesh.position.set(
-        (Math.random() - 0.5) * 22,
-        (Math.random() - 0.5) * 14,
-        (Math.random() - 0.5) * 8
+        (Math.random() - 0.5) * 28,
+        (Math.random() - 0.5) * 16,
+        (Math.random() - 0.5) * 10
       );
 
       mesh.rotation.set(
@@ -64,13 +57,13 @@ export class MapleLeaves {
 
       this.leaves.push({
         mesh,
-        rotSpeedX: (Math.random() - 0.5) * 0.04,
-        rotSpeedY: (Math.random() - 0.5) * 0.05,
-        rotSpeedZ: (Math.random() - 0.5) * 0.03,
-        speedX: 0.015 + Math.random() * 0.02,
-        speedY: -0.012 - Math.random() * 0.018,
+        rotSpeedX: (Math.random() - 0.5) * 0.035,
+        rotSpeedY: (Math.random() - 0.5) * 0.045,
+        rotSpeedZ: (Math.random() - 0.5) * 0.025,
+        speedX: 0.012 + Math.random() * 0.018,
+        speedY: -0.010 - Math.random() * 0.016,
         swayPhase: Math.random() * Math.PI * 2,
-        swayFreq: 1.2 + Math.random() * 1.5
+        swayFreq: 0.8 + Math.random() * 1.2
       });
     }
 
@@ -82,20 +75,20 @@ export class MapleLeaves {
       const item = this.leaves[i];
       const m = item.mesh;
 
-      // Tumbling rotation
+      // Organic tumbling rotation
       m.rotation.x += item.rotSpeedX;
       m.rotation.y += item.rotSpeedY;
       m.rotation.z += item.rotSpeedZ;
 
-      // Downward & forward wind drift
+      // Wind drift: gentle horizontal and downward float with natural sway
       m.position.x += item.speedX;
-      m.position.y += item.speedY + Math.sin(elapsedTime * item.swayFreq + item.swayPhase) * 0.006;
+      m.position.y += item.speedY + Math.sin(elapsedTime * item.swayFreq + item.swayPhase) * 0.005;
 
-      // Boundary loop
-      if (m.position.x > 12) m.position.x = -12;
-      if (m.position.y < -7) {
-        m.position.y = 7;
-        m.position.x = (Math.random() - 0.5) * 20;
+      // Loop smoothly within bounding box
+      if (m.position.x > 15) m.position.x = -15;
+      if (m.position.y < -8) {
+        m.position.y = 8;
+        m.position.x = (Math.random() - 0.5) * 26;
       }
     }
   }

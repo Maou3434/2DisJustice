@@ -16,44 +16,43 @@ export class TsushimaScene {
 
   init() {
     // 1. High-Atmosphere Lighting Setup
-    this.ambientLight = new THREE.AmbientLight(0xF4EFE6, 0.75);
+    this.ambientLight = new THREE.AmbientLight(0xF5EFE6, 0.85);
     this.scene.add(this.ambientLight);
 
-    // Key Moonlight / Sunbeam
-    this.directionalLight = new THREE.DirectionalLight(0xF4EFE6, 1.6);
-    this.directionalLight.position.set(5, 8, 6);
+    // Key Moonlight / Sunbeam from upper left
+    this.directionalLight = new THREE.DirectionalLight(0xF5EFE6, 1.8);
+    this.directionalLight.position.set(-4, 8, 6);
     this.scene.add(this.directionalLight);
 
-    // Steel Glint Specular Follow Light (follows cursor)
-    this.glintLight = new THREE.PointLight(0xFFFFFF, 2.5, 12);
-    this.glintLight.position.set(0, 2, 4);
+    // Specular Follow Light (follows cursor horizontally along blade length)
+    this.glintLight = new THREE.PointLight(0xFFFFFF, 3.0, 14);
+    this.glintLight.position.set(0, 1, 4);
     this.scene.add(this.glintLight);
 
     // Warm Cinnabar Rim Accent
-    this.rimLight = new THREE.PointLight(0xC83226, 3.0, 16);
-    this.rimLight.position.set(-6, -2, 3);
+    this.rimLight = new THREE.PointLight(0xC83226, 3.2, 18);
+    this.rimLight.position.set(5, -2, 2);
     this.scene.add(this.rimLight);
 
-    // 2. Add Realistic 3D Katana on Display Stand
+    // 2. Add Centered 3D Katana on Display Stand
     this.katana = createKatana();
-    // Position katana prominently in upper-right / mid-ground
-    this.katana.position.set(3.0, 0.3, -0.8);
-    this.katana.rotation.y = -0.35;
-    this.katana.rotation.x = 0.15;
+    // Horizontally centered across the viewport
+    this.katana.position.set(0.0, -0.85, -1.8);
+    this.katana.rotation.set(0.10, 0.0, -0.035);
     this.katana.scale.set(1.15, 1.15, 1.15);
     this.scene.add(this.katana);
 
-    // 3. Add 3D Tumbling Maple Leaves (Momiji)
-    this.mapleLeaves = new MapleLeaves(this.scene, 80);
+    // 3. Add Photorealistic 3D Maple Leaves (Momiji)
+    this.mapleLeaves = new MapleLeaves(this.scene, 70);
 
     // 4. Subtle Golden Ember Sparkles
-    const sparkleCount = 120;
+    const sparkleCount = 140;
     const sparkleGeom = new THREE.BufferGeometry();
     const sparklePos = new Float32Array(sparkleCount * 3);
     for (let i = 0; i < sparkleCount * 3; i += 3) {
-      sparklePos[i] = (Math.random() - 0.5) * 22;
-      sparklePos[i + 1] = (Math.random() - 0.5) * 14;
-      sparklePos[i + 2] = (Math.random() - 0.5) * 10;
+      sparklePos[i] = (Math.random() - 0.5) * 28;
+      sparklePos[i + 1] = (Math.random() - 0.5) * 16;
+      sparklePos[i + 2] = (Math.random() - 0.5) * 12;
     }
     sparkleGeom.setAttribute('position', new THREE.BufferAttribute(sparklePos, 3));
 
@@ -76,36 +75,36 @@ export class TsushimaScene {
       this.mapleLeaves.update(elapsedTime);
     }
 
-    // 2. Interactive 3D Katana Inspection with Mouse Parallax
+    // 2. Interactive Centered 3D Katana
     if (this.katana) {
-      // Gentle breathing float
-      const floatY = Math.sin(elapsedTime * 0.9) * 0.08;
-      const floatRoll = Math.cos(elapsedTime * 0.6) * 0.02;
+      // Gentle breathing elevation
+      const floatY = Math.sin(elapsedTime * 0.9) * 0.06;
+      const floatRoll = Math.cos(elapsedTime * 0.7) * 0.015;
 
-      // Mouse-guided tilt & specular reflection angle
-      const targetRotY = -0.35 + (mouse.x * 0.45);
-      const targetRotX = 0.15 + (mouse.y * 0.35);
+      // Mouse-guided tilt & parallax
+      const targetRotY = (mouse.x * 0.35);
+      const targetRotX = 0.10 + (mouse.y * 0.25);
 
-      this.katana.rotation.y += (targetRotY - this.katana.rotation.y) * 0.06;
-      this.katana.rotation.x += (targetRotX - this.katana.rotation.x) * 0.06;
-      this.katana.rotation.z = floatRoll;
+      this.katana.rotation.y += (targetRotY - this.katana.rotation.y) * 0.05;
+      this.katana.rotation.x += (targetRotX - this.katana.rotation.x) * 0.05;
+      this.katana.rotation.z = -0.035 + floatRoll;
 
       // Vertical position shifts cleanly on scroll
-      this.katana.position.y = 0.3 + floatY - (scrollOffset * 2.2);
+      this.katana.position.y = -0.85 + floatY - (scrollOffset * 2.5);
 
-      // Point light moves with cursor to create blade reflection glints!
-      this.glintLight.position.x = mouse.x * 4;
-      this.glintLight.position.y = mouse.y * 3 + 1;
+      // Point light tracks cursor along X-axis across the blade
+      this.glintLight.position.x = mouse.x * 5;
+      this.glintLight.position.y = mouse.y * 2 + 1;
     }
 
     // 3. Sparkle drift
     if (this.sparkles) {
       const pos = this.sparkles.geometry.attributes.position.array;
       for (let i = 0; i < pos.length; i += 3) {
-        pos[i] += 0.008;
-        pos[i + 1] -= 0.004;
-        if (pos[i] > 11) pos[i] = -11;
-        if (pos[i + 1] < -7) pos[i + 1] = 7;
+        pos[i] += 0.007;
+        pos[i + 1] -= 0.003;
+        if (pos[i] > 14) pos[i] = -14;
+        if (pos[i + 1] < -8) pos[i + 1] = 8;
       }
       this.sparkles.geometry.attributes.position.needsUpdate = true;
     }

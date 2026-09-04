@@ -3,169 +3,164 @@ import * as THREE from 'three';
 export function createKatana() {
   const katanaGroup = new THREE.Group();
 
-  // Materials
+  // Fine materials
   const steelMaterial = new THREE.MeshStandardMaterial({
-    color: 0xE8ECF0,
+    color: 0xF0F4F8,
     metalness: 0.98,
-    roughness: 0.18,
-    envMapIntensity: 1.5
+    roughness: 0.16,
+    envMapIntensity: 2.0
   });
 
   const edgeMaterial = new THREE.MeshStandardMaterial({
     color: 0xFFFFFF,
     metalness: 0.95,
-    roughness: 0.1,
-    emissive: 0x111111
+    roughness: 0.08,
+    emissive: 0x222222
   });
 
   const goldHabakiMaterial = new THREE.MeshStandardMaterial({
     color: 0xD4AF37,
-    metalness: 0.85,
-    roughness: 0.25
+    metalness: 0.88,
+    roughness: 0.22
   });
 
   const ironTsubaMaterial = new THREE.MeshStandardMaterial({
-    color: 0x181A1F,
+    color: 0x16181D,
     metalness: 0.85,
-    roughness: 0.4
+    roughness: 0.38
   });
 
   const tsukaRayskinMaterial = new THREE.MeshStandardMaterial({
-    color: 0xF0EAD6,
-    roughness: 0.8
+    color: 0xF2EDE4,
+    roughness: 0.85
   });
 
   const itoWrapMaterial = new THREE.MeshStandardMaterial({
-    color: 0x12141A,
-    roughness: 0.6
+    color: 0x14161C,
+    roughness: 0.65
   });
 
   const crimsonAccentMaterial = new THREE.MeshStandardMaterial({
     color: 0xC83226,
-    metalness: 0.4,
+    metalness: 0.45,
     roughness: 0.3
   });
 
   const woodStandMaterial = new THREE.MeshStandardMaterial({
-    color: 0x1F1A17,
-    roughness: 0.7
+    color: 0x1B1714,
+    roughness: 0.75
   });
 
+  // Balanced centering:
+  // Center of the sword at (0, 0, 0): Tsuba is at x = -0.6
+  // Blade extends from x = -0.48 to x = +3.3 (length ~3.8)
+  // Tsuka (hilt) extends from x = -0.65 to x = -2.3 (length ~1.65)
+  // Total sword length ~ 5.6; center of gravity is near x = +0.5.
+  // We offset the whole sword mesh by -0.5 so its visual center is precisely x = 0.0!
+
+  const swordOffset = -0.5;
+
   // 1. Curved Katana Blade (Nagasa)
-  // Constructed with smooth curvature points along the spine
-  const bladeLength = 4.2;
-  const bladeSegments = 24;
-  const bladePoints = [];
-  const edgePoints = [];
-
-  for (let i = 0; i <= bladeSegments; i++) {
-    const t = i / bladeSegments;
-    const x = t * bladeLength;
-    // Sori (curvature) equation: gentle upward curve
-    const y = Math.pow(t, 1.8) * 0.38;
-    bladePoints.push(new THREE.Vector2(x, y));
-    edgePoints.push(new THREE.Vector2(x, y - 0.14 * (1 - t * 0.4)));
-  }
-
-  // Extrude blade profile
+  const bladeLength = 3.8;
   const bladeShape = new THREE.Shape();
-  bladeShape.moveTo(0, -0.07);
-  bladeShape.lineTo(bladeLength * 0.95, -0.05 + 0.34);
-  bladeShape.lineTo(bladeLength, 0.38); // Kissaki point
-  bladeShape.lineTo(bladeLength * 0.95, 0.05 + 0.34);
-  bladeShape.lineTo(0, 0.07);
+  bladeShape.moveTo(0, -0.065);
+  bladeShape.lineTo(bladeLength * 0.92, -0.045 + 0.30);
+  bladeShape.lineTo(bladeLength, 0.34); // Sharp Kissaki tip
+  bladeShape.lineTo(bladeLength * 0.92, 0.045 + 0.30);
+  bladeShape.lineTo(0, 0.065);
   bladeShape.closePath();
 
   const extrudeSettings = {
     steps: 1,
-    depth: 0.024,
+    depth: 0.022,
     bevelEnabled: true,
     bevelThickness: 0.012,
-    bevelSize: 0.01,
+    bevelSize: 0.008,
     bevelSegments: 3
   };
 
   const bladeGeom = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
   bladeGeom.center();
   const bladeMesh = new THREE.Mesh(bladeGeom, steelMaterial);
-  bladeMesh.position.set(0.8, 0.1, 0);
-  bladeMesh.rotation.z = 0.04;
+  // Center of blade positioned along the X-axis
+  bladeMesh.position.set(bladeLength / 2 - 0.48 + swordOffset, 0.12, 0);
+  bladeMesh.rotation.z = 0.035;
   katanaGroup.add(bladeMesh);
 
-  // Hamon (Temper Line Edge)
-  const hamonGeom = new THREE.BoxGeometry(bladeLength * 0.92, 0.02, 0.03);
+  // Hamon (Wavy Edge Reflection)
+  const hamonGeom = new THREE.BoxGeometry(bladeLength * 0.94, 0.018, 0.028);
   const hamonMesh = new THREE.Mesh(hamonGeom, edgeMaterial);
-  hamonMesh.position.set(0.8, -0.06, 0);
-  hamonMesh.rotation.z = 0.04;
+  hamonMesh.position.set(bladeLength / 2 - 0.48 + swordOffset, -0.04, 0);
+  hamonMesh.rotation.z = 0.035;
   katanaGroup.add(hamonMesh);
 
   // 2. Habaki (Blade Collar)
-  const habakiGeom = new THREE.BoxGeometry(0.24, 0.18, 0.07);
+  const habakiGeom = new THREE.BoxGeometry(0.22, 0.17, 0.065);
   const habakiMesh = new THREE.Mesh(habakiGeom, goldHabakiMaterial);
-  habakiMesh.position.set(-1.18, -0.01, 0);
+  habakiMesh.position.set(-0.48 + swordOffset, -0.01, 0);
   katanaGroup.add(habakiMesh);
 
-  // 3. Tsuba (Handguard)
-  const tsubaGeom = new THREE.CylinderGeometry(0.48, 0.48, 0.05, 32);
+  // 3. Tsuba (Handguard Disc)
+  const tsubaGeom = new THREE.CylinderGeometry(0.46, 0.46, 0.045, 32);
   const tsubaMesh = new THREE.Mesh(tsubaGeom, ironTsubaMaterial);
   tsubaMesh.rotation.z = Math.PI / 2;
-  tsubaMesh.position.set(-1.32, -0.02, 0);
+  tsubaMesh.position.set(-0.62 + swordOffset, -0.015, 0);
   katanaGroup.add(tsubaMesh);
 
   // Decorative Cinnabar Ring on Tsuba
-  const tsubaRingGeom = new THREE.TorusGeometry(0.32, 0.02, 16, 32);
+  const tsubaRingGeom = new THREE.TorusGeometry(0.30, 0.018, 16, 32);
   const tsubaRing = new THREE.Mesh(tsubaRingGeom, crimsonAccentMaterial);
   tsubaRing.rotation.y = Math.PI / 2;
-  tsubaRing.position.set(-1.32, -0.02, 0);
+  tsubaRing.position.set(-0.62 + swordOffset, -0.015, 0);
   katanaGroup.add(tsubaRing);
 
   // 4. Tsuka (Hilt / Handle)
   const tsukaLength = 1.6;
-  const tsukaGeom = new THREE.CylinderGeometry(0.1, 0.11, tsukaLength, 16);
+  const tsukaGeom = new THREE.CylinderGeometry(0.095, 0.105, tsukaLength, 16);
   const tsukaMesh = new THREE.Mesh(tsukaGeom, tsukaRayskinMaterial);
   tsukaMesh.rotation.z = Math.PI / 2;
-  tsukaMesh.position.set(-1.32 - tsukaLength / 2, -0.03, 0);
+  tsukaMesh.position.set(-0.62 - tsukaLength / 2 + swordOffset, -0.025, 0);
   katanaGroup.add(tsukaMesh);
 
-  // Tsuka-Ito Wrap segments (Cross-braided cords)
+  // Tsuka-Ito Wrap Segments
   const wrapCount = 12;
   for (let i = 0; i < wrapCount; i++) {
-    const wrapX = -1.38 - (i / wrapCount) * (tsukaLength - 0.15);
-    const wrapGeom = new THREE.TorusGeometry(0.115, 0.018, 8, 16);
+    const wrapX = -0.68 - (i / wrapCount) * (tsukaLength - 0.15) + swordOffset;
+    const wrapGeom = new THREE.TorusGeometry(0.11, 0.016, 8, 16);
     const wrapMesh = new THREE.Mesh(wrapGeom, itoWrapMaterial);
     wrapMesh.rotation.y = Math.PI / 2;
-    wrapMesh.position.set(wrapX, -0.03, 0);
+    wrapMesh.position.set(wrapX, -0.025, 0);
     katanaGroup.add(wrapMesh);
   }
 
-  // Kashira (Pommel Cap at end of hilt)
-  const kashiraGeom = new THREE.CylinderGeometry(0.11, 0.09, 0.12, 16);
+  // Kashira (Pommel Cap)
+  const kashiraGeom = new THREE.CylinderGeometry(0.105, 0.085, 0.11, 16);
   const kashiraMesh = new THREE.Mesh(kashiraGeom, ironTsubaMaterial);
   kashiraMesh.rotation.z = Math.PI / 2;
-  kashiraMesh.position.set(-1.32 - tsukaLength - 0.05, -0.03, 0);
+  kashiraMesh.position.set(-0.62 - tsukaLength - 0.05 + swordOffset, -0.025, 0);
   katanaGroup.add(kashiraMesh);
 
-  // 5. Traditional Display Stand (Kake)
-  const standBaseGeom = new THREE.BoxGeometry(3.6, 0.08, 0.9);
+  // 5. Ceremonial Wooden Display Stand (Centered below the sword)
+  const standBaseGeom = new THREE.BoxGeometry(3.6, 0.07, 0.8);
   const standBase = new THREE.Mesh(standBaseGeom, woodStandMaterial);
-  standBase.position.set(0, -0.85, 0);
+  standBase.position.set(0, -0.80, 0);
   katanaGroup.add(standBase);
 
   // Upright Arms with resting notches
-  const arm1Geom = new THREE.BoxGeometry(0.12, 0.8, 0.35);
+  const arm1Geom = new THREE.BoxGeometry(0.11, 0.72, 0.3);
   const arm1 = new THREE.Mesh(arm1Geom, woodStandMaterial);
-  arm1.position.set(-1.1, -0.45, 0);
+  arm1.position.set(-1.1, -0.42, 0);
   katanaGroup.add(arm1);
 
   const arm2 = arm1.clone();
-  arm2.position.set(1.1, -0.45, 0);
+  arm2.position.set(1.1, -0.42, 0);
   katanaGroup.add(arm2);
 
-  // Gold emblem inlay on stand base
-  const emblemGeom = new THREE.CylinderGeometry(0.16, 0.16, 0.02, 16);
+  // Inkan Seal Emblem Inlay on Stand
+  const emblemGeom = new THREE.CylinderGeometry(0.14, 0.14, 0.02, 16);
   const emblem = new THREE.Mesh(emblemGeom, crimsonAccentMaterial);
   emblem.rotation.x = Math.PI / 2;
-  emblem.position.set(0, -0.85, 0.46);
+  emblem.position.set(0, -0.80, 0.41);
   katanaGroup.add(emblem);
 
   return katanaGroup;
