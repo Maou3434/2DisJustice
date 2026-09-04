@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 export class MapleLeaves {
-  constructor(scene, count = 65) {
+  constructor(scene, count = 75) {
     this.scene = scene;
     this.count = count;
     this.leafGroup = new THREE.Group();
@@ -16,7 +16,7 @@ export class MapleLeaves {
       transparent: true,
       alphaTest: 0.08,
       side: THREE.DoubleSide,
-      roughness: 0.6,
+      roughness: 0.5,
       metalness: 0.1
     });
 
@@ -25,26 +25,23 @@ export class MapleLeaves {
       transparent: true,
       alphaTest: 0.08,
       side: THREE.DoubleSide,
-      roughness: 0.6,
+      roughness: 0.5,
       metalness: 0.1
     });
 
-    // Square quad geometry with slight natural bend
-    const geom = new THREE.PlaneGeometry(0.52, 0.52, 2, 2);
+    const geom = new THREE.PlaneGeometry(0.55, 0.55, 2, 2);
 
     for (let i = 0; i < this.count; i++) {
       const mat = Math.random() > 0.45 ? redMaterial : goldMaterial;
       const mesh = new THREE.Mesh(geom, mat);
 
-      // Random scale for realistic depth variation
-      const scale = 0.65 + Math.random() * 0.75;
+      const scale = 0.6 + Math.random() * 0.8;
       mesh.scale.set(scale, scale, scale);
 
-      // Distribute widely across the entire screen and depth
       mesh.position.set(
-        (Math.random() - 0.5) * 28,
-        (Math.random() - 0.5) * 16,
-        (Math.random() - 0.5) * 10
+        (Math.random() - 0.5) * 32,
+        (Math.random() - 0.5) * 18,
+        (Math.random() - 0.5) * 12
       );
 
       mesh.rotation.set(
@@ -57,38 +54,51 @@ export class MapleLeaves {
 
       this.leaves.push({
         mesh,
-        rotSpeedX: (Math.random() - 0.5) * 0.035,
-        rotSpeedY: (Math.random() - 0.5) * 0.045,
-        rotSpeedZ: (Math.random() - 0.5) * 0.025,
-        speedX: 0.012 + Math.random() * 0.018,
-        speedY: -0.010 - Math.random() * 0.016,
+        baseSpeedX: 0.015 + Math.random() * 0.02,
+        baseSpeedY: -0.012 - Math.random() * 0.018,
+        rotSpeedX: (Math.random() - 0.5) * 0.04,
+        rotSpeedY: (Math.random() - 0.5) * 0.05,
+        rotSpeedZ: (Math.random() - 0.5) * 0.03,
         swayPhase: Math.random() * Math.PI * 2,
-        swayFreq: 0.8 + Math.random() * 1.2
+        swayFreq: 0.9 + Math.random() * 1.4
       });
     }
 
     this.scene.add(this.leafGroup);
   }
 
-  update(elapsedTime) {
+  update(elapsedTime, mouse, scrollVelocity = 0) {
+    // Gust factor from scroll velocity
+    const gust = Math.min(scrollVelocity * 0.008, 0.08);
+
     for (let i = 0; i < this.leaves.length; i++) {
       const item = this.leaves[i];
       const m = item.mesh;
 
-      // Organic tumbling rotation
-      m.rotation.x += item.rotSpeedX;
-      m.rotation.y += item.rotSpeedY;
-      m.rotation.z += item.rotSpeedZ;
+      // Tumbling rotation accelerates with wind gust
+      m.rotation.x += item.rotSpeedX * (1 + gust * 5);
+      m.rotation.y += item.rotSpeedY * (1 + gust * 5);
+      m.rotation.z += item.rotSpeedZ * (1 + gust * 5);
 
-      // Wind drift: gentle horizontal and downward float with natural sway
-      m.position.x += item.speedX;
-      m.position.y += item.speedY + Math.sin(elapsedTime * item.swayFreq + item.swayPhase) * 0.005;
+      // Downward and horizontal wind drift
+      m.position.x += item.baseSpeedX + gust * 1.5;
+      m.position.y += item.baseSpeedY - gust * 2.0 + Math.sin(elapsedTime * item.swayFreq + item.swayPhase) * 0.006;
 
-      // Loop smoothly within bounding box
-      if (m.position.x > 15) m.position.x = -15;
-      if (m.position.y < -8) {
-        m.position.y = 8;
-        m.position.x = (Math.random() - 0.5) * 26;
+      // Subtle mouse interaction: leaves near mouse push outward
+      const dx = m.position.x - (mouse.x * 12);
+      const dy = m.position.y - (mouse.y * 8);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 3.5) {
+        const push = (3.5 - dist) * 0.004;
+        m.position.x += dx * push;
+        m.position.y += dy * push;
+      }
+
+      // Loop boundaries
+      if (m.position.x > 18) m.position.x = -18;
+      if (m.position.y < -10) {
+        m.position.y = 10;
+        m.position.x = (Math.random() - 0.5) * 30;
       }
     }
   }

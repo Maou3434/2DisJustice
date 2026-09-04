@@ -23,6 +23,24 @@ export const PatentExhibition = () => {
     };
   };
 
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = -(y / (rect.height / 2)) * 5;
+    const rotY = (x / (rect.width / 2)) * 5;
+    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
+  };
+
+  const handleCardMouseLeave = (e) => {
+    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    e.currentTarget.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease';
+  };
+
+  const handleCardMouseEnter = (e) => {
+    e.currentTarget.style.transition = 'transform 60ms ease-out, border-color 200ms ease';
+  };
+
   return (
     <section id="patents" className="patents-section">
       <div className="container">
@@ -46,7 +64,13 @@ export const PatentExhibition = () => {
             const drawing = getPatentDrawing(patent.application_number);
 
             return (
-              <article key={patent.application_number} className="patent-card">
+              <article
+                key={patent.application_number}
+                className="patent-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseEnter={handleCardMouseEnter}
+                onMouseLeave={handleCardMouseLeave}
+              >
                 
                 {/* Embedded Patent Drawing Banner */}
                 <div

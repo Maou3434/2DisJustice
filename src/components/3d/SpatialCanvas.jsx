@@ -41,7 +41,6 @@ export const SpatialCanvas = () => {
     const initSceneController = (themeName) => {
       if (activeSceneController) {
         activeSceneController.dispose();
-        // Clear children
         while (scene.children.length > 0) {
           scene.remove(scene.children[0]);
         }
@@ -56,9 +55,12 @@ export const SpatialCanvas = () => {
 
     initSceneController(theme);
 
-    // 3. Mouse & Scroll Tracking
+    // 3. Mouse & Scroll Velocity Tracking
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     let scrollOffset = 0;
+    let targetScrollOffset = 0;
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
 
     const handleMouseMove = (e) => {
       mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -66,8 +68,12 @@ export const SpatialCanvas = () => {
     };
 
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      scrollVelocity = Math.abs(currentScrollY - lastScrollY);
+      lastScrollY = currentScrollY;
+
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      scrollOffset = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      targetScrollOffset = maxScroll > 0 ? currentScrollY / maxScroll : 0;
     };
 
     const handleResize = () => {
@@ -85,13 +91,21 @@ export const SpatialCanvas = () => {
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
+      // Decay scroll velocity smoothly
+      scrollVelocity *= 0.92;
+      scrollOffset += (targetScrollOffset - scrollOffset) * 0.08;
+
       if (!prefersReducedMotion) {
         // Smooth lerp mouse coordinates
-        mouse.x += (mouse.targetX - mouse.x) * 0.05;
-        mouse.y += (mouse.targetY - mouse.y) * 0.05;
+        mouse.x += (mouse.targetX - mouse.x) * 0.08;
+        mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+        // Dynamic 3D Camera Parallax Dolly on Scroll
+        camera.position.y = -scrollOffset * 4.0;
+        camera.position.z = 8.0 - scrollOffset * 2.0;
 
         if (activeSceneController) {
-          activeSceneController.update(mouse, scrollOffset);
+          activeSceneController.update(mouse, scrollOffset, scrollVelocity);
         }
       }
 
@@ -109,10 +123,10 @@ export const SpatialCanvas = () => {
       if (activeSceneController) {
         activeSceneController.dispose();
       }
-      renderer.dispose();
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
+      if (renderer.domElement && renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
       }
+      renderer.dispose();
     };
   }, [theme]);
 

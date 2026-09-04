@@ -9,6 +9,8 @@ import { PatentExhibition } from './components/patents/PatentExhibition.jsx';
 import { TechnicalMatrix } from './components/skills/TechnicalMatrix.jsx';
 import { HonorsSection } from './components/credentials/HonorsSection.jsx';
 import { Footer } from './components/common/Footer.jsx';
+import { CinematicCursor } from './components/common/CinematicCursor.jsx';
+import { ScrollSpine } from './components/navigation/ScrollSpine.jsx';
 
 const AppContent = () => {
   const { toggleTheme } = useTheme();
@@ -28,6 +30,12 @@ const AppContent = () => {
 
   return (
     <div className="portfolio-app-root">
+      {/* Interactive Cinematic Mouse Aura */}
+      <CinematicCursor />
+
+      {/* Chapter Scroll Progress Spine */}
+      <ScrollSpine />
+
       {/* 3D WebGL Background Layer */}
       <SpatialCanvas />
 
