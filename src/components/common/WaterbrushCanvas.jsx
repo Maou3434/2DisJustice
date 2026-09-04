@@ -11,169 +11,227 @@ export const WaterbrushCanvas = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Track mouse position and velocity
-    let mouseX = -1000;
-    let mouseY = -1000;
-    let prevMouseX = -1000;
-    let prevMouseY = -1000;
-    let isMouseMoving = false;
-    let idleTimer = null;
+    // Preload top image (original Tsushima landscape)
+    const topImg = new Image();
+    topImg.src = '/images/tsushima-hero-bg.jpg';
+    let isImageLoaded = false;
+    topImg.onload = () => {
+      isImageLoaded = true;
+    };
 
+    // Responsive Canvas Resize
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      initOverlay();
     };
-
-    // Initialize the dark sumi ink wash overlay
-    const initOverlay = () => {
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = '#0A0B0E';
-      ctx.fillRect(0, 0, width, height);
-    };
-
-    initOverlay();
-
-    // Create a smooth organic calligraphy brush stamp
-    const brushCanvas = document.createElement('canvas');
-    const brushSize = 130;
-    brushCanvas.width = brushSize;
-    brushCanvas.height = brushSize;
-    const bCtx = brushCanvas.getContext('2d');
-
-    const createBrushTip = () => {
-      bCtx.clearRect(0, 0, brushSize, brushSize);
-      const grad = bCtx.createRadialGradient(
-        brushSize / 2,
-        brushSize / 2,
-        0,
-        brushSize / 2,
-        brushSize / 2,
-        brushSize / 2
-      );
-      // Soft feathered watercolor edge
-      grad.addColorStop(0, 'rgba(0, 0, 0, 1.0)');
-      grad.addColorStop(0.35, 'rgba(0, 0, 0, 0.95)');
-      grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.45)');
-      grad.addColorStop(0.9, 'rgba(0, 0, 0, 0.12)');
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-      bCtx.fillStyle = grad;
-      bCtx.beginPath();
-      bCtx.arc(brushSize / 2, brushSize / 2, brushSize / 2, 0, Math.PI * 2);
-      bCtx.fill();
-    };
-
-    createBrushTip();
-
-    // Splatter particles for waterbrush flourish
-    const splatters = [];
-    const addSplatter = (x, y, speed) => {
-      if (Math.random() > 0.4) return;
-      const count = Math.floor(1 + Math.random() * 3);
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 30 + Math.random() * (speed * 1.8 + 40);
-        splatters.push({
-          x: x + Math.cos(angle) * dist,
-          y: y + Math.sin(angle) * dist,
-          radius: 4 + Math.random() * 14,
-          opacity: 0.8
-        });
-      }
-    };
-
-    const handleMouseMove = (e) => {
-      prevMouseX = mouseX;
-      prevMouseY = mouseY;
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      isMouseMoving = true;
-
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        isMouseMoving = false;
-        prevMouseX = -1000;
-        prevMouseY = -1000;
-      }, 80);
-
-      // Draw brush stroke between prev and current position
-      if (prevMouseX > -500 && prevMouseY > -500) {
-        const dx = mouseX - prevMouseX;
-        const dy = mouseY - prevMouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const steps = Math.max(Math.floor(dist / 8), 1);
-
-        addSplatter(mouseX, mouseY, dist);
-
-        ctx.globalCompositeOperation = 'destination-out';
-
-        for (let i = 0; i < steps; i++) {
-          const t = i / steps;
-          const curX = prevMouseX + dx * t;
-          const curY = prevMouseY + dy * t;
-          // Brush size dynamically responds to speed (wider when slower, focused when quick)
-          const dynamicSize = Math.max(70, Math.min(130, 110 - dist * 0.3));
-          ctx.drawImage(
-            brushCanvas,
-            curX - dynamicSize / 2,
-            curY - dynamicSize / 2,
-            dynamicSize,
-            dynamicSize
-          );
-        }
-      }
-    };
-
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // Render loop: Draws splatters and softly restores mist wash over time
-    let animationId;
+    // Trail of active brush strokes
+    let trail = [];
+    let lastX = null;
+    let lastY = null;
     let lastTime = performance.now();
 
-    const render = (time) => {
-      animationId = requestAnimationFrame(render);
-      const delta = (time - lastTime) / 1000;
-      lastTime = time;
+    // Generate organic uneven bristle offsets for calligraphy feel
+    const createBristleOffsets = () => {
+      const offsets = [];
+      const count = 7;
+      for (let i = 0; i < count; i++) {
+        offsets.push({
+          relOffset: (i / (count - 1) - 0.5) * 2, // -1 to +1
+          widthMult: 0.3 + Math.random() * 0.5,
+          opacityMult: 0.5 + Math.random() * 0.5,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+      return offsets;
+    };
 
-      // Draw active splatters
-      if (splatters.length > 0) {
-        ctx.globalCompositeOperation = 'destination-out';
-        for (let i = splatters.length - 1; i >= 0; i--) {
-          const sp = splatters[i];
-          ctx.beginPath();
-          ctx.arc(sp.x, sp.y, sp.radius, 0, Math.PI * 2);
-          ctx.fill();
-          splatters.splice(i, 1);
+    const bristleConfig = createBristleOffsets();
+
+    const handleMouseMove = (e) => {
+      const currentX = e.clientX;
+      const currentY = e.clientY;
+      const currentTime = performance.now();
+
+      if (lastX !== null && lastY !== null) {
+        const dx = currentX - lastX;
+        const dy = currentY - lastY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const dt = Math.max(currentTime - lastTime, 1);
+        const speed = dist / dt;
+
+        // Skip micro-jitters
+        if (dist > 3) {
+          const angle = Math.atan2(dy, dx);
+          // Calligraphy width: juicy & broad when slow, dynamic & tapered when fast
+          const baseWidth = Math.max(35, Math.min(105, 85 - speed * 18));
+
+          // Generate fine ink splatters along the movement arc
+          const splatters = [];
+          if (Math.random() > 0.6) {
+            const count = Math.floor(1 + Math.random() * 3);
+            for (let s = 0; s < count; s++) {
+              const sAngle = angle + (Math.random() - 0.5) * 1.5;
+              const sDist = baseWidth * 0.6 + Math.random() * (speed * 12 + 25);
+              splatters.push({
+                x: currentX + Math.cos(sAngle) * sDist,
+                y: currentY + Math.sin(sAngle) * sDist,
+                radius: 2 + Math.random() * 7,
+                life: 1.0
+              });
+            }
+          }
+
+          trail.push({
+            startX: lastX,
+            startY: lastY,
+            endX: currentX,
+            endY: currentY,
+            angle,
+            width: baseWidth,
+            life: 1.0,
+            decay: 0.016 + Math.random() * 0.006, // Disappears after ~1.2 - 1.5s
+            splatters
+          });
         }
       }
 
-      // Very subtle, poetic ink mist healing (slowly regenerates over 12-15 seconds)
+      lastX = currentX;
+      lastY = currentY;
+      lastTime = currentTime;
+    };
+
+    const handleMouseLeave = () => {
+      lastX = null;
+      lastY = null;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    // Calculate aspect ratio cover for drawing image on canvas
+    const drawCoverImage = (img) => {
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      const canvasRatio = width / height;
+      let renderW, renderH, offsetX, offsetY;
+
+      if (canvasRatio > imgRatio) {
+        renderW = width;
+        renderH = width / imgRatio;
+        offsetX = 0;
+        offsetY = (height - renderH) / 2;
+      } else {
+        renderH = height;
+        renderW = height * imgRatio;
+        offsetX = (width - renderW) / 2;
+        offsetY = 0;
+      }
+
+      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+    };
+
+    // Main animation loop
+    let animationId;
+    const render = () => {
+      animationId = requestAnimationFrame(render);
+
+      // 1. Draw top image (original Tsushima landscape)
       ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = 'rgba(10, 11, 14, 0.0035)';
+      ctx.globalAlpha = 1.0;
+
+      if (isImageLoaded) {
+        drawCoverImage(topImg);
+      } else {
+        ctx.fillStyle = '#0A0B0E';
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      // Add a subtle dark atmospheric vignette over the top image
+      const vigGrad = ctx.createRadialGradient(
+        width / 2,
+        height / 2,
+        Math.min(width, height) * 0.25,
+        width / 2,
+        height / 2,
+        Math.max(width, height) * 0.75
+      );
+      vigGrad.addColorStop(0, 'rgba(10, 11, 14, 0.15)');
+      vigGrad.addColorStop(1, 'rgba(10, 11, 14, 0.65)');
+      ctx.fillStyle = vigGrad;
       ctx.fillRect(0, 0, width, height);
+
+      // 2. Erase top image with active waterbrush strokes (revealing the painting underneath!)
+      if (trail.length > 0) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        for (let i = trail.length - 1; i >= 0; i--) {
+          const p = trail[i];
+
+          // Draw uneven, flowy calligraphy bristle ribbons
+          const normalX = -Math.sin(p.angle);
+          const normalY = Math.cos(p.angle);
+
+          for (let b = 0; b < bristleConfig.length; b++) {
+            const bristle = bristleConfig[b];
+            const offsetDist = bristle.relOffset * (p.width * 0.45);
+            const bStartX = p.startX + normalX * offsetDist;
+            const bStartY = p.startY + normalY * offsetDist;
+            const bEndX = p.endX + normalX * offsetDist;
+            const bEndY = p.endY + normalY * offsetDist;
+
+            ctx.globalAlpha = p.life * bristle.opacityMult;
+            ctx.lineWidth = p.width * bristle.widthMult;
+
+            ctx.beginPath();
+            ctx.moveTo(bStartX, bStartY);
+            ctx.lineTo(bEndX, bEndY);
+            ctx.stroke();
+          }
+
+          // Draw associated fine water splatters
+          if (p.splatters && p.splatters.length > 0) {
+            for (let s = 0; s < p.splatters.length; s++) {
+              const sp = p.splatters[s];
+              ctx.globalAlpha = p.life * 0.75;
+              ctx.beginPath();
+              ctx.arc(sp.x, sp.y, sp.radius, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+
+          // Decay life so the stroke gracefully disappears!
+          p.life -= p.decay;
+
+          // Remove completed stroke
+          if (p.life <= 0) {
+            trail.splice(i, 1);
+          }
+        }
+      }
     };
 
     animationId = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(animationId);
-      clearTimeout(idleTimer);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
     <div className="waterbrush-container" aria-hidden="true">
-      {/* Underlying Japanese Masterpiece Painting */}
+      {/* 1. Underlying Japanese Nihonga Masterpiece Painting */}
       <div
         className="waterbrush-underlying-painting"
         style={{ backgroundImage: "url('/images/japanese-painting.jpg')" }}
       />
-      {/* Interactive Mask Canvas (erased by brush cursor) */}
-      <canvas ref={canvasRef} className="waterbrush-mask-canvas" />
+      {/* 2. Top Canvas: Renders original Tsushima picture & cuts away with dissolving waterbrush */}
+      <canvas ref={canvasRef} className="waterbrush-top-canvas" />
 
       <style>{`
         .waterbrush-container {
@@ -194,11 +252,10 @@ export const WaterbrushCanvas = () => {
           background-size: cover;
           background-position: center center;
           background-repeat: no-repeat;
-          filter: contrast(1.1) brightness(0.95);
-          opacity: 0.92;
+          filter: contrast(1.1) brightness(0.98);
         }
 
-        .waterbrush-mask-canvas {
+        .waterbrush-top-canvas {
           position: absolute;
           inset: 0;
           width: 100%;

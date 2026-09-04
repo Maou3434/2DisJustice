@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext.jsx';
+import { Sparkles, ArrowDown } from 'lucide-react';
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -21,15 +22,15 @@ export const HeroSection = () => {
             <span className="last-name">Jayaganesh</span>
           </h1>
 
-          {/* Waterbrush Interaction Hint */}
+          {/* Waterbrush Interaction Hint (Zero Emojis) */}
           <div className="landing-cue mono">
-            <span className="brush-icon">🖌️</span>
+            <Sparkles size={13} className="cue-icon" />
             <span>Move cursor to paint &amp; reveal the Japanese landscape</span>
           </div>
 
           {/* Clean Editorial Scroll Cue */}
           <div className="landing-scroll-cue">
-            <span className="scroll-arrow mono">&darr;</span>
+            <ArrowDown size={14} className="scroll-arrow" />
             <span className="scroll-text mono">SCROLL TO ENTER ARCHIVES</span>
           </div>
 
