@@ -1,7 +1,5 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext.jsx';
-import { ArrowDownRight } from 'lucide-react';
-import resumeData from '../../../data/resume_data.json';
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -9,63 +7,30 @@ export const HeroSection = () => {
 
   return (
     <section id="top" className="hero-section">
-      {/* Pinned Fixed Photographic Layer - completely responsive to any screen zoom or ultrawide */}
-      <div className="hero-fixed-backdrop" aria-hidden="true" />
-      <div className="hero-vignette-overlay" aria-hidden="true" />
-
       <div className="container hero-container">
-        <div className="hero-centered-layout">
+        <div className="hero-landing-pure">
           
-          {/* Tracked Kicker Badge */}
-          <div className="hero-kicker-wrap">
-            <span className="hero-kicker mono">
-              {isTsushima
-                ? '迎 RESEARCH & SYSTEMS ARCHITECTURE // CLASS OF 2027'
-                : 'SYS_LOG // RESEARCH & SYSTEMS ARCHITECTURE // VIT 2027'}
-            </span>
+          {/* Subtle Japanese Inkan Seal Stamp */}
+          <div className="landing-seal-wrap" aria-hidden="true">
+            <span className="landing-seal">{isTsushima ? '志' : 'AJ'}</span>
           </div>
 
-          {/* Monumental Centered Editorial Headline */}
-          <h1 className="hero-title">
-            DISCIPLINED PHYSICS
-            <br />
-            <span className="hero-title-italic">
-              INTO SCALABLE SYSTEMS
-            </span>
+          {/* Monumental Name-Only Headline */}
+          <h1 className="landing-name">
+            <span className="first-name">Abimanyu</span>
+            <span className="last-name">Jayaganesh</span>
           </h1>
 
-          {/* Centered Concise Bio Statement */}
-          <p className="hero-bio">
-            I am <strong className="bio-name">{resumeData.personal.name}</strong>, a Computer Science Engineer and researcher developing Physics-Informed Neural Network (PINN) digital twins, real-time analytical lakehouses, and GPU-accelerated computing pipelines.
-          </p>
-
-          {/* Centered Action Button */}
-          <div className="hero-cta-wrap">
-            <a href="#projects" className="hero-primary-pill">
-              <span>Explore Selected Work</span>
-              <ArrowDownRight size={16} />
-            </a>
-            <a href="#patents" className="hero-secondary-pill">
-              <span>Published Patents</span>
-            </a>
+          {/* Waterbrush Interaction Hint */}
+          <div className="landing-cue mono">
+            <span className="brush-icon">🖌️</span>
+            <span>Move cursor to paint &amp; reveal the Japanese landscape</span>
           </div>
 
-          {/* Centered Minimalist Evidence Bar */}
-          <div className="hero-evidence-bar">
-            <span className="evidence-item">
-              <strong className="evidence-num">78M+</strong>
-              <span className="evidence-lbl">Time Steps Evaluated</span>
-            </span>
-            <span className="evidence-sep" aria-hidden="true">·</span>
-            <span className="evidence-item">
-              <strong className="evidence-num">−65.6%</strong>
-              <span className="evidence-lbl">Rollout Error Reduction</span>
-            </span>
-            <span className="evidence-sep" aria-hidden="true">·</span>
-            <span className="evidence-item">
-              <strong className="evidence-num">2 Patents</strong>
-              <span className="evidence-lbl">Published with IP India</span>
-            </span>
+          {/* Clean Editorial Scroll Cue */}
+          <div className="landing-scroll-cue">
+            <span className="scroll-arrow mono">&darr;</span>
+            <span className="scroll-text mono">SCROLL TO ENTER ARCHIVES</span>
           </div>
 
         </div>
@@ -74,45 +39,13 @@ export const HeroSection = () => {
       <style>{`
         .hero-section {
           position: relative;
-          min-height: 96vh;
+          min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding-top: calc(var(--space-24) + 40px);
-          padding-bottom: var(--space-24);
+          padding: 0;
           z-index: var(--z-content);
           overflow: hidden;
-        }
-
-        /* Fixed Background: Never shifts or crops weirdly on zoom-out */
-        .hero-fixed-backdrop {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          background-image: var(--hero-bg-image);
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
-          opacity: 0.35;
-          z-index: -2;
-          filter: contrast(1.1) brightness(0.85);
-          pointer-events: none;
-          transition: background-image 600ms ease, opacity 600ms ease;
-        }
-
-        /* Deep Vignette Fade that smoothly transitions down into the page */
-        .hero-vignette-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          background: 
-            radial-gradient(ellipse at 50% 45%, transparent 20%, rgba(10, 11, 14, 0.85) 85%),
-            linear-gradient(to bottom, transparent 0%, rgba(10, 11, 14, 0.4) 60%, var(--bg-primary) 100%);
-          z-index: -1;
           pointer-events: none;
         }
 
@@ -122,177 +55,124 @@ export const HeroSection = () => {
           width: 100%;
         }
 
-        /* Pure Centered Editorial Layout */
-        .hero-centered-layout {
+        /* Pure Minimalist Name-Only Landing */
+        .hero-landing-pure {
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          max-width: 980px;
+          max-width: 1200px;
           margin: 0 auto;
-          gap: var(--space-6);
+          gap: var(--space-4);
+          pointer-events: auto;
         }
 
-        /* Tracked Kicker */
-        .hero-kicker-wrap {
-          display: flex;
+        .landing-seal-wrap {
+          margin-bottom: var(--space-2);
+        }
+
+        .landing-seal {
+          display: inline-flex;
+          align-items: center;
           justify-content: center;
+          width: 38px;
+          height: 38px;
+          background: var(--accent-primary);
+          color: #FFF;
+          font-family: var(--font-heading);
+          font-size: 1.25rem;
+          font-weight: 700;
+          border-radius: var(--radius-sm);
+          box-shadow: 0 0 25px rgba(200, 50, 38, 0.4);
         }
 
-        .hero-kicker {
-          font-size: 0.75rem;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-          color: var(--text-muted);
-          padding: 6px 16px;
-          background: rgba(18, 20, 26, 0.65);
-          backdrop-filter: blur(10px);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-full);
-        }
-
-        /* Monumental Centered Headline */
-        .hero-title {
+        /* Monumental Name Typography */
+        .landing-name {
           font-family: var(--font-display);
-          font-size: clamp(2.8rem, 6.2vw, 5.8rem);
+          font-size: clamp(3.2rem, 8.2vw, 7.8rem);
           font-weight: 400;
-          letter-spacing: 0.02em;
-          line-height: 1.04;
+          letter-spacing: 0.03em;
+          line-height: 1.0;
           color: var(--text-primary);
           text-transform: uppercase;
-          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-shadow: 0 4px 40px rgba(0, 0, 0, 0.85);
+          user-select: none;
         }
 
-        /* Glowing Italic Swash Accent */
-        .hero-title-italic {
+        .first-name {
+          color: var(--text-primary);
+        }
+
+        .last-name {
           font-family: 'Instrument Serif', 'Cormorant Garamond', serif;
           font-style: italic;
-          font-weight: 400;
-          text-transform: uppercase;
           color: #E84D3D;
           text-shadow: 
-            0 0 40px rgba(200, 50, 38, 0.45),
-            0 0 80px rgba(200, 50, 38, 0.2);
-          display: inline-block;
-          margin-top: 4px;
+            0 0 45px rgba(200, 50, 38, 0.5),
+            0 0 90px rgba(200, 50, 38, 0.25);
+          margin-top: -6px;
         }
 
-        /* Centered Bio */
-        .hero-bio {
-          font-family: var(--font-body);
-          font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
-          font-weight: 300;
-          line-height: 1.7;
-          color: var(--text-secondary);
-          max-width: 680px;
-          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-        }
-
-        .bio-name {
-          color: var(--text-primary);
-          font-weight: 600;
-        }
-
-        /* Centered Action Buttons */
-        .hero-cta-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--space-4);
-          margin-top: var(--space-2);
-          flex-wrap: wrap;
-        }
-
-        .hero-primary-pill {
+        /* Brush Interaction Cue */
+        .landing-cue {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 14px 32px;
-          background: var(--accent-primary);
-          color: var(--accent-text);
-          font-family: var(--font-body);
-          font-size: 0.9375rem;
-          font-weight: 600;
-          border-radius: var(--radius-full);
-          box-shadow: var(--shadow-accent);
-          transition: transform var(--transition-fast), background-color var(--transition-fast);
-        }
-
-        .hero-primary-pill:hover {
-          background: var(--accent-hover);
-          transform: translateY(-2px);
-        }
-
-        .hero-secondary-pill {
-          display: inline-flex;
-          align-items: center;
-          padding: 13px 26px;
-          background: rgba(18, 20, 26, 0.65);
-          backdrop-filter: blur(10px);
-          border: 1px solid var(--border-prominent);
-          color: var(--text-primary);
-          font-family: var(--font-body);
-          font-size: 0.9375rem;
-          font-weight: 500;
-          border-radius: var(--radius-full);
-          transition: border-color var(--transition-fast), color var(--transition-fast);
-        }
-
-        .hero-secondary-pill:hover {
-          border-color: var(--accent-primary);
-          color: var(--accent-primary);
-        }
-
-        /* Centered Evidence Ribbon */
-        .hero-evidence-bar {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: var(--space-5);
-          padding: 10px 24px;
-          background: rgba(10, 11, 14, 0.55);
-          backdrop-filter: blur(8px);
+          gap: 10px;
+          padding: 8px 22px;
+          background: rgba(10, 11, 14, 0.65);
+          backdrop-filter: blur(12px);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-full);
-          margin-top: var(--space-4);
-          flex-wrap: wrap;
-        }
-
-        .evidence-item {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 0.8125rem;
+          font-size: 0.75rem;
+          letter-spacing: 0.08em;
           color: var(--text-secondary);
+          margin-top: var(--space-4);
+          user-select: none;
         }
 
-        .evidence-num {
-          font-family: var(--font-heading);
-          font-size: 0.9375rem;
-          color: var(--text-primary);
+        .brush-icon {
+          font-size: 0.9rem;
         }
 
-        .evidence-lbl {
+        /* Scroll Cue */
+        .landing-scroll-cue {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          margin-top: var(--space-8);
+          opacity: 0.7;
+          transition: opacity var(--transition-fast);
+          user-select: none;
+        }
+
+        .landing-scroll-cue:hover {
+          opacity: 1;
+        }
+
+        .scroll-arrow {
+          font-size: 1.25rem;
+          color: var(--accent-primary);
+          animation: bounceSlow 2s infinite ease-in-out;
+        }
+
+        .scroll-text {
+          font-size: 0.6875rem;
+          letter-spacing: 0.16em;
           color: var(--text-muted);
         }
 
-        .evidence-sep {
-          color: var(--border-prominent);
-          font-size: 1rem;
+        @keyframes bounceSlow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(6px); }
         }
 
         @media (max-width: 768px) {
-          .hero-title {
-            font-size: 2.5rem;
-          }
-          .hero-evidence-bar {
-            flex-direction: column;
-            gap: var(--space-2);
-            border-radius: var(--radius-md);
-            padding: var(--space-3);
-          }
-          .evidence-sep {
-            display: none;
+          .landing-name {
+            font-size: 3.4rem;
           }
         }
       `}</style>

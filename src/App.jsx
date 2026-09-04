@@ -11,6 +11,7 @@ import { HonorsSection } from './components/credentials/HonorsSection.jsx';
 import { Footer } from './components/common/Footer.jsx';
 import { CinematicCursor } from './components/common/CinematicCursor.jsx';
 import { ScrollSpine } from './components/navigation/ScrollSpine.jsx';
+import { WaterbrushCanvas } from './components/common/WaterbrushCanvas.jsx';
 
 const AppContent = () => {
   const { toggleTheme } = useTheme();
@@ -30,6 +31,9 @@ const AppContent = () => {
 
   return (
     <div className="portfolio-app-root">
+      {/* Interactive Waterbrush Japanese Painting Reveal Layer */}
+      <WaterbrushCanvas />
+
       {/* Interactive Cinematic Mouse Aura */}
       <CinematicCursor />
 

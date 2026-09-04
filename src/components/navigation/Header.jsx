@@ -11,7 +11,8 @@ export const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      // Completely hide top ribbon on landing page; only appear after scrolling down past hero
+      setIsScrolled(window.scrollY > window.innerHeight * 0.65);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -98,14 +99,19 @@ export const Header = () => {
           left: 0;
           right: 0;
           z-index: var(--z-header);
-          padding: 16px 0;
-          transition: background-color 300ms ease, border-color 300ms ease, padding 300ms ease, backdrop-filter 300ms ease;
+          padding: 12px 0;
+          transform: translateY(-100%);
+          opacity: 0;
+          pointer-events: none;
+          transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease, background-color 300ms ease;
         }
 
         .site-header.is-scrolled {
-          padding: 10px 0;
-          background: var(--bg-overlay);
-          backdrop-filter: var(--bg-blur);
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+          background: rgba(10, 11, 14, 0.88);
+          backdrop-filter: blur(16px);
           border-bottom: 1px solid var(--border-subtle);
         }
 
