@@ -100,9 +100,18 @@ export const SpatialCanvas = () => {
         mouse.x += (mouse.targetX - mouse.x) * 0.08;
         mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
-        // Dynamic 3D Camera Parallax Dolly on Scroll
-        camera.position.y = -scrollOffset * 4.0;
-        camera.position.z = 8.0 - scrollOffset * 2.0;
+        // Dynamic 3D Camera Flight Path across all page chapters
+        const targetCamY = -scrollOffset * 18.0;
+        const targetCamZ = 8.0 - Math.sin(scrollOffset * Math.PI) * 1.8;
+        const targetCamX = Math.sin(scrollOffset * Math.PI * 2.5) * 1.4 + (mouse.x * 1.2);
+        const targetCamRotZ = Math.sin(scrollOffset * Math.PI * 2) * 0.02 + (mouse.x * 0.015);
+        const targetCamRotX = (mouse.y * 0.02);
+
+        camera.position.x += (targetCamX - camera.position.x) * 0.06;
+        camera.position.y += (targetCamY - camera.position.y) * 0.06;
+        camera.position.z += (targetCamZ - camera.position.z) * 0.06;
+        camera.rotation.z += (targetCamRotZ - camera.rotation.z) * 0.06;
+        camera.rotation.x += (targetCamRotX - camera.rotation.x) * 0.06;
 
         if (activeSceneController) {
           activeSceneController.update(mouse, scrollOffset, scrollVelocity);

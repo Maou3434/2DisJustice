@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { Sparkles, ArrowDown } from 'lucide-react';
+import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -11,28 +12,39 @@ export const HeroSection = () => {
       <div className="container hero-container">
         <div className="hero-landing-pure">
           
-          {/* Subtle Japanese Inkan Seal Stamp */}
-          <div className="landing-seal-wrap" aria-hidden="true">
+          {/* Background Ambient Kanji Watermark (Speed 0.42, Z -180) */}
+          <ParallaxLayer speed={0.42} mouseFactor={16} zDepth={-180} className="hero-bg-kanji-wrap">
+            <span className="hero-bg-kanji">{isTsushima ? '志' : 'AJ'}</span>
+          </ParallaxLayer>
+
+          {/* Subtle Japanese Inkan Seal Stamp (Speed 0.94) */}
+          <ParallaxLayer speed={0.94} mouseFactor={22} zDepth={20} className="landing-seal-wrap" aria-hidden="true">
             <span className="landing-seal">{isTsushima ? '志' : 'AJ'}</span>
-          </div>
+          </ParallaxLayer>
 
-          {/* Monumental Name-Only Headline */}
-          <h1 className="landing-name">
-            <span className="first-name">Abimanyu</span>
-            <span className="last-name">Jayaganesh</span>
-          </h1>
+          {/* Monumental Name-Only Headline (Speed 1.0, 3D tilt) */}
+          <ParallaxLayer speed={1.0} mouseFactor={28} rotateFactor={2.0} zDepth={40}>
+            <h1 className="landing-name">
+              <span className="first-name">Abimanyu</span>
+              <span className="last-name">Jayaganesh</span>
+            </h1>
+          </ParallaxLayer>
 
-          {/* Waterbrush Interaction Hint (Zero Emojis) */}
-          <div className="landing-cue mono">
-            <Sparkles size={13} className="cue-icon" />
-            <span>Move cursor to paint &amp; reveal the Japanese landscape</span>
-          </div>
+          {/* Waterbrush Interaction Hint (Speed 1.06) */}
+          <ParallaxLayer speed={1.06} mouseFactor={14} zDepth={15}>
+            <div className="landing-cue mono">
+              <Sparkles size={13} className="cue-icon" />
+              <span>Move cursor to paint &amp; reveal the Japanese landscape</span>
+            </div>
+          </ParallaxLayer>
 
-          {/* Clean Editorial Scroll Cue */}
-          <div className="landing-scroll-cue">
-            <ArrowDown size={14} className="scroll-arrow" />
-            <span className="scroll-text mono">SCROLL TO ENTER ARCHIVES</span>
-          </div>
+          {/* Clean Editorial Scroll Cue (Speed 1.12) */}
+          <ParallaxLayer speed={1.12} mouseFactor={10} zDepth={10}>
+            <div className="landing-scroll-cue">
+              <ArrowDown size={14} className="scroll-arrow" />
+              <span className="scroll-text mono">SCROLL TO ENTER ARCHIVES</span>
+            </div>
+          </ParallaxLayer>
 
         </div>
       </div>
@@ -66,6 +78,25 @@ export const HeroSection = () => {
           margin: 0 auto;
           gap: var(--space-4);
           pointer-events: auto;
+        }
+
+        .hero-bg-kanji-wrap {
+          position: absolute;
+          top: 45%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          z-index: -1;
+          user-select: none;
+        }
+
+        .hero-bg-kanji {
+          font-family: var(--font-heading);
+          font-size: clamp(14rem, 30vw, 32rem);
+          font-weight: 900;
+          color: rgba(245, 239, 230, 0.035);
+          text-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
+          line-height: 1;
         }
 
         .landing-seal-wrap {

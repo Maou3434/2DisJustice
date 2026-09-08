@@ -13,6 +13,9 @@ import { CinematicCursor } from './components/common/CinematicCursor.jsx';
 import { ScrollSpine } from './components/navigation/ScrollSpine.jsx';
 import { WaterbrushCanvas } from './components/common/WaterbrushCanvas.jsx';
 
+import { ParallaxProvider } from './components/parallax/ParallaxEngine.jsx';
+import { ParallaxBackdrop } from './components/parallax/ParallaxBackdrop.jsx';
+
 const AppContent = () => {
   const { toggleTheme } = useTheme();
 
@@ -30,35 +33,39 @@ const AppContent = () => {
   }, [toggleTheme]);
 
   return (
-    <div className="portfolio-app-root">
-      {/* Interactive Waterbrush Japanese Painting Reveal Layer */}
-      <WaterbrushCanvas />
+    <ParallaxProvider>
+      <div className="portfolio-app-root">
+        {/* Interactive Waterbrush Japanese Painting Reveal Layer */}
+        <WaterbrushCanvas />
 
-      {/* Interactive Cinematic Mouse Aura */}
-      <CinematicCursor />
+        {/* Interactive Cinematic Mouse Aura */}
+        <CinematicCursor />
 
-      {/* Chapter Scroll Progress Spine */}
-      <ScrollSpine />
+        {/* Chapter Scroll Progress Spine */}
+        <ScrollSpine />
 
-      {/* 3D WebGL Background Layer */}
-      <SpatialCanvas />
+        {/* 3D WebGL Background Layer */}
+        <SpatialCanvas />
 
-      {/* Atmospheric Spatial Overlay */}
-      <div className="spatial-overlay" aria-hidden="true" />
+        {/* Atmospheric Spatial Overlay */}
+        <div className="spatial-overlay" aria-hidden="true" />
 
-      {/* Main Foreground Editorial Content */}
-      <div className="content-surface">
-        <Header />
-        <main>
-          <HeroSection />
-          <ExperienceTimeline />
-          <ProjectGallery />
-          <PatentExhibition />
-          <TechnicalMatrix />
-          <HonorsSection />
-        </main>
-        <Footer />
-      </div>
+        {/* Multi-Plane Parallax Depth Backdrop (Horizons, Equations, Sumi Ink, Floating Leaves) */}
+        <ParallaxBackdrop />
+
+        {/* Main Foreground Editorial Content */}
+        <div className="content-surface">
+          <Header />
+          <main>
+            <HeroSection />
+            <ExperienceTimeline />
+            <ProjectGallery />
+            <PatentExhibition />
+            <TechnicalMatrix />
+            <HonorsSection />
+          </main>
+          <Footer />
+        </div>
 
       <style>{`
         .portfolio-app-root {
@@ -73,7 +80,8 @@ const AppContent = () => {
           z-index: var(--z-content);
         }
       `}</style>
-    </div>
+      </div>
+    </ParallaxProvider>
   );
 };
 

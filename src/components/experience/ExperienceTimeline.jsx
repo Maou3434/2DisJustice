@@ -2,6 +2,7 @@ import React from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
+import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const ExperienceTimeline = () => {
   const { theme } = useTheme();
@@ -27,46 +28,53 @@ export const ExperienceTimeline = () => {
         {/* Experience Cards */}
         <div className="experience-stack">
           {resumeData.professional_experience.map((exp, idx) => (
-            <article key={idx} className="experience-entry">
-              
-              {/* Left Meta Column */}
-              <div className="exp-meta">
-                <span className="exp-period mono">
-                  <Calendar size={13} className="inline-icon" />
-                  {exp.period}
-                </span>
-                <span className="exp-location mono">
-                  <MapPin size={13} className="inline-icon" />
-                  {exp.location}
-                </span>
-              </div>
-
-              {/* Center Content Column */}
-              <div className="exp-content">
-                <div className="exp-header">
-                  <h3 className="exp-role">{exp.role}</h3>
-                  <span className="exp-org">{exp.organization}</span>
+            <ParallaxLayer
+              key={idx}
+              speed={0.96 + (idx * 0.03)}
+              mouseFactor={10}
+              className="experience-parallax-wrap"
+            >
+              <article className="experience-entry">
+                
+                {/* Left Meta Column */}
+                <div className="exp-meta">
+                  <span className="exp-period mono">
+                    <Calendar size={13} className="inline-icon" />
+                    {exp.period}
+                  </span>
+                  <span className="exp-location mono">
+                    <MapPin size={13} className="inline-icon" />
+                    {exp.location}
+                  </span>
                 </div>
 
-                <ul className="exp-highlights">
-                  {exp.highlights.map((bullet, bIdx) => (
-                    <li key={bIdx} className="exp-bullet">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                {/* Center Content Column */}
+                <div className="exp-content">
+                  <div className="exp-header">
+                    <h3 className="exp-role">{exp.role}</h3>
+                    <span className="exp-org">{exp.organization}</span>
+                  </div>
 
-                {/* Tags */}
-                <div className="exp-tags">
-                  {exp.tags.map((tag) => (
-                    <span key={tag} className="tech-tag mono">
-                      {tag}
-                    </span>
-                  ))}
+                  <ul className="exp-highlights">
+                    {exp.highlights.map((bullet, bIdx) => (
+                      <li key={bIdx} className="exp-bullet">
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Tags */}
+                  <div className="exp-tags">
+                    {exp.tags.map((tag) => (
+                      <span key={tag} className="tech-tag mono">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-            </article>
+              </article>
+            </ParallaxLayer>
           ))}
         </div>
 

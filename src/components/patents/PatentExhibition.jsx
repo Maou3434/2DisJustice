@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Award, ShieldCheck, FileCheck2, ExternalLink, ZoomIn, X } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
+import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const PatentExhibition = () => {
   const { theme } = useTheme();
@@ -64,13 +65,18 @@ export const PatentExhibition = () => {
             const drawing = getPatentDrawing(patent.application_number);
 
             return (
-              <article
+              <ParallaxLayer
                 key={patent.application_number}
-                className="patent-card"
-                onMouseMove={handleCardMouseMove}
-                onMouseEnter={handleCardMouseEnter}
-                onMouseLeave={handleCardMouseLeave}
+                speed={idx === 0 ? 0.98 : 1.02}
+                mouseFactor={10}
+                className="patent-parallax-wrap"
               >
+                <article
+                  className="patent-card"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseEnter={handleCardMouseEnter}
+                  onMouseLeave={handleCardMouseLeave}
+                >
                 
                 {/* Embedded Patent Drawing Banner */}
                 <div
@@ -143,8 +149,9 @@ export const PatentExhibition = () => {
                 </div>
 
               </article>
-            );
-          })}
+            </ParallaxLayer>
+          );
+        })}
         </div>
 
       </div>
@@ -209,16 +216,16 @@ export const PatentExhibition = () => {
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-md);
           overflow: hidden;
-          transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+          transform-style: preserve-3d;
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .patent-card:hover {
           border-color: var(--accent-primary);
-          transform: translateY(-3px);
-          box-shadow: var(--shadow-prominent);
+          box-shadow: var(--shadow-prominent), 0 0 35px rgba(200, 50, 38, 0.15);
         }
 
-        /* Patent Blueprint Frame */
+        /* Patent Blueprint Frame with 3D Float */
         .patent-drawing-frame {
           position: relative;
           width: 100%;
@@ -227,6 +234,11 @@ export const PatentExhibition = () => {
           border-bottom: 1px solid var(--border-subtle);
           overflow: hidden;
           cursor: pointer;
+          transform: translateZ(26px);
+        }
+
+        .patent-body {
+          transform: translateZ(36px);
         }
 
         .patent-drawing-img {

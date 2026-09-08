@@ -3,6 +3,7 @@ import resumeData from '../../../data/resume_data.json';
 import { ProjectModal } from './ProjectModal.jsx';
 import { ArrowUpRight, Database, Terminal, Cpu, Sparkles, ZoomIn } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
+import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const ProjectGallery = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -73,23 +74,28 @@ export const ProjectGallery = () => {
             const projectImg = getProjectImage(project.id);
 
             return (
-              <div
+              <ParallaxLayer
                 key={project.id}
-                className={`project-card ${isFeatured ? 'is-featured' : ''}`}
-                onClick={() => setSelectedProject(project)}
-                onMouseMove={handleCardMouseMove}
-                onMouseEnter={handleCardMouseEnter}
-                onMouseLeave={handleCardMouseLeave}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setSelectedProject(project);
-                  }
-                }}
-                aria-label={`Open case study for ${project.title}`}
+                speed={idx % 2 === 0 ? 0.98 : 1.02}
+                mouseFactor={8}
+                className={`project-card-parallax-wrap ${isFeatured ? 'is-featured' : ''}`}
               >
+                <div
+                  className={`project-card ${isFeatured ? 'is-featured' : ''}`}
+                  onClick={() => setSelectedProject(project)}
+                  onMouseMove={handleCardMouseMove}
+                  onMouseEnter={handleCardMouseEnter}
+                  onMouseLeave={handleCardMouseLeave}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedProject(project);
+                    }
+                  }}
+                  aria-label={`Open case study for ${project.title}`}
+                >
                 {/* Visual Architecture Image Banner */}
                 <div className="card-visual-media">
                   <img
@@ -142,6 +148,7 @@ export const ProjectGallery = () => {
                 </div>
 
               </div>
+              </ParallaxLayer>
             );
           })}
         </div>
@@ -196,6 +203,10 @@ export const ProjectGallery = () => {
           gap: var(--space-8);
         }
 
+        .project-card-parallax-wrap.is-featured {
+          grid-column: span 2;
+        }
+
         .project-card {
           display: flex;
           flex-direction: column;
@@ -204,26 +215,35 @@ export const ProjectGallery = () => {
           border-radius: var(--radius-md);
           overflow: hidden;
           cursor: pointer;
-          transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+          transform-style: preserve-3d;
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .project-card:hover {
           border-color: var(--accent-primary);
-          transform: translateY(-3px);
-          box-shadow: var(--shadow-prominent);
+          box-shadow: var(--shadow-prominent), 0 0 35px rgba(200, 50, 38, 0.15);
         }
 
         .project-card.is-featured {
-          grid-column: span 2;
+          width: 100%;
         }
 
-        /* Visual Media Banner */
+        /* Visual Media Banner with 3D Float */
         .card-visual-media {
           position: relative;
           width: 100%;
           height: 240px;
           background: var(--bg-primary);
           overflow: hidden;
+          transform: translateZ(26px);
+        }
+
+        .card-body-content {
+          transform: translateZ(34px);
+        }
+
+        .card-tech {
+          transform: translateZ(46px);
         }
 
         .project-card.is-featured .card-visual-media {

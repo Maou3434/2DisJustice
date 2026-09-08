@@ -40,8 +40,8 @@ export class MapleLeaves {
 
       mesh.position.set(
         (Math.random() - 0.5) * 32,
-        (Math.random() - 0.5) * 18,
-        (Math.random() - 0.5) * 12
+        (Math.random() * 36) - 24, // Spans Y from +12 down to -24 to cover full page scroll
+        (Math.random() - 0.5) * 14
       );
 
       mesh.rotation.set(
@@ -94,11 +94,11 @@ export class MapleLeaves {
         m.position.y += dy * push;
       }
 
-      // Loop boundaries
-      if (m.position.x > 18) m.position.x = -18;
-      if (m.position.y < -10) {
-        m.position.y = 10;
-        m.position.x = (Math.random() - 0.5) * 30;
+      // Loop boundaries across full scroll range
+      if (m.position.x > 20) m.position.x = -20;
+      if (m.position.y < -26) {
+        m.position.y = 12;
+        m.position.x = (Math.random() - 0.5) * 32;
       }
     }
   }
