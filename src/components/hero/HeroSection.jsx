@@ -28,13 +28,19 @@ export const HeroSection = () => {
               <span className="first-name">Abimanyu</span>
               <span className="last-name">Jayaganesh</span>
             </h1>
+            <p className="landing-title-sub">
+              Physics-Informed ML · Lakehouse Architectures · GPU Systems
+            </p>
+            <p className="landing-institution mono">
+              Vellore Institute of Technology (VIT)
+            </p>
           </ParallaxLayer>
 
-          {/* Waterbrush Interaction Hint (Speed 1.06) */}
+          {/* Natural Atmospheric Mist Interaction Hint (Speed 1.06) */}
           <ParallaxLayer speed={1.06} mouseFactor={14} zDepth={15}>
             <div className="landing-cue mono">
               <Sparkles size={13} className="cue-icon" />
-              <span>Move cursor to paint &amp; reveal the Japanese landscape</span>
+              <span>Move cursor to part the mountain mist</span>
             </div>
           </ParallaxLayer>
 
@@ -146,6 +152,25 @@ export const HeroSection = () => {
             0 0 45px rgba(200, 50, 38, 0.5),
             0 0 90px rgba(200, 50, 38, 0.25);
           margin-top: -6px;
+        }
+
+        .landing-title-sub {
+          font-family: var(--font-body);
+          font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          color: var(--text-secondary);
+          margin-top: var(--space-4);
+          text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .landing-institution {
+          font-size: 0.8rem;
+          letter-spacing: 0.14em;
+          color: var(--accent-primary);
+          text-transform: uppercase;
+          margin-top: var(--space-1);
+          opacity: 0.9;
         }
 
         /* Brush Interaction Cue */

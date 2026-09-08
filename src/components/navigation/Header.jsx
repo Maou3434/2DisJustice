@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { VariationSwitcher } from './VariationSwitcher.jsx';
 import { AudioController } from '../common/AudioController.jsx';
-import { useTheme } from '../../context/ThemeContext.jsx';
 import { Menu, X } from 'lucide-react';
 
 export const Header = () => {
-  const { theme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Completely hide top ribbon on landing page; only appear after scrolling down past hero
-      setIsScrolled(window.scrollY > window.innerHeight * 0.65);
+      // Clean appearance after scrolling past hero
+      setIsScrolled(window.scrollY > window.innerHeight * 0.5);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -20,10 +17,10 @@ export const Header = () => {
 
   const navLinks = [
     { label: 'Research', href: '#research' },
-    { label: 'Lakehouse & Projects', href: '#projects' },
+    { label: 'Systems & Code', href: '#projects' },
     { label: 'Patents', href: '#patents' },
-    { label: 'Competencies', href: '#skills' },
-    { label: 'Accolades', href: '#honors' },
+    { label: 'Capabilities', href: '#skills' },
+    { label: 'Honors', href: '#honors' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -32,18 +29,12 @@ export const Header = () => {
       <div className="container header-container">
         {/* Brand Stamp */}
         <a href="#top" className="brand-stamp" aria-label="Abimanyu Jayaganesh Home">
-          {theme === 'tsushima' ? (
-            <div className="hanko-seal" title="Abimanyu Jayaganesh (印)">
-              <span className="hanko-text">志</span>
-            </div>
-          ) : (
-            <div className="blueprint-stamp">
-              <span className="mono">[AJ.SYS]</span>
-            </div>
-          )}
+          <div className="hanko-seal" title="Abimanyu Jayaganesh (印)">
+            <span className="hanko-text">志</span>
+          </div>
           <div className="brand-meta">
             <span className="brand-name">Abimanyu Jayaganesh</span>
-            <span className="brand-sub">Physics-ML & Data Systems</span>
+            <span className="brand-sub">Physics-ML &amp; Systems Engineering</span>
           </div>
         </a>
 
@@ -59,7 +50,6 @@ export const Header = () => {
         {/* Action Controls */}
         <div className="header-actions">
           <AudioController />
-          <VariationSwitcher />
 
           {/* Mobile Menu Toggle */}
           <button

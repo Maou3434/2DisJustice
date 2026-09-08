@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { useTheme } from '../../context/ThemeContext.jsx';
 import { TsushimaScene } from './TsushimaScene.js';
-import { ArchitecturalScene } from './ArchitecturalScene.js';
 
 export const SpatialCanvas = () => {
   const containerRef = useRef(null);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -36,24 +33,8 @@ export const SpatialCanvas = () => {
     renderer.toneMappingExposure = 1.0;
     container.appendChild(renderer.domElement);
 
-    // 2. Active Scene Controller
-    let activeSceneController = null;
-    const initSceneController = (themeName) => {
-      if (activeSceneController) {
-        activeSceneController.dispose();
-        while (scene.children.length > 0) {
-          scene.remove(scene.children[0]);
-        }
-      }
-
-      if (themeName === 'tsushima') {
-        activeSceneController = new TsushimaScene(scene, camera);
-      } else {
-        activeSceneController = new ArchitecturalScene(scene, camera);
-      }
-    };
-
-    initSceneController(theme);
+    // 2. Active Scene Controller (Tsushima atmospheric falling leaves & embers)
+    const activeSceneController = new TsushimaScene(scene, camera);
 
     // 3. Mouse & Scroll Velocity Tracking
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
@@ -137,7 +118,7 @@ export const SpatialCanvas = () => {
       }
       renderer.dispose();
     };
-  }, [theme]);
+  }, []);
 
   return (
     <div
