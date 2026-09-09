@@ -18,13 +18,13 @@ export const ParallaxBackdrop = () => {
   return (
     <div className="parallax-backdrop-container" aria-hidden="true">
       {/* 1. Deep Horizon Layer (Speed: 0.20) */}
-      <ParallaxLayer speed={0.20} mouseFactor={16} zDepth={-450} className="backdrop-horizon-plane">
+      <ParallaxLayer speed={0.20} mouseFactor={16} zDepth={-450} isGlobal={true} className="backdrop-horizon-plane">
         <div className="horizon-silhouette-glow" />
         <div className="horizon-mountain-crests" />
       </ParallaxLayer>
 
       {/* 2. Deep Editorial Chapter Watermarks & Research Equations (Speed: 0.36) */}
-      <ParallaxLayer speed={0.36} mouseFactor={24} zDepth={-280} className="backdrop-watermark-plane">
+      <ParallaxLayer speed={0.36} mouseFactor={24} zDepth={-280} isGlobal={true} className="backdrop-watermark-plane">
         
         {/* Research Chapter Watermark & Physics Equation */}
         <div className="parallax-watermark wm-research">
@@ -65,7 +65,7 @@ export const ParallaxBackdrop = () => {
       </ParallaxLayer>
 
       {/* 3. Midground Atmospheric Ink Washes (Speed: 0.65) */}
-      <ParallaxLayer speed={0.65} mouseFactor={36} zDepth={-120} direction="lateral" className="backdrop-ink-plane">
+      <ParallaxLayer speed={0.65} mouseFactor={36} zDepth={-120} direction="lateral" isGlobal={true} className="backdrop-ink-plane">
         <img
           src="/images/brush-stroke-1.png"
           alt=""
@@ -88,7 +88,7 @@ export const ParallaxBackdrop = () => {
 
       {/* 4. Foreground Floating Depth Elements (Speed: 1.48, moves faster than page scroll!) */}
       {isTsushima && (
-        <ParallaxLayer speed={1.48} mouseFactor={55} rotateFactor={12} zDepth={180} direction="lateral" className="backdrop-foreground-plane">
+        <ParallaxLayer speed={1.48} mouseFactor={55} rotateFactor={12} zDepth={180} direction="lateral" isGlobal={true} className="backdrop-foreground-plane">
           {/* Floating authentic Momiji leaves passing in front of content */}
           <img
             src="/images/momiji-leaf-red.png"

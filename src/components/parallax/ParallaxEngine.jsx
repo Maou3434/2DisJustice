@@ -28,6 +28,21 @@ export const ParallaxProvider = ({ children }) => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
+    // Cache untransformed element positions
+    const measureLayers = () => {
+      const curScroll = window.scrollY;
+      layersRef.current.forEach((config, node) => {
+        if (!node || config.isGlobal) return;
+        // Temporarily clear transform to get true document geometry
+        const prevTransform = node.style.transform;
+        node.style.transform = 'none';
+        const rect = node.getBoundingClientRect();
+        node.style.transform = prevTransform;
+        config.docY = rect.top + curScroll;
+        config.height = rect.height;
+      });
+    };
+
     const handleScroll = () => {
       const curY = window.scrollY;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -44,14 +59,16 @@ export const ParallaxProvider = ({ children }) => {
 
     const handleResize = () => {
       scrollRef.current.maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      measureLayers();
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('resize', handleResize);
 
-    // Initial values
+    // Initial measurements after DOM settles
     handleScroll();
+    const measureTimer = setTimeout(measureLayers, 100);
 
     // Physics Animation Loop (Runs on requestAnimationFrame)
     const updatePhysics = () => {
@@ -70,6 +87,8 @@ export const ParallaxProvider = ({ children }) => {
       m.y += (m.targetY - m.y) * 0.07;
 
       const progress = Math.min(1, Math.max(0, s.y / s.maxScroll));
+      const viewportHeight = window.innerHeight;
+      const viewportCenter = viewportHeight * 0.5;
 
       // Update all registered parallax layers directly
       layersRef.current.forEach((config, node) => {
@@ -80,13 +99,30 @@ export const ParallaxProvider = ({ children }) => {
           mouseFactor = 10,
           rotateFactor = 0,
           zDepth = 0,
-          direction = 'vertical'
+          direction = 'vertical',
+          isGlobal = false,
+          docY = 0,
+          height = 0
         } = config;
 
-        // Differential scroll displacement
-        // speed < 1: moves slower than scroll (background receding into distance)
-        // speed > 1: moves faster than scroll (foreground passing close to lens)
-        const scrollDelta = s.y * (1 - speed);
+        let scrollDelta = 0;
+        if (isGlobal) {
+          // Global backdrop plane spanning whole document height
+          scrollDelta = s.y * (1 - speed);
+        } else {
+          // Viewport-relative localized element:
+          // Untransformed screen position:
+          const elementScreenY = docY - s.y;
+          // Only compute transform when near the viewport
+          if (elementScreenY + height < -250 || elementScreenY > viewportHeight + 250) {
+            return;
+          }
+          const elementCenter = elementScreenY + height * 0.5;
+          const distFromCenter = elementCenter - viewportCenter;
+          // Subtly scaled displacement: exactly 0 when element is centered on screen!
+          scrollDelta = Math.max(-120, Math.min(120, distFromCenter * (1 - speed)));
+        }
+
         const mouseShiftX = -m.x * mouseFactor;
         const mouseShiftY = -m.y * mouseFactor;
 
@@ -110,6 +146,7 @@ export const ParallaxProvider = ({ children }) => {
     animFrameRef.current = requestAnimationFrame(updatePhysics);
 
     return () => {
+      clearTimeout(measureTimer);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -119,6 +156,12 @@ export const ParallaxProvider = ({ children }) => {
 
   const registerLayer = (node, config) => {
     if (!node) return () => {};
+    // Measure initial bounds if localized
+    if (!config.isGlobal) {
+      const rect = node.getBoundingClientRect();
+      config.docY = rect.top + window.scrollY;
+      config.height = rect.height;
+    }
     layersRef.current.set(node, config);
     return () => {
       layersRef.current.delete(node);

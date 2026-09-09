@@ -21,6 +21,7 @@ export const ParallaxLayer = ({
   rotateFactor = 0,
   zDepth = 0,
   direction = 'vertical',
+  isGlobal = false,
   className = '',
   style = {}
 }) => {
@@ -34,10 +35,11 @@ export const ParallaxLayer = ({
       mouseFactor,
       rotateFactor,
       zDepth,
-      direction
+      direction,
+      isGlobal
     });
     return unregister;
-  }, [speed, mouseFactor, rotateFactor, zDepth, direction, registerLayer]);
+  }, [speed, mouseFactor, rotateFactor, zDepth, direction, isGlobal, registerLayer]);
 
   return (
     <div

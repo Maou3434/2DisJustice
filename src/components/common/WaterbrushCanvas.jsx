@@ -50,42 +50,71 @@ export const WaterbrushCanvas = () => {
       isTopLoaded = true;
     };
 
-    // 3. Pre-render Soft Atmospheric Vapor Plumes (Zero jank 120fps GPU caching)
+    // 3. Pre-render Multi-Scale Organic Vapor Plumes (Zero jank 120fps GPU caching)
     const STAMP_SIZE = 256;
-    const createVaporPlume = () => {
-      const sCanvas = document.createElement('canvas');
-      sCanvas.width = STAMP_SIZE;
-      sCanvas.height = STAMP_SIZE;
-      const sCtx = sCanvas.getContext('2d');
+    const createVaporPlumes = () => {
+      // Plume 1: Soft Hermite Gaussian core
+      const c1 = document.createElement('canvas');
+      c1.width = STAMP_SIZE;
+      c1.height = STAMP_SIZE;
+      const ctx1 = c1.getContext('2d');
       const center = STAMP_SIZE / 2;
-      const radius = STAMP_SIZE * 0.46;
+      const radius = STAMP_SIZE * 0.44;
 
-      // Soft natural Hermite Gaussian falloff
-      const grad = sCtx.createRadialGradient(center, center, 0, center, center, radius);
-      grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-      grad.addColorStop(0.35, 'rgba(255, 255, 255, 0.82)');
-      grad.addColorStop(0.65, 'rgba(255, 255, 255, 0.42)');
-      grad.addColorStop(0.85, 'rgba(255, 255, 255, 0.12)');
-      grad.addColorStop(1.0, 'rgba(255, 255, 255, 0)');
+      const grad1 = ctx1.createRadialGradient(center, center, 0, center, center, radius);
+      grad1.addColorStop(0, 'rgba(255, 255, 255, 0.96)');
+      grad1.addColorStop(0.35, 'rgba(255, 255, 255, 0.78)');
+      grad1.addColorStop(0.65, 'rgba(255, 255, 255, 0.38)');
+      grad1.addColorStop(0.85, 'rgba(255, 255, 255, 0.10)');
+      grad1.addColorStop(1.0, 'rgba(255, 255, 255, 0)');
+      ctx1.fillStyle = grad1;
+      ctx1.beginPath();
+      ctx1.arc(center, center, radius, 0, Math.PI * 2);
+      ctx1.fill();
 
-      sCtx.fillStyle = grad;
-      sCtx.beginPath();
-      sCtx.arc(center, center, radius, 0, Math.PI * 2);
-      sCtx.fill();
+      // Plume 2: Asymmetric organic wispy cloud lobe
+      const c2 = document.createElement('canvas');
+      c2.width = STAMP_SIZE;
+      c2.height = STAMP_SIZE;
+      const ctx2 = c2.getContext('2d');
 
-      return sCanvas;
+      // Base lobe
+      ctx2.drawImage(c1, 0, 0);
+      // Secondary soft sub-lobes for cloud fluffiness
+      const subLobes = [
+        { dx: -18, dy: -10, r: radius * 0.72, a: 0.65 },
+        { dx: 16, dy: -12, r: radius * 0.68, a: 0.60 },
+        { dx: 10, dy: 16, r: radius * 0.64, a: 0.55 },
+        { dx: -14, dy: 14, r: radius * 0.60, a: 0.50 }
+      ];
+      subLobes.forEach(({ dx, dy, r, a }) => {
+        const subGrad = ctx2.createRadialGradient(center + dx, center + dy, 0, center + dx, center + dy, r);
+        subGrad.addColorStop(0, `rgba(255, 255, 255, ${a})`);
+        subGrad.addColorStop(0.5, `rgba(255, 255, 255, ${a * 0.45})`);
+        subGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0)');
+        ctx2.fillStyle = subGrad;
+        ctx2.beginPath();
+        ctx2.arc(center + dx, center + dy, r, 0, Math.PI * 2);
+        ctx2.fill();
+      });
+
+      return [c1, c2];
     };
 
-    const vaporStamp = createVaporPlume();
+    const [coreVaporStamp, wispyVaporStamp] = createVaporPlumes();
 
-    const stampVapor = (x, y, radius, alpha) => {
+    const stampVapor = (x, y, radius, alpha, angle = 0, stampIdx = 0) => {
       maskCtx.save();
       maskCtx.translate(x * dpr, y * dpr);
-      maskCtx.globalAlpha = Math.max(0.04, Math.min(1.0, alpha));
+      if (angle !== 0) {
+        maskCtx.rotate(angle);
+      }
+      maskCtx.globalAlpha = Math.max(0.03, Math.min(1.0, alpha));
 
       const diameter = radius * 2 * dpr;
+      const stamp = stampIdx === 1 ? wispyVaporStamp : coreVaporStamp;
       maskCtx.drawImage(
-        vaporStamp,
+        stamp,
         -diameter / 2,
         -diameter / 2,
         diameter,
@@ -147,8 +176,10 @@ export const WaterbrushCanvas = () => {
       const targetRadius = Math.max(55, Math.min(125, 105 - speed * 18));
       currentRadius += (targetRadius - currentRadius) * 0.28;
 
+      const baseAngle = Math.atan2(dy, dx);
+
       // Sub-pixel Bézier interpolation for unbroken, silky fluid flow
-      const steps = Math.max(3, Math.ceil(dist / 8));
+      const steps = Math.max(3, Math.ceil(dist / 7));
       for (let s = 0; s <= steps; s++) {
         const t = s / steps;
         // Smooth quadratic interpolation
@@ -163,12 +194,16 @@ export const WaterbrushCanvas = () => {
           py = pPrev.y + dy * t;
         }
 
-        // Soft vapor plume
-        stampVapor(px, py, currentRadius, 0.88);
+        // Slight organic flutter per step so vapor feels alive
+        const flutterAngle = baseAngle + Math.sin(time * 0.003 + s * 1.7) * 0.45;
+        const flutterJitter = Math.cos(time * 0.004 + s * 2.1) * (currentRadius * 0.08);
 
-        // Soft ambient mist halo for natural feathering
+        // Core vapor stamp
+        stampVapor(px + flutterJitter, py + flutterJitter, currentRadius, 0.90, flutterAngle, 0);
+
+        // Wispy asymmetric cloud lobe for natural cloud feathering
         if (s % 2 === 0) {
-          stampVapor(px, py, currentRadius * 1.35, 0.35);
+          stampVapor(px - flutterJitter, py - flutterJitter, currentRadius * 1.38, 0.42, flutterAngle + Math.PI * 0.5, 1);
         }
       }
     };
@@ -270,13 +305,15 @@ export const WaterbrushCanvas = () => {
       />
       {/* 2. Top Canvas: Tsushima landscape parting with natural vapor dispersion */}
       <canvas ref={canvasRef} className="waterbrush-top-canvas" />
+      {/* 3. Soft Atmospheric Fade into Deep Sumi Void */}
+      <div className="waterbrush-bottom-fade" />
 
       <style>{`
         .waterbrush-container {
-          position: fixed;
+          position: absolute;
           top: 0;
           left: 0;
-          width: 100vw;
+          width: 100%;
           height: 100vh;
           pointer-events: none;
           z-index: 0;
@@ -302,6 +339,17 @@ export const WaterbrushCanvas = () => {
           width: 100%;
           height: 100%;
           display: block;
+        }
+
+        .waterbrush-bottom-fade {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 220px;
+          background: linear-gradient(to bottom, transparent 0%, rgba(10, 11, 14, 0.4) 40%, rgba(10, 11, 14, 0.85) 75%, var(--bg-primary) 100%);
+          pointer-events: none;
+          z-index: 5;
         }
       `}</style>
     </div>

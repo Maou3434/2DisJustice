@@ -7,6 +7,24 @@ export const HonorsSection = () => {
   const { theme } = useTheme();
   const isTsushima = theme === 'tsushima';
 
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = -(y / (rect.height / 2)) * 4;
+    const rotY = (x / (rect.width / 2)) * 4;
+    e.currentTarget.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
+  };
+
+  const handleCardMouseLeave = (e) => {
+    e.currentTarget.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    e.currentTarget.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease';
+  };
+
+  const handleCardMouseEnter = (e) => {
+    e.currentTarget.style.transition = 'transform 60ms ease-out, border-color 200ms ease';
+  };
+
   return (
     <section id="honors" className="honors-section">
       <div className="container">
@@ -36,7 +54,13 @@ export const HonorsSection = () => {
 
             <div className="honors-list">
               {resumeData.achievements.map((ach, idx) => (
-                <div key={idx} className="honor-card">
+                <div
+                  key={idx}
+                  className="honor-card"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseEnter={handleCardMouseEnter}
+                  onMouseLeave={handleCardMouseLeave}
+                >
                   <div className="honor-marker">
                     <Medal size={16} />
                   </div>
@@ -59,7 +83,13 @@ export const HonorsSection = () => {
 
             <div className="certifications-list">
               {resumeData.certifications.map((cert, idx) => (
-                <div key={idx} className="cert-card">
+                <div
+                  key={idx}
+                  className="cert-card"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseEnter={handleCardMouseEnter}
+                  onMouseLeave={handleCardMouseLeave}
+                >
                   <div className="cert-badge-row">
                     <span className="cert-year mono">{cert.year}</span>
                     <span className="cert-issuer mono">{cert.issuer}</span>
@@ -74,7 +104,12 @@ export const HonorsSection = () => {
             </div>
 
             {/* Academic Snapshot Card */}
-            <div className="academic-snapshot-card">
+            <div
+              className="academic-snapshot-card"
+              onMouseMove={handleCardMouseMove}
+              onMouseEnter={handleCardMouseEnter}
+              onMouseLeave={handleCardMouseLeave}
+            >
               <span className="snapshot-label mono">ACADEMIC CREDENTIALS</span>
               <div className="snapshot-val">{resumeData.personal.education.institution}</div>
               <div className="snapshot-degree">{resumeData.personal.education.degree}</div>
@@ -161,11 +196,13 @@ export const HonorsSection = () => {
           background: var(--bg-surface);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-md);
-          transition: border-color var(--transition-fast);
+          transform-style: preserve-3d;
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .honor-card:hover {
-          border-color: var(--border-prominent);
+          border-color: var(--accent-primary);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(200, 50, 38, 0.12);
         }
 
         .honor-marker {
@@ -206,11 +243,13 @@ export const HonorsSection = () => {
           display: flex;
           flex-direction: column;
           gap: var(--space-2);
-          transition: border-color var(--transition-fast);
+          transform-style: preserve-3d;
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .cert-card:hover {
-          border-color: var(--border-prominent);
+          border-color: var(--accent-primary);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(200, 50, 38, 0.12);
         }
 
         .cert-badge-row {
@@ -257,6 +296,13 @@ export const HonorsSection = () => {
           flex-direction: column;
           gap: var(--space-2);
           margin-top: var(--space-2);
+          transform-style: preserve-3d;
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .academic-snapshot-card:hover {
+          border-color: var(--accent-primary);
+          box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 24px rgba(200, 50, 38, 0.15);
         }
 
         .snapshot-label {

@@ -17,20 +17,6 @@ import { ParallaxProvider } from './components/parallax/ParallaxEngine.jsx';
 import { ParallaxBackdrop } from './components/parallax/ParallaxBackdrop.jsx';
 
 const AppContent = () => {
-  const { toggleTheme } = useTheme();
-
-  // Keyboard shortcut listener ('T' to toggle creative direction)
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      // Don't trigger if user is in an input or textarea
-      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-      if (e.key === 't' || e.key === 'T') {
-        toggleTheme();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleTheme]);
 
   return (
     <ParallaxProvider>

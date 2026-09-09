@@ -3,11 +3,11 @@ import { useTheme } from '../../context/ThemeContext.jsx';
 
 const CHAPTERS = [
   { id: 'top', kanji: '序', label: 'PROLOGUE', num: '01' },
-  { id: 'experience', kanji: '研', label: 'RESEARCH', num: '02' },
+  { id: 'research', kanji: '研', label: 'RESEARCH', num: '02' },
   { id: 'projects', kanji: '匠', label: 'SYSTEMS', num: '03' },
   { id: 'patents', kanji: '許', label: 'PATENTS', num: '04' },
-  { id: 'skills', kanji: '術', label: 'MATRIX', num: '05' },
-  { id: 'accolades', kanji: '誉', label: 'HONORS', num: '06' },
+  { id: 'skills', kanji: '術', label: 'CAPABILITIES', num: '05' },
+  { id: 'honors', kanji: '誉', label: 'HONORS', num: '06' },
   { id: 'contact', kanji: '結', label: 'CONTACT', num: '07' }
 ];
 
@@ -24,10 +24,12 @@ export const ScrollSpine = () => {
       setScrollProgress(progress);
 
       // Determine active section based on scroll position
-      const sections = CHAPTERS.map(c => document.getElementById(c.id)).filter(Boolean);
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const rect = sections[i].getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.45) {
+      const triggerY = window.innerHeight * 0.45;
+      for (let i = CHAPTERS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(CHAPTERS[i].id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= triggerY) {
           setActiveSection(CHAPTERS[i].id);
           break;
         }
