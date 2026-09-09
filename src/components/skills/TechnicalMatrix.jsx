@@ -40,32 +40,25 @@ export const TechnicalMatrix = () => {
     }
   ];
 
-  const handleCardMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / (rect.height / 2)) * 4;
-    const rotY = (x / (rect.width / 2)) * 4;
-    e.currentTarget.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
-  };
-
-  const handleCardMouseLeave = (e) => {
-    e.currentTarget.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    e.currentTarget.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease';
-  };
-
-  const handleCardMouseEnter = (e) => {
-    e.currentTarget.style.transition = 'transform 60ms ease-out, border-color 200ms ease';
-  };
-
   return (
     <section id="skills" className="skills-section">
+      {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <div className="watermark-kanji-wrap">
+          <span className="wm-kanji">{isTsushima ? '技術' : 'SKILLS'}</span>
+          <span className="wm-num mono">05</span>
+        </div>
+        <div className="wm-equation mono">
+          {isTsushima ? 'C = αAB + βC · CUDA TENSOR CORE GEMM' : 'SYS.COMPUTE // CUDA_TENSOR_CORE_GEMM'}
+        </div>
+      </div>
+
       <div className="container">
         
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// 術 — CORE COMPETENCIES' : '// TECHNICAL_MATRIX.SPEC'}</span>
+            <span className="mono">{isTsushima ? '// CORE COMPETENCIES · SYSTEMS & ACCELERATION' : '// TECHNICAL_MATRIX.SPEC // COMPUTE_DATA'}</span>
           </div>
           <h2 className="section-title">
             {isTsushima ? 'Technical Discipline & Foundations' : 'Technical Competency Matrix'}
@@ -81,9 +74,6 @@ export const TechnicalMatrix = () => {
             <div
               key={idx}
               className="skill-category-card"
-              onMouseMove={handleCardMouseMove}
-              onMouseEnter={handleCardMouseEnter}
-              onMouseLeave={handleCardMouseLeave}
             >
               <div className="category-top">
                 <div className="category-icon-title">
@@ -113,6 +103,49 @@ export const TechnicalMatrix = () => {
           padding: var(--space-16) 0;
           z-index: var(--z-content);
           border-top: 1px solid var(--border-subtle);
+          overflow: hidden;
+        }
+
+        .section-backdrop-watermark {
+          position: absolute;
+          top: 5%;
+          right: 3%;
+          pointer-events: none;
+          opacity: 0.12;
+          z-index: 0;
+          user-select: none;
+          text-align: right;
+        }
+
+        .watermark-kanji-wrap {
+          display: flex;
+          align-items: baseline;
+          justify-content: flex-end;
+          gap: 16px;
+        }
+
+        .wm-kanji {
+          font-family: var(--font-display);
+          font-size: clamp(4.5rem, 9vw, 8.5rem);
+          font-weight: 900;
+          color: var(--text-muted);
+          line-height: 0.85;
+          letter-spacing: -0.02em;
+        }
+
+        .wm-num {
+          font-size: clamp(3rem, 6vw, 5.5rem);
+          font-weight: 800;
+          color: var(--accent-primary);
+          opacity: 0.85;
+          line-height: 0.85;
+        }
+
+        .wm-equation {
+          font-size: 0.75rem;
+          letter-spacing: 0.18em;
+          color: var(--text-secondary);
+          margin-top: 8px;
         }
 
         .section-head {
@@ -153,11 +186,13 @@ export const TechnicalMatrix = () => {
           display: flex;
           flex-direction: column;
           gap: var(--space-4);
-          transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 200ms ease,
+                      box-shadow 200ms ease;
         }
 
         .skill-category-card:hover {
+          transform: translateY(-3px);
           border-color: var(--accent-primary);
           box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(200, 50, 38, 0.12);
         }

@@ -23,46 +23,7 @@ export const ParallaxBackdrop = () => {
         <div className="horizon-mountain-crests" />
       </ParallaxLayer>
 
-      {/* 2. Deep Editorial Chapter Watermarks & Research Equations (Speed: 0.36) */}
-      <ParallaxLayer speed={0.36} mouseFactor={24} zDepth={-280} isGlobal={true} className="backdrop-watermark-plane">
-        
-        {/* Research Chapter Watermark & Physics Equation */}
-        <div className="parallax-watermark wm-research">
-          <span className="wm-japanese">{isTsushima ? '鍛錬' : 'RESEARCH'}</span>
-          <span className="wm-number mono">01</span>
-          <div className="wm-equation mono">
-            ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen  // PINN Thermal Twin ODE
-          </div>
-        </div>
 
-        {/* Projects Chapter Watermark & Lakehouse/Algorithm Formula */}
-        <div className="parallax-watermark wm-projects">
-          <span className="wm-japanese">{isTsushima ? '匠' : 'SYSTEMS'}</span>
-          <span className="wm-number mono">02</span>
-          <div className="wm-equation mono">
-            min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt  // TSP Reorder
-          </div>
-        </div>
-
-        {/* Patents Chapter Watermark */}
-        <div className="parallax-watermark wm-patents">
-          <span className="wm-japanese">{isTsushima ? '特許' : 'PATENTS'}</span>
-          <span className="wm-number mono">03</span>
-          <div className="wm-equation mono">
-            IN 202641027735 · Spectral CIELAB Matching System
-          </div>
-        </div>
-
-        {/* Capabilities Chapter Watermark */}
-        <div className="parallax-watermark wm-skills">
-          <span className="wm-japanese">{isTsushima ? '技術' : 'CORE'}</span>
-          <span className="wm-number mono">04</span>
-          <div className="wm-equation mono">
-            __global__ void gemm_kernel(float* A, float* B, float* C)
-          </div>
-        </div>
-
-      </ParallaxLayer>
 
       {/* 3. Midground Atmospheric Ink Washes (Speed: 0.65) */}
       <ParallaxLayer speed={0.65} mouseFactor={36} zDepth={-120} direction="lateral" isGlobal={true} className="backdrop-ink-plane">
@@ -147,76 +108,6 @@ export const ParallaxBackdrop = () => {
           height: 600px;
           background: radial-gradient(ellipse at center, rgba(200, 50, 38, 0.06) 0%, rgba(10, 11, 14, 0) 70%);
           filter: blur(80px);
-        }
-
-        /* Chapter Watermarks */
-        .parallax-watermark {
-          position: absolute;
-          display: flex;
-          flex-direction: column;
-          user-select: none;
-          opacity: 0.22;
-          line-height: 0.85;
-          letter-spacing: -0.04em;
-          filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.9));
-          transition: opacity var(--transition-normal);
-        }
-
-        .parallax-watermark:hover {
-          opacity: 0.35;
-        }
-
-        .wm-research {
-          top: 100vh;
-          right: 6vw;
-          text-align: right;
-        }
-
-        .wm-projects {
-          top: 235vh;
-          left: 4vw;
-          text-align: left;
-        }
-
-        .wm-patents {
-          top: 375vh;
-          right: 5vw;
-          text-align: right;
-        }
-
-        .wm-skills {
-          top: 505vh;
-          left: 5vw;
-          text-align: left;
-        }
-
-        .wm-japanese {
-          font-family: var(--font-heading);
-          font-size: clamp(6.5rem, 15vw, 15rem);
-          font-weight: 800;
-          color: var(--text-primary);
-          text-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
-        }
-
-        .wm-number {
-          font-size: clamp(3.2rem, 7vw, 7rem);
-          color: var(--accent-primary);
-          opacity: 0.9;
-          margin-top: -15px;
-          font-weight: 700;
-          text-shadow: 0 0 35px rgba(200, 50, 38, 0.4);
-        }
-
-        .wm-equation {
-          font-size: 0.88rem;
-          color: var(--text-secondary);
-          letter-spacing: 0.08em;
-          margin-top: 18px;
-          opacity: 0.75;
-          background: rgba(18, 20, 26, 0.4);
-          padding: 6px 14px;
-          border-left: 2px solid var(--accent-primary);
-          border-radius: var(--radius-sm);
         }
 
         /* Ink washes */

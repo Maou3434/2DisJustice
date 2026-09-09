@@ -7,32 +7,25 @@ export const HonorsSection = () => {
   const { theme } = useTheme();
   const isTsushima = theme === 'tsushima';
 
-  const handleCardMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / (rect.height / 2)) * 4;
-    const rotY = (x / (rect.width / 2)) * 4;
-    e.currentTarget.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
-  };
-
-  const handleCardMouseLeave = (e) => {
-    e.currentTarget.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    e.currentTarget.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease';
-  };
-
-  const handleCardMouseEnter = (e) => {
-    e.currentTarget.style.transition = 'transform 60ms ease-out, border-color 200ms ease';
-  };
-
   return (
     <section id="honors" className="honors-section">
+      {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <div className="watermark-kanji-wrap">
+          <span className="wm-kanji">{isTsushima ? '誉' : 'HONORS'}</span>
+          <span className="wm-num mono">06</span>
+        </div>
+        <div className="wm-equation mono">
+          {isTsushima ? 'DEFENSE CADET & COMPETITIVE EXCELLENCE' : 'CREDENTIALS.REGISTRY // LEADERSHIP_DEFENSE'}
+        </div>
+      </div>
+
       <div className="container">
         
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// 誉 — ACCOLADES & HONORS' : '// CREDENTIALS_REGISTRY.HONORS'}</span>
+            <span className="mono">{isTsushima ? '// ACCOLADES & HONORS · DEFENSE & COMPETITION' : '// CREDENTIALS_REGISTRY.HONORS // DEFENSE_LEADERSHIP'}</span>
           </div>
           <h2 className="section-title">
             {isTsushima ? 'Honor, Service & Certifications' : 'Accolades, Honors & Certifications'}
@@ -57,9 +50,6 @@ export const HonorsSection = () => {
                 <div
                   key={idx}
                   className="honor-card"
-                  onMouseMove={handleCardMouseMove}
-                  onMouseEnter={handleCardMouseEnter}
-                  onMouseLeave={handleCardMouseLeave}
                 >
                   <div className="honor-marker">
                     <Medal size={16} />
@@ -86,9 +76,6 @@ export const HonorsSection = () => {
                 <div
                   key={idx}
                   className="cert-card"
-                  onMouseMove={handleCardMouseMove}
-                  onMouseEnter={handleCardMouseEnter}
-                  onMouseLeave={handleCardMouseLeave}
                 >
                   <div className="cert-badge-row">
                     <span className="cert-year mono">{cert.year}</span>
@@ -106,9 +93,6 @@ export const HonorsSection = () => {
             {/* Academic Snapshot Card */}
             <div
               className="academic-snapshot-card"
-              onMouseMove={handleCardMouseMove}
-              onMouseEnter={handleCardMouseEnter}
-              onMouseLeave={handleCardMouseLeave}
             >
               <span className="snapshot-label mono">ACADEMIC CREDENTIALS</span>
               <div className="snapshot-val">{resumeData.personal.education.institution}</div>
@@ -130,6 +114,49 @@ export const HonorsSection = () => {
           padding: var(--space-16) 0;
           z-index: var(--z-content);
           border-top: 1px solid var(--border-subtle);
+          overflow: hidden;
+        }
+
+        .section-backdrop-watermark {
+          position: absolute;
+          top: 5%;
+          right: 3%;
+          pointer-events: none;
+          opacity: 0.12;
+          z-index: 0;
+          user-select: none;
+          text-align: right;
+        }
+
+        .watermark-kanji-wrap {
+          display: flex;
+          align-items: baseline;
+          justify-content: flex-end;
+          gap: 16px;
+        }
+
+        .wm-kanji {
+          font-family: var(--font-display);
+          font-size: clamp(4.5rem, 9vw, 8.5rem);
+          font-weight: 900;
+          color: var(--text-muted);
+          line-height: 0.85;
+          letter-spacing: -0.02em;
+        }
+
+        .wm-num {
+          font-size: clamp(3rem, 6vw, 5.5rem);
+          font-weight: 800;
+          color: var(--accent-primary);
+          opacity: 0.85;
+          line-height: 0.85;
+        }
+
+        .wm-equation {
+          font-size: 0.75rem;
+          letter-spacing: 0.18em;
+          color: var(--text-secondary);
+          margin-top: 8px;
         }
 
         .section-head {
@@ -196,11 +223,13 @@ export const HonorsSection = () => {
           background: var(--bg-surface);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-md);
-          transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 200ms ease,
+                      box-shadow 200ms ease;
         }
 
         .honor-card:hover {
+          transform: translateY(-3px);
           border-color: var(--accent-primary);
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(200, 50, 38, 0.12);
         }
@@ -243,11 +272,13 @@ export const HonorsSection = () => {
           display: flex;
           flex-direction: column;
           gap: var(--space-2);
-          transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 200ms ease,
+                      box-shadow 200ms ease;
         }
 
         .cert-card:hover {
+          transform: translateY(-3px);
           border-color: var(--accent-primary);
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(200, 50, 38, 0.12);
         }
@@ -296,11 +327,13 @@ export const HonorsSection = () => {
           flex-direction: column;
           gap: var(--space-2);
           margin-top: var(--space-2);
-          transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 200ms ease,
+                      box-shadow 200ms ease;
         }
 
         .academic-snapshot-card:hover {
+          transform: translateY(-3px);
           border-color: var(--accent-primary);
           box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5), 0 0 24px rgba(200, 50, 38, 0.15);
         }

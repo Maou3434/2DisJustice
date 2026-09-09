@@ -42,6 +42,11 @@ export const SpatialCanvas = () => {
     let targetScrollOffset = 0;
     let lastScrollY = window.scrollY;
     let scrollVelocity = 0;
+    let isVisible = true;
+
+    const checkVisibility = () => {
+      isVisible = !document.hidden && (window.scrollY < window.innerHeight * 2.8);
+    };
 
     const handleMouseMove = (e) => {
       mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -55,6 +60,8 @@ export const SpatialCanvas = () => {
 
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       targetScrollOffset = maxScroll > 0 ? currentScrollY / maxScroll : 0;
+
+      checkVisibility();
     };
 
     const handleResize = () => {
@@ -63,14 +70,21 @@ export const SpatialCanvas = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
+    const handleVisibilityChange = () => {
+      checkVisibility();
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // 4. Render Loop
     let animationFrameId;
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+
+      if (!isVisible) return; // Throttles GPU/battery when reading lower text tables
 
       // Decay scroll velocity smoothly
       scrollVelocity *= 0.92;
@@ -109,6 +123,7 @@ export const SpatialCanvas = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
 
       if (activeSceneController) {
         activeSceneController.dispose();

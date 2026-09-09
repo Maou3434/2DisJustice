@@ -9,6 +9,23 @@ export const PatentExhibition = () => {
   const isTsushima = theme === 'tsushima';
   const [zoomedImage, setZoomedImage] = useState(null);
 
+  React.useEffect(() => {
+    if (!zoomedImage) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setZoomedImage(null);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [zoomedImage]);
+
   const getPatentDrawing = (appNum) => {
     if (appNum === '202641027735') {
       return {
@@ -44,12 +61,23 @@ export const PatentExhibition = () => {
 
   return (
     <section id="patents" className="patents-section">
+      {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <div className="watermark-kanji-wrap">
+          <span className="wm-kanji">{isTsushima ? '特許' : 'PATENTS'}</span>
+          <span className="wm-num mono">04</span>
+        </div>
+        <div className="wm-equation mono">
+          {isTsushima ? 'IN 202641027735 · Spectral CIELAB Matching System' : 'IP.REGISTRY // IN_202641027735_CIELAB'}
+        </div>
+      </div>
+
       <div className="container">
         
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// 特許 — INTELLECTUAL PROPERTY' : '// PATENT_PUBLICATIONS.REGISTRY'}</span>
+            <span className="mono">{isTsushima ? '// IP REGISTRY · 2 PUBLISHED SPECIFICATIONS' : '// INTELLECTUAL_PROPERTY.REGISTRY // 2_PATENTS'}</span>
           </div>
           <h2 className="section-title">
             {isTsushima ? 'Published Inventions & Patents' : 'Published Intellectual Property'}
@@ -140,7 +168,7 @@ export const PatentExhibition = () => {
                   <div className="patent-card-footer">
                     <div className="footer-meta mono">
                       <FileCheck2 size={15} className="meta-icon" />
-                      <span>Gazette Publication Published</span>
+                      <span>Official Patent Gazette Publication</span>
                     </div>
                     <span className="verify-link mono">
                       IP India Registry Verified
@@ -158,7 +186,12 @@ export const PatentExhibition = () => {
 
       {/* Lightbox / Zoom Modal */}
       {zoomedImage && (
-        <div className="drawing-lightbox-backdrop" onClick={() => setZoomedImage(null)}>
+        <div 
+          className="drawing-lightbox-backdrop" 
+          onClick={() => setZoomedImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
           <div className="drawing-lightbox-card" onClick={e => e.stopPropagation()}>
             <div className="lightbox-header">
               <span className="mono lightbox-title">{zoomedImage.caption}</span>
@@ -177,6 +210,49 @@ export const PatentExhibition = () => {
           padding: var(--space-20) 0;
           z-index: var(--z-content);
           border-top: 1px solid var(--border-subtle);
+          overflow: hidden;
+        }
+
+        .section-backdrop-watermark {
+          position: absolute;
+          top: 5%;
+          right: 3%;
+          pointer-events: none;
+          opacity: 0.12;
+          z-index: 0;
+          user-select: none;
+          text-align: right;
+        }
+
+        .watermark-kanji-wrap {
+          display: flex;
+          align-items: baseline;
+          justify-content: flex-end;
+          gap: 16px;
+        }
+
+        .wm-kanji {
+          font-family: var(--font-display);
+          font-size: clamp(4.5rem, 9vw, 8.5rem);
+          font-weight: 900;
+          color: var(--text-muted);
+          line-height: 0.85;
+          letter-spacing: -0.02em;
+        }
+
+        .wm-num {
+          font-size: clamp(3rem, 6vw, 5.5rem);
+          font-weight: 800;
+          color: var(--accent-primary);
+          opacity: 0.85;
+          line-height: 0.85;
+        }
+
+        .wm-equation {
+          font-size: 0.75rem;
+          letter-spacing: 0.18em;
+          color: var(--text-secondary);
+          margin-top: 8px;
         }
 
         .section-head {
@@ -256,16 +332,20 @@ export const PatentExhibition = () => {
         .drawing-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(8, 10, 16, 0.9) 0%, transparent 60%);
+          background: linear-gradient(to top, rgba(8, 10, 16, 0.92) 0%, rgba(8, 10, 16, 0.4) 40%, transparent 70%);
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
+          gap: 12px;
           padding: var(--space-3) var(--space-4);
+          flex-wrap: wrap;
         }
 
         .drawing-caption {
           font-size: 0.6875rem;
           color: var(--text-muted);
+          max-width: calc(100% - 140px);
+          line-height: 1.35;
         }
 
         .drawing-zoom {
@@ -274,10 +354,12 @@ export const PatentExhibition = () => {
           gap: 6px;
           font-size: 0.6875rem;
           color: var(--accent-primary);
-          background: rgba(10, 12, 18, 0.8);
+          background: rgba(10, 12, 18, 0.85);
           padding: 4px 8px;
           border: 1px solid var(--border-prominent);
           border-radius: var(--radius-sm);
+          flex-shrink: 0;
+          margin-left: auto;
         }
 
         /* Card Content Area */

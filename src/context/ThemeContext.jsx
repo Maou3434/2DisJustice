@@ -7,14 +7,24 @@ const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }) => {
-  const theme = 'tsushima';
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('site-theme') || 'tsushima';
+  });
+
+  const toggleTheme = () => {
+    setTheme(prev => {
+      const next = prev === 'tsushima' ? 'architectural' : 'tsushima';
+      localStorage.setItem('site-theme', next);
+      return next;
+    });
+  };
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'tsushima');
-  }, []);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme: () => {}, setTheme: () => {} }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

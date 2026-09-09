@@ -165,12 +165,15 @@ export const HeroSection = () => {
         }
 
         .landing-institution {
-          font-size: 0.8rem;
-          letter-spacing: 0.14em;
-          color: var(--accent-primary);
+          font-size: 0.8125rem;
+          letter-spacing: 0.16em;
+          color: var(--text-secondary);
           text-transform: uppercase;
-          margin-top: var(--space-1);
-          opacity: 0.9;
+          margin-top: var(--space-2);
+          border-bottom: 1px solid var(--accent-primary);
+          padding-bottom: 2px;
+          display: inline-block;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
         }
 
         /* Brush Interaction Cue */

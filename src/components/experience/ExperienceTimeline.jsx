@@ -10,12 +10,20 @@ export const ExperienceTimeline = () => {
 
   return (
     <section id="research" className="experience-section">
-      <div className="container">
-        
+      {/* Localized Section Watermark (Physically bounded to this section) */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-japanese">{isTsushima ? '鍛錬' : 'RESEARCH'}</span>
+        <span className="wm-number mono">02</span>
+        <div className="wm-equation mono">
+          ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen  // PINN Thermal Twin ODE
+        </div>
+      </div>
+
+      <div className="container relative-content">
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// 鍛錬 — RESEARCH & ENGINEERING' : '// TIMELINE_RECORDS.LOG'}</span>
+            <span className="mono">{isTsushima ? '// FIELD RESEARCH · VIT AUTOMOTIVE RESEARCH CENTRE' : '// FIELD_RESEARCH · VIT_AUTOMOTIVE_CENTRE'}</span>
           </div>
           <h2 className="section-title">
             {isTsushima ? 'Research & Applied Engineering' : 'Engineering & Research Experience'}
@@ -86,6 +94,55 @@ export const ExperienceTimeline = () => {
           padding: var(--space-16) 0;
           z-index: var(--z-content);
           border-top: 1px solid var(--border-subtle);
+          overflow: hidden;
+        }
+
+        .relative-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .section-backdrop-watermark {
+          position: absolute;
+          top: 8%;
+          right: 4%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          user-select: none;
+          pointer-events: none;
+          opacity: 0.16;
+          line-height: 0.85;
+          letter-spacing: -0.04em;
+          z-index: 0;
+        }
+
+        .wm-japanese {
+          font-family: var(--font-heading);
+          font-size: clamp(6.5rem, 14vw, 13rem);
+          font-weight: 800;
+          color: var(--text-primary);
+          text-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+        }
+
+        .wm-number {
+          font-size: clamp(3rem, 6.5vw, 6.5rem);
+          color: var(--accent-primary);
+          opacity: 0.9;
+          margin-top: -10px;
+          font-weight: 700;
+        }
+
+        .wm-equation {
+          font-size: 0.8125rem;
+          color: var(--text-secondary);
+          letter-spacing: 0.08em;
+          margin-top: 16px;
+          opacity: 0.85;
+          background: rgba(18, 20, 26, 0.55);
+          padding: 6px 14px;
+          border-left: 2px solid var(--accent-primary);
+          border-radius: var(--radius-sm);
         }
 
         .section-head {

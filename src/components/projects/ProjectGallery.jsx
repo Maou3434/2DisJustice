@@ -13,7 +13,7 @@ export const ProjectGallery = () => {
   const getProjectImage = (id) => {
     switch (id) {
       case 'retailsink':
-        return '/images/retailsink-architecture.jpg';
+        return '/images/retailsink-architecture.svg';
       case 'frame-order-restoration':
         return '/images/video-frame-tsp.jpg';
       case 'opendesign':
@@ -32,12 +32,21 @@ export const ProjectGallery = () => {
     }
   };
 
+  const getInspectLabel = (id) => {
+    switch (id) {
+      case 'retailsink': return 'View Lakehouse Architecture';
+      case 'frame-order-restoration': return 'Inspect TSP Algorithm';
+      case 'opendesign': return 'View Infrastructure State Machine';
+      default: return 'Explore System Case Study';
+    }
+  };
+
   const handleCardMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / (rect.height / 2)) * 6;
-    const rotY = (x / (rect.width / 2)) * 6;
+    const rotX = -(y / (rect.height / 2)) * 5;
+    const rotY = (x / (rect.width / 2)) * 5;
     e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
   };
 
@@ -52,12 +61,21 @@ export const ProjectGallery = () => {
 
   return (
     <section id="projects" className="projects-section">
-      <div className="container">
+      {/* Localized Section Watermark (Physically bounded to this section) */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-japanese">{isTsushima ? '匠' : 'SYSTEMS'}</span>
+        <span className="wm-number mono">03</span>
+        <div className="wm-equation mono">
+          min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt  // TSP Reorder
+        </div>
+      </div>
+
+      <div className="container relative-content">
         
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// 匠 — ARCHITECTURE & CODE' : '// ARTIFACTS_INDEX.SYS'}</span>
+            <span className="mono">{isTsushima ? '// SYSTEMS INDEX · 3 PRODUCTION BUILDS' : '// SYSTEMS_INDEX · 3_BUILDS'}</span>
           </div>
           <h2 className="section-title">
             {isTsushima ? 'Selected Systems & Open Works' : 'Systems Architecture & Engineering Projects'}
@@ -81,11 +99,11 @@ export const ProjectGallery = () => {
                 className={`project-card-parallax-wrap ${isFeatured ? 'is-featured' : ''}`}
               >
                 <div
-                  className={`project-card ${isFeatured ? 'is-featured' : ''}`}
+                  className={`project-card ${isFeatured ? 'is-featured' : 'standard-card'}`}
                   onClick={() => setSelectedProject(project)}
-                  onMouseMove={handleCardMouseMove}
-                  onMouseEnter={handleCardMouseEnter}
-                  onMouseLeave={handleCardMouseLeave}
+                  onMouseMove={isFeatured ? handleCardMouseMove : undefined}
+                  onMouseEnter={isFeatured ? handleCardMouseEnter : undefined}
+                  onMouseLeave={isFeatured ? handleCardMouseLeave : undefined}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -107,7 +125,7 @@ export const ProjectGallery = () => {
                   <div className="media-overlay">
                     <div className="media-inspect-btn mono">
                       <ZoomIn size={14} />
-                      <span>Inspect Topology</span>
+                      <span>{getInspectLabel(project.id)}</span>
                     </div>
                   </div>
                 </div>
@@ -170,6 +188,55 @@ export const ProjectGallery = () => {
           padding: var(--space-20) 0;
           z-index: var(--z-content);
           border-top: 1px solid var(--border-subtle);
+          overflow: hidden;
+        }
+
+        .relative-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .section-backdrop-watermark {
+          position: absolute;
+          top: 8%;
+          left: 4%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          user-select: none;
+          pointer-events: none;
+          opacity: 0.16;
+          line-height: 0.85;
+          letter-spacing: -0.04em;
+          z-index: 0;
+        }
+
+        .wm-japanese {
+          font-family: var(--font-heading);
+          font-size: clamp(6.5rem, 14vw, 13rem);
+          font-weight: 800;
+          color: var(--text-primary);
+          text-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+        }
+
+        .wm-number {
+          font-size: clamp(3rem, 6.5vw, 6.5rem);
+          color: var(--accent-primary);
+          opacity: 0.9;
+          margin-top: -10px;
+          font-weight: 700;
+        }
+
+        .wm-equation {
+          font-size: 0.8125rem;
+          color: var(--text-secondary);
+          letter-spacing: 0.08em;
+          margin-top: 16px;
+          opacity: 0.85;
+          background: rgba(18, 20, 26, 0.55);
+          padding: 6px 14px;
+          border-left: 2px solid var(--accent-primary);
+          border-radius: var(--radius-sm);
         }
 
         .section-head {
@@ -216,7 +283,13 @@ export const ProjectGallery = () => {
           overflow: hidden;
           cursor: pointer;
           transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform 200ms ease;
+        }
+
+        .project-card.standard-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--accent-primary);
+          box-shadow: var(--shadow-prominent), 0 0 25px rgba(200, 50, 38, 0.15);
         }
 
         .project-card:hover {
