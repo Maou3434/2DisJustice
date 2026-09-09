@@ -215,13 +215,14 @@ export const PatentExhibition = () => {
 
         .section-backdrop-watermark {
           position: absolute;
-          top: 5%;
-          right: 3%;
+          top: 16px;
+          right: 28px;
           pointer-events: none;
-          opacity: 0.12;
+          opacity: 0.06;
           z-index: 0;
           user-select: none;
           text-align: right;
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
         .watermark-kanji-wrap {
@@ -257,6 +258,9 @@ export const PatentExhibition = () => {
 
         .section-head {
           margin-bottom: var(--space-12);
+          max-width: 680px;
+          position: relative;
+          z-index: 2;
         }
 
         .section-tag {
@@ -329,37 +333,53 @@ export const PatentExhibition = () => {
           transform: scale(1.03);
         }
 
+        /* Separated Quadrant Overlay: Caption anchored top-left, zoom button bottom-right */
         .drawing-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(8, 10, 16, 0.92) 0%, rgba(8, 10, 16, 0.4) 40%, transparent 70%);
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 12px;
-          padding: var(--space-3) var(--space-4);
-          flex-wrap: wrap;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(8, 10, 16, 0.85) 0%, transparent 35%, transparent 60%, rgba(8, 10, 16, 0.9) 100%);
         }
 
         .drawing-caption {
+          position: absolute;
+          top: 12px;
+          left: 14px;
           font-size: 0.6875rem;
-          color: var(--text-muted);
-          max-width: calc(100% - 140px);
+          color: var(--text-secondary);
+          background: rgba(10, 12, 18, 0.88);
+          backdrop-filter: blur(8px);
+          padding: 4px 10px;
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-sm);
+          max-width: calc(100% - 28px);
           line-height: 1.35;
+          letter-spacing: 0.04em;
         }
 
         .drawing-zoom {
+          position: absolute;
+          bottom: 12px;
+          right: 14px;
           display: inline-flex;
           align-items: center;
           gap: 6px;
           font-size: 0.6875rem;
           color: var(--accent-primary);
-          background: rgba(10, 12, 18, 0.85);
-          padding: 4px 8px;
+          background: rgba(10, 12, 18, 0.92);
+          backdrop-filter: blur(8px);
+          padding: 5px 11px;
           border: 1px solid var(--border-prominent);
           border-radius: var(--radius-sm);
-          flex-shrink: 0;
-          margin-left: auto;
+          pointer-events: auto;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+          transition: all var(--transition-fast);
+        }
+
+        .patent-drawing-frame:hover .drawing-zoom {
+          border-color: var(--accent-primary);
+          box-shadow: 0 0 14px var(--accent-glow);
+          color: #FFF;
         }
 
         /* Card Content Area */

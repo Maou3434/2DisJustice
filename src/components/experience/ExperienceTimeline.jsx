@@ -104,17 +104,18 @@ export const ExperienceTimeline = () => {
 
         .section-backdrop-watermark {
           position: absolute;
-          top: 8%;
-          right: 4%;
+          top: 16px;
+          right: 28px;
           display: flex;
           flex-direction: column;
           align-items: flex-end;
           user-select: none;
           pointer-events: none;
-          opacity: 0.16;
+          opacity: 0.06;
           line-height: 0.85;
           letter-spacing: -0.04em;
           z-index: 0;
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
         .wm-japanese {
@@ -128,7 +129,7 @@ export const ExperienceTimeline = () => {
         .wm-number {
           font-size: clamp(3rem, 6.5vw, 6.5rem);
           color: var(--accent-primary);
-          opacity: 0.9;
+          opacity: 0.85;
           margin-top: -10px;
           font-weight: 700;
         }
@@ -147,6 +148,9 @@ export const ExperienceTimeline = () => {
 
         .section-head {
           margin-bottom: var(--space-12);
+          max-width: 680px;
+          position: relative;
+          z-index: 2;
         }
 
         .section-tag {
@@ -202,8 +206,13 @@ export const ExperienceTimeline = () => {
           align-items: center;
           gap: 6px;
           font-size: 0.8125rem;
-          color: var(--accent-primary);
+          color: var(--text-secondary);
           font-weight: 600;
+          letter-spacing: 0.02em;
+        }
+
+        .exp-period .inline-icon {
+          color: var(--accent-primary);
         }
 
         .exp-location {

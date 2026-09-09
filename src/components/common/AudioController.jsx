@@ -82,18 +82,25 @@ export const AudioController = () => {
           position: relative;
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 6px;
-          padding: 8px;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-full);
+          height: 32px;
+          padding: 0 10px;
+          background: rgba(18, 20, 26, 0.85);
+          backdrop-filter: blur(10px);
+          border: 1px solid var(--border-prominent);
+          border-radius: var(--radius-sm);
           color: var(--text-secondary);
           transition: all var(--transition-fast);
+          cursor: pointer;
+          box-sizing: border-box;
         }
 
         .audio-toggle-btn:hover {
           color: var(--text-primary);
-          border-color: var(--border-prominent);
+          border-color: var(--accent-primary);
+          box-shadow: 0 0 12px var(--accent-glow);
+          transform: translateY(-1px);
         }
 
         .audio-status-dot {

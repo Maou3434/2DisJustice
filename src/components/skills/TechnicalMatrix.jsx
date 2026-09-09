@@ -1,6 +1,6 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
-import { Code2, Cpu, Database, Cloud, Terminal, Wrench } from 'lucide-react';
+import { Code2, Cpu, Database, Cloud, Terminal, Zap } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const TechnicalMatrix = () => {
@@ -9,40 +9,46 @@ export const TechnicalMatrix = () => {
 
   const skillCategories = [
     {
-      title: 'Programming Languages',
+      title: 'Core Languages & Systems',
       icon: <Code2 size={18} />,
-      skills: resumeData.technical_skills.languages,
-      note: 'Systems programming, high-performance computing & algorithmic pipelines'
+      skills: ['Python', 'Modern C++', 'Java', 'JavaScript / TS', 'SQL', 'C'],
+      note: 'Systems programming, algorithmic pipelines & multi-paradigm runtime architectures'
     },
     {
-      title: 'AI, ML & Scientific Computing',
+      title: 'AI, Neural ODEs & Scientific ML',
       icon: <Cpu size={18} />,
-      skills: resumeData.technical_skills.ai_ml,
-      note: 'Physics-informed modeling (PINN), neural ODEs & NLP attachment metrics'
+      skills: ['PyTorch', 'PINN Digital Twins', 'Scikit-Learn', 'Sentence Transformers', 'XGBoost', 'Neural ODEs'],
+      note: 'Physics-informed neural networks (PINN), dynamical ODEs & psycholinguistic regression'
     },
     {
       title: 'Databases & Lakehouse Engineering',
       icon: <Database size={18} />,
-      skills: resumeData.technical_skills.databases_data_engineering,
-      note: 'Vectorized OLAP (DuckDB), ACID lakehouses (Delta Lake) & Medallion layers'
+      skills: ['DuckDB (OLAP)', 'Delta Lake', 'Medallion Architecture', 'SCD Type 2', 'MySQL', 'MongoDB'],
+      note: 'Vectorized in-process OLAP, ACID lakehouse tables & auditable dimension tracking'
     },
     {
-      title: 'Frameworks & Full-Stack Systems',
+      title: 'Distributed Systems & Microservices',
       icon: <Terminal size={18} />,
-      skills: resumeData.technical_skills.frameworks_development,
-      note: 'Enterprise microservices (Spring Boot), asynchronous APIs (FastAPI) & React'
+      skills: ['FastAPI (Async)', 'Spring Boot', 'Django', 'React', 'REST APIs', 'Docker'],
+      note: 'Asynchronous streaming backends, enterprise layered microservices & responsive UIs'
     },
     {
-      title: 'Cloud, Acceleration & Tooling',
+      title: 'GPU Acceleration & High Compute',
+      icon: <Zap size={18} />,
+      skills: ['CUDA C/C++', 'Tensor Cores', 'DirectML', 'AMP / TF32', 'SIMD Vectorization', 'DirectX'],
+      note: 'Hardware acceleration, custom CUDA kernels, mixed-precision training & parallel reduction'
+    },
+    {
+      title: 'Cloud Infrastructure & Telemetry',
       icon: <Cloud size={18} />,
-      skills: resumeData.technical_skills.cloud_tools,
-      note: 'GPU acceleration (CUDA C/C++, DirectML, AMP/TF32) & AWS EC2/S3/DynamoDB'
+      skills: ['AWS (EC2, S3, DynamoDB)', 'MQTT IoT Protocols', 'Git / GitHub', 'SonarQube CI/CD', 'Simulink', 'Agile / Scrum'],
+      note: 'Resilient cloud infrastructure, high-frequency device telemetry & automated code quality gates'
     }
   ];
 
   return (
     <section id="skills" className="skills-section">
-      {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
+      {/* Ambient Section Watermark: Pushed far right at 6% opacity with fade mask */}
       <div className="section-backdrop-watermark" aria-hidden="true">
         <div className="watermark-kanji-wrap">
           <span className="wm-kanji">{isTsushima ? '技術' : 'SKILLS'}</span>
@@ -68,7 +74,7 @@ export const TechnicalMatrix = () => {
           </p>
         </div>
 
-        {/* Matrix Grid */}
+        {/* Matrix Grid: Perfectly Balanced 3x2 Symmetrical Array */}
         <div className="skills-grid">
           {skillCategories.map((category, idx) => (
             <div
@@ -108,13 +114,14 @@ export const TechnicalMatrix = () => {
 
         .section-backdrop-watermark {
           position: absolute;
-          top: 5%;
-          right: 3%;
+          top: 16px;
+          right: 24px;
           pointer-events: none;
-          opacity: 0.12;
+          opacity: 0.06;
           z-index: 0;
           user-select: none;
           text-align: right;
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
         .watermark-kanji-wrap {
@@ -174,8 +181,20 @@ export const TechnicalMatrix = () => {
 
         .skills-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          grid-template-columns: repeat(3, 1fr);
           gap: var(--space-6);
+        }
+
+        @media (max-width: 1100px) {
+          .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 680px) {
+          .skills-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         .skill-category-card {
@@ -194,7 +213,7 @@ export const TechnicalMatrix = () => {
         .skill-category-card:hover {
           transform: translateY(-3px);
           border-color: var(--accent-primary);
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(200, 50, 38, 0.12);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(200, 50, 38, 0.14);
         }
 
         .category-icon-title {
@@ -210,15 +229,17 @@ export const TechnicalMatrix = () => {
         }
 
         .category-name {
-          font-size: 1.125rem;
+          font-size: 1.0625rem;
           font-weight: 700;
           color: var(--text-primary);
+          letter-spacing: 0.01em;
         }
 
         .category-note {
           font-size: 0.8125rem;
           color: var(--text-muted);
           line-height: 1.5;
+          min-height: 38px;
         }
 
         .skills-pill-wrap {
@@ -226,21 +247,30 @@ export const TechnicalMatrix = () => {
           flex-wrap: wrap;
           gap: 8px;
           margin-top: auto;
+          padding-top: var(--space-2);
         }
 
         .skill-pill {
           font-size: 0.75rem;
           padding: 4px 10px;
-          background: var(--bg-primary);
-          border: 1px solid var(--border-subtle);
-          color: var(--text-secondary);
+          background: rgba(24, 28, 38, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #D6CFBE;
           border-radius: var(--radius-sm);
-          transition: border-color var(--transition-fast), color var(--transition-fast);
+          transition: all var(--transition-fast);
+          letter-spacing: 0.02em;
         }
 
         .skill-category-card:hover .skill-pill {
-          border-color: var(--border-prominent);
-          color: var(--text-primary);
+          border-color: rgba(255, 255, 255, 0.22);
+          color: #FFF;
+        }
+
+        .skill-pill:hover {
+          background: var(--accent-subtle);
+          border-color: var(--accent-primary);
+          color: #FFF;
+          box-shadow: 0 0 10px rgba(200, 50, 38, 0.25);
         }
       `}</style>
     </section>

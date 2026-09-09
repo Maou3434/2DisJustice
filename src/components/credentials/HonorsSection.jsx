@@ -119,13 +119,14 @@ export const HonorsSection = () => {
 
         .section-backdrop-watermark {
           position: absolute;
-          top: 5%;
-          right: 3%;
+          top: 16px;
+          right: 28px;
           pointer-events: none;
-          opacity: 0.12;
+          opacity: 0.06;
           z-index: 0;
           user-select: none;
           text-align: right;
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
         .watermark-kanji-wrap {
@@ -161,6 +162,9 @@ export const HonorsSection = () => {
 
         .section-head {
           margin-bottom: var(--space-12);
+          max-width: 680px;
+          position: relative;
+          z-index: 2;
         }
 
         .section-tag {
@@ -254,7 +258,9 @@ export const HonorsSection = () => {
 
         .honor-org {
           font-size: 0.75rem;
-          color: var(--accent-primary);
+          color: var(--text-secondary);
+          font-weight: 600;
+          letter-spacing: 0.02em;
         }
 
         .honor-note {
@@ -291,8 +297,12 @@ export const HonorsSection = () => {
         }
 
         .cert-year {
-          color: var(--accent-primary);
+          color: var(--text-secondary);
           font-weight: 600;
+          background: var(--bg-primary);
+          padding: 2px 7px;
+          border-radius: var(--radius-sm);
+          border: 1px solid var(--border-subtle);
         }
 
         .cert-issuer {
@@ -340,8 +350,8 @@ export const HonorsSection = () => {
 
         .snapshot-label {
           font-size: 0.6875rem;
-          color: var(--accent-primary);
-          letter-spacing: 0.05em;
+          color: var(--text-muted);
+          letter-spacing: 0.08em;
         }
 
         .snapshot-val {

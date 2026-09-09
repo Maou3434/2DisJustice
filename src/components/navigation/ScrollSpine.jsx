@@ -14,6 +14,7 @@ const CHAPTERS = [
 export const ScrollSpine = () => {
   const [activeSection, setActiveSection] = useState('top');
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isRetracted, setIsRetracted] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -34,6 +35,13 @@ export const ScrollSpine = () => {
           break;
         }
       }
+
+      // Smoothly retract spine before it encroaches on the footer/contact zone
+      const contactEl = document.getElementById('contact');
+      if (contactEl) {
+        const contactTop = contactEl.getBoundingClientRect().top;
+        setIsRetracted(contactTop < window.innerHeight * 0.65);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -49,7 +57,11 @@ export const ScrollSpine = () => {
   };
 
   return (
-    <nav className="scroll-spine-nav" aria-label="Chapter progress spine">
+    <nav 
+      className={`scroll-spine-nav ${isRetracted ? 'is-retracted' : ''}`} 
+      aria-label="Chapter progress spine"
+      aria-hidden={isRetracted}
+    >
       {/* Background Track Hairline */}
       <div className="spine-track">
         <div
@@ -90,6 +102,13 @@ export const ScrollSpine = () => {
           align-items: center;
           height: 380px;
           pointer-events: auto;
+          transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-spine-nav.is-retracted {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-50%) translateX(16px);
         }
 
         .spine-track {

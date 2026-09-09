@@ -58,7 +58,7 @@ export const Footer = () => {
               <div className="contact-box">
                 <div className="contact-info">
                   <span className="contact-type mono">EMAIL</span>
-                  <a href={`mailto:${resumeData.personal.email}`} className="contact-val">
+                  <a href={`mailto:${resumeData.personal.email}`} className="contact-val mono">
                     {resumeData.personal.email}
                   </a>
                 </div>
@@ -92,7 +92,7 @@ export const Footer = () => {
 
             </div>
 
-            {/* Social Links */}
+            {/* Social Links: Symmetrical 2-Column Grid */}
             <div className="social-links-row">
               <a
                 href={resumeData.personal.links.github}
@@ -123,7 +123,8 @@ export const Footer = () => {
         {/* Bottom Colophon */}
         <div className="footer-bottom-bar">
           <div className="footer-copyright mono">
-            <span>© {new Date().getFullYear()} Abimanyu Jayaganesh.</span>
+            <span className="author-credit">© {new Date().getFullYear()} Abimanyu Jayaganesh.</span>
+            <span className="colophon-divider">·</span>
             <span className="commit-note">BUILT WITH VITE · REACT 19 · THREE.JS</span>
           </div>
 
@@ -255,8 +256,10 @@ export const Footer = () => {
         }
 
         .contact-val {
+          font-family: var(--font-mono);
           font-size: 0.875rem;
           color: var(--text-primary);
+          letter-spacing: 0.02em;
           transition: color var(--transition-fast);
         }
 
@@ -280,27 +283,35 @@ export const Footer = () => {
         }
 
         .social-links-row {
-          display: flex;
-          gap: 12px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--space-3);
           margin-top: var(--space-2);
+          width: 100%;
         }
 
         .social-btn {
-          display: inline-flex;
+          display: flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
-          padding: 8px 14px;
+          height: 42px;
           background: var(--bg-primary);
           border: 1px solid var(--border-subtle);
           color: var(--text-secondary);
           font-size: 0.75rem;
+          font-weight: 500;
           border-radius: var(--radius-sm);
-          transition: border-color var(--transition-fast), color var(--transition-fast);
+          transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .social-btn:hover {
           border-color: var(--accent-primary);
           color: var(--text-primary);
+          background: var(--bg-surface-elevated);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
         }
 
         .footer-bottom-bar {
@@ -315,12 +326,27 @@ export const Footer = () => {
 
         .footer-copyright {
           display: flex;
-          gap: 16px;
+          align-items: center;
+          gap: 12px;
           flex-wrap: wrap;
         }
 
+        .author-credit {
+          color: var(--text-primary);
+          font-weight: 600;
+          letter-spacing: 0.03em;
+        }
+
+        .colophon-divider {
+          color: var(--border-prominent);
+          opacity: 0.6;
+        }
+
         .commit-note {
-          color: var(--accent-primary);
+          color: var(--text-muted);
+          font-size: 0.6875rem;
+          letter-spacing: 0.08em;
+          opacity: 0.75;
         }
 
         .scroll-top-btn {

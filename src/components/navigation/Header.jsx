@@ -113,9 +113,10 @@ export const Header = () => {
           transform: translateY(0);
           opacity: 1;
           pointer-events: auto;
-          background: rgba(10, 11, 14, 0.88);
-          backdrop-filter: blur(16px);
-          border-bottom: 1px solid var(--border-subtle);
+          background: rgba(10, 11, 14, 0.96);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
         }
 
         .header-container {
@@ -123,6 +124,7 @@ export const Header = () => {
           align-items: center;
           justify-content: space-between;
           gap: 16px;
+          height: 44px;
         }
 
         .brand-stamp {
@@ -209,16 +211,17 @@ export const Header = () => {
         .header-actions {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 10px;
         }
 
         .theme-toggle-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 6px 12px;
-          background: rgba(18, 20, 26, 0.75);
-          backdrop-filter: blur(8px);
+          height: 32px;
+          padding: 0 12px;
+          background: rgba(18, 20, 26, 0.85);
+          backdrop-filter: blur(10px);
           border: 1px solid var(--border-prominent);
           border-radius: var(--radius-sm);
           color: var(--accent-primary);
@@ -227,6 +230,7 @@ export const Header = () => {
           letter-spacing: 0.08em;
           cursor: pointer;
           transition: all var(--transition-fast);
+          box-sizing: border-box;
         }
 
         .theme-toggle-btn:hover {
