@@ -1,15 +1,13 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Calendar, MapPin } from 'lucide-react';
-import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const ExperienceTimeline = () => {
   return (
     <section id="research" className="experience-section">
-      {/* Localized Section Watermark (Physically bounded to this section) */}
+      {/* Localized Section Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-japanese">鍛錬</span>
-        <span className="wm-number mono">02</span>
+        <span className="wm-number mono">01</span>
         <div className="wm-equation mono">
           ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen  // PINN Thermal Twin ODE
         </div>
@@ -32,13 +30,7 @@ export const ExperienceTimeline = () => {
         {/* Experience Cards */}
         <div className="experience-stack">
           {resumeData.professional_experience.map((exp, idx) => (
-            <ParallaxLayer
-              key={idx}
-              speed={0.96 + (idx * 0.03)}
-              mouseFactor={10}
-              className="experience-parallax-wrap"
-            >
-              <article className="experience-entry">
+            <article key={idx} className="experience-entry">
                 
                 {/* Left Meta Column */}
                 <div className="exp-meta">
@@ -78,7 +70,6 @@ export const ExperienceTimeline = () => {
                 </div>
 
               </article>
-            </ParallaxLayer>
           ))}
         </div>
 
@@ -112,14 +103,6 @@ export const ExperienceTimeline = () => {
           letter-spacing: -0.04em;
           z-index: 0;
           mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
-        }
-
-        .wm-japanese {
-          font-family: var(--font-heading);
-          font-size: clamp(6.5rem, 14vw, 13rem);
-          font-weight: 800;
-          color: var(--text-primary);
-          text-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
         }
 
         .wm-number {

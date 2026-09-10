@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowDown } from 'lucide-react';
-import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const HeroSection = () => {
   return (
@@ -8,18 +7,13 @@ export const HeroSection = () => {
       <div className="container hero-container">
         <div className="hero-landing-pure">
           
-          {/* Background Ambient Kanji Watermark (Speed 0.42, Z -180) */}
-          <ParallaxLayer speed={0.42} mouseFactor={16} zDepth={-180} className="hero-bg-kanji-wrap">
-            <span className="hero-bg-kanji">志</span>
-          </ParallaxLayer>
+          {/* Subtle Inkan Seal Stamp */}
+          <div className="landing-seal-wrap" aria-hidden="true">
+            <span className="landing-seal mono">AJ</span>
+          </div>
 
-          {/* Subtle Japanese Inkan Seal Stamp (Speed 0.94) */}
-          <ParallaxLayer speed={0.94} mouseFactor={22} zDepth={20} className="landing-seal-wrap" aria-hidden="true">
-            <span className="landing-seal">志</span>
-          </ParallaxLayer>
-
-          {/* Monumental Name-Only Headline (Speed 1.0, 3D tilt) */}
-          <ParallaxLayer speed={1.0} mouseFactor={24} rotateFactor={1.5} zDepth={40}>
+          {/* Monumental Name-Only Headline */}
+          <div className="landing-hero-body">
             <h1 className="landing-name">
               <span className="first-name">Abimanyu</span>
               <span className="last-name">Jayaganesh</span>
@@ -30,7 +24,7 @@ export const HeroSection = () => {
             <p className="landing-institution mono">
               Vellore Institute of Technology (VIT)
             </p>
-          </ParallaxLayer>
+          </div>
 
           {/* Bottom Airspace Controls: Anchored low in foreground shadow */}
           <div className="hero-bottom-controls">
@@ -75,25 +69,6 @@ export const HeroSection = () => {
           padding-bottom: 80px;
         }
 
-        .hero-bg-kanji-wrap {
-          position: absolute;
-          top: 45%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-          z-index: -1;
-          user-select: none;
-        }
-
-        .hero-bg-kanji {
-          font-family: var(--font-heading);
-          font-size: clamp(14rem, 30vw, 32rem);
-          font-weight: 900;
-          color: rgba(245, 239, 230, 0.035);
-          text-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
-          line-height: 1;
-        }
-
         .landing-seal-wrap {
           margin-bottom: var(--space-2);
         }
@@ -106,9 +81,10 @@ export const HeroSection = () => {
           height: 38px;
           background: var(--accent-primary);
           color: #FFF;
-          font-family: var(--font-heading);
-          font-size: 1.25rem;
+          font-family: var(--font-mono);
+          font-size: 0.9375rem;
           font-weight: 700;
+          letter-spacing: 0.05em;
           border-radius: var(--radius-sm);
           box-shadow: 0 0 25px rgba(200, 50, 38, 0.4);
         }

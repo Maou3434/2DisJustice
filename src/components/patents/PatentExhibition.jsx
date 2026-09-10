@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Award, ShieldCheck, FileCheck2, ExternalLink, ZoomIn, X } from 'lucide-react';
-import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const PatentExhibition = () => {
   const [zoomedImage, setZoomedImage] = useState(null);
@@ -60,9 +59,8 @@ export const PatentExhibition = () => {
     <section id="patents" className="patents-section">
       {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <div className="watermark-kanji-wrap">
-          <span className="wm-kanji">特許</span>
-          <span className="wm-num mono">04</span>
+        <div className="watermark-meta-wrap">
+          <span className="wm-num mono">03</span>
         </div>
         <div className="wm-equation mono">
           IN 202641027735 · Spectral CIELAB Matching System
@@ -86,15 +84,13 @@ export const PatentExhibition = () => {
 
         {/* Patents Grid */}
         <div className="patents-grid">
-          {resumeData.patents.map((patent, idx) => {
+          {resumeData.patents.map((patent) => {
             const drawing = getPatentDrawing(patent.application_number);
 
             return (
-              <ParallaxLayer
+              <div
                 key={patent.application_number}
-                speed={idx === 0 ? 0.98 : 1.02}
-                mouseFactor={10}
-                className="patent-parallax-wrap"
+                className="patent-card-wrap"
               >
                 <article
                   className="patent-card"
@@ -140,8 +136,8 @@ export const PatentExhibition = () => {
                       </span>
                     </div>
                     
-                    <div className="inkan-stamp" title="Official Published Patent">
-                      <span>特</span>
+                    <div className="patent-seal-stamp mono" title="Official Published Patent">
+                      <span>PAT</span>
                     </div>
                   </div>
 
@@ -168,7 +164,7 @@ export const PatentExhibition = () => {
                 </div>
 
               </article>
-            </ParallaxLayer>
+            </div>
           );
         })}
         </div>
@@ -216,20 +212,11 @@ export const PatentExhibition = () => {
           mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
-        .watermark-kanji-wrap {
+        .watermark-meta-wrap {
           display: flex;
           align-items: baseline;
           justify-content: flex-end;
           gap: 16px;
-        }
-
-        .wm-kanji {
-          font-family: var(--font-display);
-          font-size: clamp(4.5rem, 9vw, 8.5rem);
-          font-weight: 900;
-          color: var(--text-muted);
-          line-height: 0.85;
-          letter-spacing: -0.02em;
         }
 
         .wm-num {
@@ -416,18 +403,19 @@ export const PatentExhibition = () => {
           font-weight: 600;
         }
 
-        .inkan-stamp {
-          width: 30px;
-          height: 30px;
+        .patent-seal-stamp {
+          width: 32px;
+          height: 24px;
           background: var(--accent-primary);
           color: #FFF;
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: var(--radius-sm);
-          font-family: serif;
-          font-weight: 900;
-          font-size: 1rem;
+          font-family: var(--font-mono);
+          font-weight: 700;
+          font-size: 0.6875rem;
+          letter-spacing: 0.08em;
           box-shadow: var(--shadow-accent);
         }
 

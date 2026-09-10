@@ -7,9 +7,8 @@ export const HonorsSection = () => {
     <section id="honors" className="honors-section">
       {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <div className="watermark-kanji-wrap">
-          <span className="wm-kanji">誉</span>
-          <span className="wm-num mono">06</span>
+        <div className="watermark-meta-wrap">
+          <span className="wm-num mono">05</span>
         </div>
         <div className="wm-equation mono">
           DEFENSE CADET &amp; COMPETITIVE EXCELLENCE
@@ -125,20 +124,11 @@ export const HonorsSection = () => {
           mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
-        .watermark-kanji-wrap {
+        .watermark-meta-wrap {
           display: flex;
           align-items: baseline;
           justify-content: flex-end;
           gap: 16px;
-        }
-
-        .wm-kanji {
-          font-family: var(--font-display);
-          font-size: clamp(4.5rem, 9vw, 8.5rem);
-          font-weight: 900;
-          color: var(--text-muted);
-          line-height: 0.85;
-          letter-spacing: -0.02em;
         }
 
         .wm-num {

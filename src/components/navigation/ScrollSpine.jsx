@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 const CHAPTERS = [
-  { id: 'top', kanji: '序', label: 'PROLOGUE', num: '01' },
-  { id: 'research', kanji: '研', label: 'RESEARCH', num: '02' },
-  { id: 'projects', kanji: '匠', label: 'SYSTEMS', num: '03' },
-  { id: 'patents', kanji: '許', label: 'PATENTS', num: '04' },
-  { id: 'skills', kanji: '術', label: 'CAPABILITIES', num: '05' },
-  { id: 'honors', kanji: '誉', label: 'HONORS', num: '06' },
-  { id: 'contact', kanji: '結', label: 'CONTACT', num: '07' }
+  { id: 'top', label: 'PROLOGUE', num: '01' },
+  { id: 'experience', label: 'EXPERIENCE', num: '02' },
+  { id: 'projects', label: 'SYSTEMS', num: '03' },
+  { id: 'patents', label: 'PATENTS', num: '04' },
+  { id: 'skills', label: 'CAPABILITIES', num: '05' },
+  { id: 'honors', label: 'HONORS', num: '06' },
+  { id: 'contact', label: 'CONTACT', num: '07' }
 ];
 
 export const ScrollSpine = () => {
@@ -79,7 +79,7 @@ export const ScrollSpine = () => {
               className={`spine-node ${isActive ? 'is-active' : ''}`}
               aria-label={`Jump to ${ch.label}`}
             >
-              <span className="node-kanji">{ch.kanji}</span>
+              <span className="node-num mono">{ch.num}</span>
               <div className="node-tooltip mono">
                 <span className="tooltip-num">{ch.num}</span>
                 <span className="tooltip-label">{ch.label}</span>
@@ -146,8 +146,9 @@ export const ScrollSpine = () => {
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-sm);
           color: var(--text-muted);
-          font-family: var(--font-heading);
-          font-size: 0.8125rem;
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
+          font-weight: 700;
           cursor: pointer;
           transition: all var(--transition-fast);
         }

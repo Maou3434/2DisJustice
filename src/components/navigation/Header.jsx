@@ -29,8 +29,8 @@ export const Header = () => {
       <div className="container header-container">
         {/* Brand Stamp */}
         <a href="#top" className="brand-stamp" aria-label="Abimanyu Jayaganesh Home">
-          <div className="hanko-seal" title="Abimanyu Jayaganesh (印)">
-            <span className="hanko-text">志</span>
+          <div className="hanko-seal" title="Abimanyu Jayaganesh">
+            <span className="hanko-text">AJ</span>
           </div>
           <div className="brand-meta">
             <span className="brand-name">Abimanyu Jayaganesh</span>
@@ -138,11 +138,12 @@ export const Header = () => {
         }
 
         .hanko-text {
-          font-family: serif;
-          font-weight: 900;
-          font-size: 1.15rem;
+          font-family: var(--font-mono);
+          font-weight: 700;
+          font-size: 0.8125rem;
           color: var(--text-primary);
           line-height: 1;
+          letter-spacing: 0.05em;
         }
 
         .brand-meta {

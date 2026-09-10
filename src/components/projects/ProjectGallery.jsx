@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { ProjectModal } from './ProjectModal.jsx';
 import { ArrowUpRight, Database, Terminal, Cpu, Sparkles, ZoomIn } from 'lucide-react';
-import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const ProjectGallery = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -60,8 +59,7 @@ export const ProjectGallery = () => {
     <section id="projects" className="projects-section">
       {/* Localized Section Watermark (Physically bounded to this section) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-japanese">匠</span>
-        <span className="wm-number mono">03</span>
+        <span className="wm-number mono">02</span>
         <div className="wm-equation mono">
           min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt  // TSP Reorder
         </div>
@@ -89,11 +87,9 @@ export const ProjectGallery = () => {
             const projectImg = getProjectImage(project.id);
 
             return (
-              <ParallaxLayer
+              <div
                 key={project.id}
-                speed={idx % 2 === 0 ? 0.98 : 1.02}
-                mouseFactor={8}
-                className={`project-card-parallax-wrap ${isFeatured ? 'is-featured' : ''}`}
+                className={`project-card-wrap ${isFeatured ? 'is-featured' : ''}`}
               >
                 <div
                   className={`project-card ${isFeatured ? 'is-featured' : 'standard-card'}`}
@@ -161,10 +157,9 @@ export const ProjectGallery = () => {
                     ))}
                   </div>
                 </div>
-
               </div>
-              </ParallaxLayer>
-            );
+            </div>
+          );
           })}
         </div>
 
@@ -208,14 +203,6 @@ export const ProjectGallery = () => {
           letter-spacing: -0.04em;
           z-index: 0;
           mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
-        }
-
-        .wm-japanese {
-          font-family: var(--font-heading);
-          font-size: clamp(6.5rem, 14vw, 13rem);
-          font-weight: 800;
-          color: var(--text-primary);
-          text-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
         }
 
         .wm-number {
@@ -272,7 +259,7 @@ export const ProjectGallery = () => {
           gap: var(--space-8);
         }
 
-        .project-card-parallax-wrap.is-featured {
+        .project-card-wrap.is-featured {
           grid-column: span 2;
         }
 

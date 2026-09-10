@@ -25,8 +25,8 @@ export const Footer = () => {
           {/* Identity & Mission */}
           <div className="footer-brand-col">
             <div className="footer-brand-header">
-              <div className="footer-seal">
-                <span>志</span>
+              <div className="footer-seal mono">
+                <span>AJ</span>
               </div>
               <h3 className="footer-name">{resumeData.personal.name}</h3>
             </div>
@@ -167,9 +167,10 @@ export const Footer = () => {
           align-items: center;
           justify-content: center;
           border-radius: var(--radius-sm);
-          font-family: serif;
-          font-weight: 900;
-          font-size: 0.9375rem;
+          font-family: var(--font-mono);
+          font-weight: 700;
+          font-size: 0.6875rem;
+          letter-spacing: 0.05em;
           box-shadow: var(--shadow-accent);
         }
 

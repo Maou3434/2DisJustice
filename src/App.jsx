@@ -12,32 +12,25 @@ import { CinematicCursor } from './components/common/CinematicCursor.jsx';
 import { ScrollSpine } from './components/navigation/ScrollSpine.jsx';
 import { HeroBackdrop } from './components/hero/HeroBackdrop.jsx';
 
-import { ParallaxProvider } from './components/parallax/ParallaxEngine.jsx';
-import { ParallaxBackdrop } from './components/parallax/ParallaxBackdrop.jsx';
-
 export const App = () => {
   return (
-    <ParallaxProvider>
-      <div className="portfolio-app-root">
-        {/* Cinematic Landing Landscape Layer */}
-        <HeroBackdrop />
+    <div className="portfolio-app-root">
+      {/* Cinematic Landing Landscape Layer */}
+      <HeroBackdrop />
 
-        {/* Interactive Cinematic Mouse Aura */}
-        <CinematicCursor />
+      {/* Interactive Cinematic Mouse Aura */}
+      <CinematicCursor />
 
-        {/* Chapter Scroll Progress Spine */}
-        <ScrollSpine />
+      {/* Chapter Scroll Progress Spine */}
+      <ScrollSpine />
 
-        {/* 3D WebGL Background Layer (Atmospheric falling leaves & embers) */}
-        <SpatialCanvas />
+      {/* 3D WebGL Background Layer (Atmospheric falling leaves & embers) */}
+      <SpatialCanvas />
 
-        {/* Atmospheric Spatial Overlay */}
-        <div className="spatial-overlay" aria-hidden="true" />
+      {/* Atmospheric Spatial Overlay */}
+      <div className="spatial-overlay" aria-hidden="true" />
 
-        {/* Multi-Plane Parallax Depth Backdrop (Horizons, Sumi Ink, Floating Leaves) */}
-        <ParallaxBackdrop />
-
-        {/* Main Foreground Editorial Content */}
+      {/* Main Foreground Editorial Content */}
         <div className="content-surface">
           <Header />
           <main>
@@ -65,8 +58,7 @@ export const App = () => {
           }
         `}</style>
       </div>
-    </ParallaxProvider>
-  );
-};
+    );
+  };
 
 export default App;
