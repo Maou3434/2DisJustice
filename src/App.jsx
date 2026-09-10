@@ -10,7 +10,7 @@ import { HonorsSection } from './components/credentials/HonorsSection.jsx';
 import { Footer } from './components/common/Footer.jsx';
 import { CinematicCursor } from './components/common/CinematicCursor.jsx';
 import { ScrollSpine } from './components/navigation/ScrollSpine.jsx';
-import { WaterbrushCanvas } from './components/common/WaterbrushCanvas.jsx';
+import { HeroBackdrop } from './components/hero/HeroBackdrop.jsx';
 
 import { ParallaxProvider } from './components/parallax/ParallaxEngine.jsx';
 import { ParallaxBackdrop } from './components/parallax/ParallaxBackdrop.jsx';
@@ -19,8 +19,8 @@ export const App = () => {
   return (
     <ParallaxProvider>
       <div className="portfolio-app-root">
-        {/* Interactive Waterbrush Japanese Painting Reveal Layer */}
-        <WaterbrushCanvas />
+        {/* Cinematic Landing Landscape Layer */}
+        <HeroBackdrop />
 
         {/* Interactive Cinematic Mouse Aura */}
         <CinematicCursor />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ArrowDown } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const HeroSection = () => {
@@ -32,16 +32,12 @@ export const HeroSection = () => {
             </p>
           </ParallaxLayer>
 
-          {/* Bottom Airspace Controls: Anchored low in foreground shadow, clearing the samurai figure */}
+          {/* Bottom Airspace Controls: Anchored low in foreground shadow */}
           <div className="hero-bottom-controls">
-            <div className="landing-cue mono">
-              <Sparkles size={13} className="cue-icon" />
-              <span>Move cursor to part the mountain mist</span>
-            </div>
-            <div className="landing-scroll-cue">
+            <a href="#research" className="landing-scroll-cue" aria-label="Scroll to research archives">
               <ArrowDown size={14} className="scroll-arrow" />
               <span className="scroll-text mono">SCROLL TO ENTER ARCHIVES</span>
-            </div>
+            </a>
           </div>
 
         </div>
@@ -185,31 +181,6 @@ export const HeroSection = () => {
           pointer-events: auto;
           width: 100%;
           max-width: 500px;
-        }
-
-        .landing-cue {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 6px 18px;
-          background: rgba(10, 11, 14, 0.75);
-          backdrop-filter: blur(14px);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-sm);
-          font-size: 0.75rem;
-          letter-spacing: 0.08em;
-          color: var(--text-secondary);
-          user-select: none;
-          transition: border-color var(--transition-fast), color var(--transition-fast);
-        }
-
-        .landing-cue:hover {
-          border-color: var(--border-prominent);
-          color: var(--text-primary);
-        }
-
-        .cue-icon {
-          color: var(--accent-primary);
         }
 
         .landing-scroll-cue {
