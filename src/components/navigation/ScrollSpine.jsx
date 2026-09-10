@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 const CHAPTERS = [
   { id: 'top', kanji: '序', label: 'PROLOGUE', num: '01' },
@@ -15,7 +14,6 @@ export const ScrollSpine = () => {
   const [activeSection, setActiveSection] = useState('top');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isRetracted, setIsRetracted] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {

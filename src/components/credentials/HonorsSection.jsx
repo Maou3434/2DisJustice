@@ -1,22 +1,18 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Trophy, Medal, Award, CheckCircle } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const HonorsSection = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
-
   return (
     <section id="honors" className="honors-section">
       {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
         <div className="watermark-kanji-wrap">
-          <span className="wm-kanji">{isTsushima ? '誉' : 'HONORS'}</span>
+          <span className="wm-kanji">誉</span>
           <span className="wm-num mono">06</span>
         </div>
         <div className="wm-equation mono">
-          {isTsushima ? 'DEFENSE CADET & COMPETITIVE EXCELLENCE' : 'CREDENTIALS.REGISTRY // LEADERSHIP_DEFENSE'}
+          DEFENSE CADET &amp; COMPETITIVE EXCELLENCE
         </div>
       </div>
 
@@ -25,10 +21,10 @@ export const HonorsSection = () => {
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// ACCOLADES & HONORS · DEFENSE & COMPETITION' : '// CREDENTIALS_REGISTRY.HONORS // DEFENSE_LEADERSHIP'}</span>
+            <span className="mono">// ACCOLADES &amp; HONORS · DEFENSE &amp; COMPETITION</span>
           </div>
           <h2 className="section-title">
-            {isTsushima ? 'Honor, Service & Certifications' : 'Accolades, Honors & Certifications'}
+            Honor, Service &amp; Certifications
           </h2>
           <p className="section-subtitle">
             Competitions, defense cadet achievements, and recognized accelerated computing qualifications.

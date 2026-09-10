@@ -13,7 +13,6 @@ html {
   text-rendering: optimizeLegibility;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: var(--transition-theme);
 }
 
 body {
@@ -92,22 +91,13 @@ code, pre, .mono {
   }
 }
 
-/* Fullscreen Backdrop Vignette for Tsushima Mode */
+/* Fullscreen Backdrop Vignette */
 .spatial-overlay {
   position: fixed;
   inset: 0;
   pointer-events: none;
   background: var(--vignette);
   z-index: 2;
-  transition: background 600ms ease;
-}
-
-/* Subtle Blueprint Grid for Architectural Mode */
-[data-theme="architectural"] .spatial-overlay {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 64px 64px;
 }
 
 /* Reduced Motion Override */

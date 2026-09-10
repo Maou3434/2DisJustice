@@ -1,12 +1,8 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Code2, Cpu, Database, Cloud, Terminal, Zap } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const TechnicalMatrix = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
-
   const skillCategories = [
     {
       title: 'Core Languages & Systems',
@@ -51,11 +47,11 @@ export const TechnicalMatrix = () => {
       {/* Ambient Section Watermark: Pushed far right at 6% opacity with fade mask */}
       <div className="section-backdrop-watermark" aria-hidden="true">
         <div className="watermark-kanji-wrap">
-          <span className="wm-kanji">{isTsushima ? '技術' : 'SKILLS'}</span>
+          <span className="wm-kanji">技術</span>
           <span className="wm-num mono">05</span>
         </div>
         <div className="wm-equation mono">
-          {isTsushima ? 'C = αAB + βC · CUDA TENSOR CORE GEMM' : 'SYS.COMPUTE // CUDA_TENSOR_CORE_GEMM'}
+          C = αAB + βC · CUDA TENSOR CORE GEMM
         </div>
       </div>
 
@@ -64,10 +60,10 @@ export const TechnicalMatrix = () => {
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// CORE COMPETENCIES · SYSTEMS & ACCELERATION' : '// TECHNICAL_MATRIX.SPEC // COMPUTE_DATA'}</span>
+            <span className="mono">// CORE COMPETENCIES · SYSTEMS &amp; ACCELERATION</span>
           </div>
           <h2 className="section-title">
-            {isTsushima ? 'Technical Discipline & Foundations' : 'Technical Competency Matrix'}
+            Technical Discipline &amp; Foundations
           </h2>
           <p className="section-subtitle">
             Systematic capabilities developed across academic research, open-source infrastructure, and industry internships.

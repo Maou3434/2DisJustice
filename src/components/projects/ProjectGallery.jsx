@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { ProjectModal } from './ProjectModal.jsx';
 import { ArrowUpRight, Database, Terminal, Cpu, Sparkles, ZoomIn } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const ProjectGallery = () => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
 
   const getProjectImage = (id) => {
     switch (id) {
@@ -63,7 +60,7 @@ export const ProjectGallery = () => {
     <section id="projects" className="projects-section">
       {/* Localized Section Watermark (Physically bounded to this section) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-japanese">{isTsushima ? '匠' : 'SYSTEMS'}</span>
+        <span className="wm-japanese">匠</span>
         <span className="wm-number mono">03</span>
         <div className="wm-equation mono">
           min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt  // TSP Reorder
@@ -75,10 +72,10 @@ export const ProjectGallery = () => {
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// SYSTEMS INDEX · 3 PRODUCTION BUILDS' : '// SYSTEMS_INDEX · 3_BUILDS'}</span>
+            <span className="mono">// SYSTEMS INDEX · 3 PRODUCTION BUILDS</span>
           </div>
           <h2 className="section-title">
-            {isTsushima ? 'Selected Systems & Open Works' : 'Systems Architecture & Engineering Projects'}
+            Selected Systems &amp; Open Works
           </h2>
           <p className="section-subtitle">
             Engineered systems spanning real-time analytical lakehouses, heuristic video reconstruction, and production deployment automation.

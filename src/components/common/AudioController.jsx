@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const AudioController = () => {
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
-  const { theme } = useTheme();
 
   const playTactileSound = () => {
     if (!isAudioEnabled) return;
@@ -14,41 +12,22 @@ export const AudioController = () => {
       if (!AudioContext) return;
       const ctx = new AudioContext();
 
-      if (theme === 'tsushima') {
-        // Pentatonic Bamboo / Wind Chime (Harmonic soft decay)
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+      // Pentatonic Bamboo / Wind Chime (Harmonic soft decay)
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5 note
-        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3); // A5
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5 note
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3); // A5
 
-        gain.gain.setValueAtTime(0.06, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
 
-        osc.start();
-        osc.stop(ctx.currentTime + 0.6);
-      } else {
-        // Architectural Mechanical Relay Click
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1400, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.04);
-
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + 0.04);
-      }
+      osc.start();
+      osc.stop(ctx.currentTime + 0.6);
     } catch (e) {
       // AudioContext policy catch
     }
@@ -65,7 +44,7 @@ export const AudioController = () => {
 
     window.addEventListener('click', handleClick);
     return () => window.removeEventListener('click', handleClick);
-  }, [isAudioEnabled, theme]);
+  }, [isAudioEnabled]);
 
   return (
     <button

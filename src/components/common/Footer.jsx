@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Mail, Phone, MapPin, Copy, Check, ArrowUp } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const Footer = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
   const [copiedField, setCopiedField] = useState(null);
 
   const copyToClipboard = (text, field) => {
@@ -28,13 +25,9 @@ export const Footer = () => {
           {/* Identity & Mission */}
           <div className="footer-brand-col">
             <div className="footer-brand-header">
-              {isTsushima ? (
-                <div className="footer-seal">
-                  <span>志</span>
-                </div>
-              ) : (
-                <div className="footer-tag mono">[TERMINAL_OUTPUT]</div>
-              )}
+              <div className="footer-seal">
+                <span>志</span>
+              </div>
               <h3 className="footer-name">{resumeData.personal.name}</h3>
             </div>
             
@@ -178,13 +171,6 @@ export const Footer = () => {
           font-weight: 900;
           font-size: 0.9375rem;
           box-shadow: var(--shadow-accent);
-        }
-
-        .footer-tag {
-          padding: 2px 6px;
-          border: 1px solid var(--accent-primary);
-          font-size: 0.6875rem;
-          color: var(--accent-primary);
         }
 
         .footer-name {

@@ -1,20 +1,15 @@
 import React from 'react';
 import { ParallaxLayer } from './ParallaxLayer.jsx';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 /**
  * ParallaxBackdrop
  * 
  * Deep spatial world behind and between content sections:
- * - Far Horizon Layer (speed: 0.22)
- * - Research, Craft & Patent Equation Watermark Layer (speed: 0.38)
+ * - Far Horizon Layer (speed: 0.20)
  * - Sumi-e Ink Ribbon Layer (speed: 0.65)
- * - Foreground Floating Autumn Leaves Layer (speed: 1.45)
+ * - Foreground Floating Autumn Leaves Layer (speed: 1.48)
  */
 export const ParallaxBackdrop = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
-
   return (
     <div className="parallax-backdrop-container" aria-hidden="true">
       {/* 1. Deep Horizon Layer (Speed: 0.20) */}
@@ -23,60 +18,56 @@ export const ParallaxBackdrop = () => {
         <div className="horizon-mountain-crests" />
       </ParallaxLayer>
 
-
-
-      {/* 3. Midground Atmospheric Ink Washes (Speed: 0.65) */}
+      {/* 2. Midground Atmospheric Ink Washes (Speed: 0.65) */}
       <ParallaxLayer speed={0.65} mouseFactor={36} zDepth={-120} direction="lateral" isGlobal={true} className="backdrop-ink-plane">
         <img
           src="/images/brush-stroke-1.png"
           alt=""
           className="ink-wash-splatter wash-1"
-          style={{ top: '135vh', right: '4%', width: '420px', opacity: isTsushima ? 0.22 : 0.08 }}
+          style={{ top: '135vh', right: '4%', width: '420px', opacity: 0.22 }}
         />
         <img
           src="/images/brush-stroke-2.png"
           alt=""
           className="ink-wash-splatter wash-2"
-          style={{ top: '275vh', left: '-5%', width: '480px', opacity: isTsushima ? 0.18 : 0.07 }}
+          style={{ top: '275vh', left: '-5%', width: '480px', opacity: 0.18 }}
         />
         <img
           src="/images/brush-stroke-3.png"
           alt=""
           className="ink-wash-splatter wash-3"
-          style={{ top: '440vh', right: '-2%', width: '520px', opacity: isTsushima ? 0.20 : 0.09 }}
+          style={{ top: '440vh', right: '-2%', width: '520px', opacity: 0.20 }}
         />
       </ParallaxLayer>
 
-      {/* 4. Foreground Floating Depth Elements (Speed: 1.48, moves faster than page scroll!) */}
-      {isTsushima && (
-        <ParallaxLayer speed={1.48} mouseFactor={55} rotateFactor={12} zDepth={180} direction="lateral" isGlobal={true} className="backdrop-foreground-plane">
-          {/* Floating authentic Momiji leaves passing in front of content */}
-          <img
-            src="/images/momiji-leaf-red.png"
-            alt=""
-            className="fg-leaf fg-leaf-1"
-            style={{ top: '110vh', left: '12%', width: '64px' }}
-          />
-          <img
-            src="/images/momiji-leaf-gold.png"
-            alt=""
-            className="fg-leaf fg-leaf-2"
-            style={{ top: '210vh', right: '14%', width: '78px' }}
-          />
-          <img
-            src="/images/momiji-leaf-red.png"
-            alt=""
-            className="fg-leaf fg-leaf-3"
-            style={{ top: '350vh', left: '8%', width: '82px' }}
-          />
-          <img
-            src="/images/momiji-leaf-gold.png"
-            alt=""
-            className="fg-leaf fg-leaf-4"
-            style={{ top: '480vh', right: '10%', width: '70px' }}
-          />
-        </ParallaxLayer>
-      )}
+      {/* 3. Foreground Floating Depth Elements (Speed: 1.48, moves faster than page scroll) */}
+      <ParallaxLayer speed={1.48} mouseFactor={55} rotateFactor={12} zDepth={180} direction="lateral" isGlobal={true} className="backdrop-foreground-plane">
+        {/* Floating authentic Momiji leaves passing in front of content */}
+        <img
+          src="/images/momiji-leaf-red.png"
+          alt=""
+          className="fg-leaf fg-leaf-1"
+          style={{ top: '110vh', left: '12%', width: '64px' }}
+        />
+        <img
+          src="/images/momiji-leaf-gold.png"
+          alt=""
+          className="fg-leaf fg-leaf-2"
+          style={{ top: '210vh', right: '14%', width: '78px' }}
+        />
+        <img
+          src="/images/momiji-leaf-red.png"
+          alt=""
+          className="fg-leaf fg-leaf-3"
+          style={{ top: '350vh', left: '8%', width: '82px' }}
+        />
+        <img
+          src="/images/momiji-leaf-gold.png"
+          alt=""
+          className="fg-leaf fg-leaf-4"
+          style={{ top: '480vh', right: '10%', width: '70px' }}
+        />
+      </ParallaxLayer>
 
       <style>{`
         .parallax-backdrop-container {

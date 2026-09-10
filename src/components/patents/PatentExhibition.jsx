@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { Award, ShieldCheck, FileCheck2, ExternalLink, ZoomIn, X } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const PatentExhibition = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
   const [zoomedImage, setZoomedImage] = useState(null);
 
   React.useEffect(() => {
@@ -64,11 +61,11 @@ export const PatentExhibition = () => {
       {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
         <div className="watermark-kanji-wrap">
-          <span className="wm-kanji">{isTsushima ? '特許' : 'PATENTS'}</span>
+          <span className="wm-kanji">特許</span>
           <span className="wm-num mono">04</span>
         </div>
         <div className="wm-equation mono">
-          {isTsushima ? 'IN 202641027735 · Spectral CIELAB Matching System' : 'IP.REGISTRY // IN_202641027735_CIELAB'}
+          IN 202641027735 · Spectral CIELAB Matching System
         </div>
       </div>
 
@@ -77,10 +74,10 @@ export const PatentExhibition = () => {
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// IP REGISTRY · 2 PUBLISHED SPECIFICATIONS' : '// INTELLECTUAL_PROPERTY.REGISTRY // 2_PATENTS'}</span>
+            <span className="mono">// IP REGISTRY · 2 PUBLISHED SPECIFICATIONS</span>
           </div>
           <h2 className="section-title">
-            {isTsushima ? 'Published Inventions & Patents' : 'Published Intellectual Property'}
+            Published Inventions &amp; Patents
           </h2>
           <p className="section-subtitle">
             Formal patent publications registered with the Patent Office of India (IP India), validating novel algorithmic and embedded biomedical systems.
@@ -143,15 +140,9 @@ export const PatentExhibition = () => {
                       </span>
                     </div>
                     
-                    {isTsushima ? (
-                      <div className="inkan-stamp" title="Official Published Patent">
-                        <span>特</span>
-                      </div>
-                    ) : (
-                      <div className="ip-stamp mono">
-                        <span>PAT.PEND/PUB</span>
-                      </div>
-                    )}
+                    <div className="inkan-stamp" title="Official Published Patent">
+                      <span>特</span>
+                    </div>
                   </div>
 
                   {/* Title & App Number */}
@@ -438,14 +429,6 @@ export const PatentExhibition = () => {
           font-weight: 900;
           font-size: 1rem;
           box-shadow: var(--shadow-accent);
-        }
-
-        .ip-stamp {
-          padding: 2px 6px;
-          border: 1px solid var(--accent-primary);
-          font-size: 0.6875rem;
-          color: var(--accent-primary);
-          font-weight: 700;
         }
 
         .patent-body {

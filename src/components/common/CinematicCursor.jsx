@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const CinematicCursor = () => {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
-  const { theme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);

@@ -1,12 +1,8 @@
 import React from 'react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 import { Sparkles, ArrowDown } from 'lucide-react';
 import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const HeroSection = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
-
   return (
     <section id="top" className="hero-section">
       <div className="container hero-container">
@@ -14,12 +10,12 @@ export const HeroSection = () => {
           
           {/* Background Ambient Kanji Watermark (Speed 0.42, Z -180) */}
           <ParallaxLayer speed={0.42} mouseFactor={16} zDepth={-180} className="hero-bg-kanji-wrap">
-            <span className="hero-bg-kanji">{isTsushima ? '志' : 'AJ'}</span>
+            <span className="hero-bg-kanji">志</span>
           </ParallaxLayer>
 
           {/* Subtle Japanese Inkan Seal Stamp (Speed 0.94) */}
           <ParallaxLayer speed={0.94} mouseFactor={22} zDepth={20} className="landing-seal-wrap" aria-hidden="true">
-            <span className="landing-seal">{isTsushima ? '志' : 'AJ'}</span>
+            <span className="landing-seal">志</span>
           </ParallaxLayer>
 
           {/* Monumental Name-Only Headline (Speed 1.0, 3D tilt) */}

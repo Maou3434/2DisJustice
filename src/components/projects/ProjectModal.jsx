@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, CheckCircle2, Layers, Cpu, Database, ExternalLink } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const ProjectModal = ({ project, projectImage, onClose }) => {
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleKeyDown = (e) => {

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { ThemeProvider, useTheme } from './context/ThemeContext.jsx';
+import React from 'react';
 import { SpatialCanvas } from './components/3d/SpatialCanvas.jsx';
 import { Header } from './components/navigation/Header.jsx';
 import { HeroSection } from './components/hero/HeroSection.jsx';
@@ -16,8 +15,7 @@ import { WaterbrushCanvas } from './components/common/WaterbrushCanvas.jsx';
 import { ParallaxProvider } from './components/parallax/ParallaxEngine.jsx';
 import { ParallaxBackdrop } from './components/parallax/ParallaxBackdrop.jsx';
 
-const AppContent = () => {
-
+export const App = () => {
   return (
     <ParallaxProvider>
       <div className="portfolio-app-root">
@@ -30,13 +28,13 @@ const AppContent = () => {
         {/* Chapter Scroll Progress Spine */}
         <ScrollSpine />
 
-        {/* 3D WebGL Background Layer */}
+        {/* 3D WebGL Background Layer (Atmospheric falling leaves & embers) */}
         <SpatialCanvas />
 
         {/* Atmospheric Spatial Overlay */}
         <div className="spatial-overlay" aria-hidden="true" />
 
-        {/* Multi-Plane Parallax Depth Backdrop (Horizons, Equations, Sumi Ink, Floating Leaves) */}
+        {/* Multi-Plane Parallax Depth Backdrop (Horizons, Sumi Ink, Floating Leaves) */}
         <ParallaxBackdrop />
 
         {/* Main Foreground Editorial Content */}
@@ -53,29 +51,21 @@ const AppContent = () => {
           <Footer />
         </div>
 
-      <style>{`
-        .portfolio-app-root {
-          position: relative;
-          min-height: 100vh;
-          background: transparent;
-          color: var(--text-primary);
-        }
+        <style>{`
+          .portfolio-app-root {
+            position: relative;
+            min-height: 100vh;
+            background: transparent;
+            color: var(--text-primary);
+          }
 
-        .content-surface {
-          position: relative;
-          z-index: var(--z-content);
-        }
-      `}</style>
+          .content-surface {
+            position: relative;
+            z-index: var(--z-content);
+          }
+        `}</style>
       </div>
     </ParallaxProvider>
-  );
-};
-
-export const App = () => {
-  return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
   );
 };
 

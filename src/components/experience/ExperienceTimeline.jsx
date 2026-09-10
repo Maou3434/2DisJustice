@@ -1,18 +1,14 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { Calendar, MapPin } from 'lucide-react';
 import { ParallaxLayer } from '../parallax/ParallaxLayer.jsx';
 
 export const ExperienceTimeline = () => {
-  const { theme } = useTheme();
-  const isTsushima = theme === 'tsushima';
-
   return (
     <section id="research" className="experience-section">
       {/* Localized Section Watermark (Physically bounded to this section) */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-japanese">{isTsushima ? '鍛錬' : 'RESEARCH'}</span>
+        <span className="wm-japanese">鍛錬</span>
         <span className="wm-number mono">02</span>
         <div className="wm-equation mono">
           ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen  // PINN Thermal Twin ODE
@@ -23,10 +19,10 @@ export const ExperienceTimeline = () => {
         {/* Section Header */}
         <div className="section-head">
           <div className="section-tag">
-            <span className="mono">{isTsushima ? '// FIELD RESEARCH · VIT AUTOMOTIVE RESEARCH CENTRE' : '// FIELD_RESEARCH · VIT_AUTOMOTIVE_CENTRE'}</span>
+            <span className="mono">// FIELD RESEARCH · VIT AUTOMOTIVE RESEARCH CENTRE</span>
           </div>
           <h2 className="section-title">
-            {isTsushima ? 'Research & Applied Engineering' : 'Engineering & Research Experience'}
+            Research &amp; Applied Engineering
           </h2>
           <p className="section-subtitle">
             Focused on scientific digital twins, high-frequency IoT ingest pipelines, and enterprise-grade software standards.
