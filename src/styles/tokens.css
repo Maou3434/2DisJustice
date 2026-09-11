@@ -26,7 +26,9 @@
   /* Z-Index Layers */
   --z-canvas: 1;
   --z-content: 10;
+  --z-spatial: 12;
   --z-header: 50;
+  --z-nav: 60;
   --z-modal: 100;
   --z-cursor: 999;
 

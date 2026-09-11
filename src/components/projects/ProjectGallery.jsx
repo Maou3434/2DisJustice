@@ -53,7 +53,7 @@ export const ProjectGallery = () => {
 
       {/* Side Numbered Equation & Chapter Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">02</span>
+        <span className="wm-number mono">03</span>
         <div className="wm-equation mono">min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt // TSP Reorder</div>
       </div>
 
@@ -63,7 +63,7 @@ export const ProjectGallery = () => {
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">02 // SYSTEMS ARCHITECTURE &amp; RESEARCH</span>
+              <span className="scene-eyebrow">03 // SYSTEMS ARCHITECTURE &amp; RESEARCH</span>
               <h2 className="scene-title-editorial">
                 Projects
               </h2>

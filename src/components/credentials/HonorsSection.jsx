@@ -16,7 +16,7 @@ export const HonorsSection = () => {
 
       {/* Side Numbered Equation & Chapter Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">05</span>
+        <span className="wm-number mono">06</span>
         <div className="wm-equation mono">DEFENSE CADET &amp; COMPETITIVE EXCELLENCE</div>
       </div>
 
@@ -26,7 +26,7 @@ export const HonorsSection = () => {
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">05 // ACADEMIC FOUNDATIONS &amp; MILITARY HONORS</span>
+              <span className="scene-eyebrow">06 // ACADEMIC FOUNDATIONS &amp; MILITARY HONORS</span>
               <h2 className="scene-title-editorial">
                 Education, Service &amp; Honors
               </h2>

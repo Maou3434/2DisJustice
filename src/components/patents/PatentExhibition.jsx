@@ -50,7 +50,7 @@ export const PatentExhibition = () => {
 
       {/* Side Numbered Equation & Chapter Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">03</span>
+        <span className="wm-number mono">04</span>
         <div className="wm-equation mono">IN 202641027735 · Spectral CIELAB Matching System</div>
       </div>
 
@@ -60,7 +60,7 @@ export const PatentExhibition = () => {
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">03 // INTELLECTUAL PROPERTY &amp; INVENTIONS</span>
+              <span className="scene-eyebrow">04 // INTELLECTUAL PROPERTY &amp; INVENTIONS</span>
               <h2 className="scene-title-editorial">
                 Published Inventions &amp; Patents
               </h2>

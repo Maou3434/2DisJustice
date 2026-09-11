@@ -23,7 +23,7 @@ export const Footer = () => {
 
       {/* Side Numbered Chapter Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">06</span>
+        <span className="wm-number mono">07</span>
         <div className="wm-equation mono">DISPATCH // DIRECT ENCRYPTED CHANNELS</div>
       </div>
 
@@ -33,7 +33,7 @@ export const Footer = () => {
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">06 // TERMINAL DISPATCH &amp; CONTACT</span>
+              <span className="scene-eyebrow">07 // TERMINAL DISPATCH &amp; CONTACT</span>
               <h2 className="scene-title-editorial">
                 Initiate Connection
               </h2>

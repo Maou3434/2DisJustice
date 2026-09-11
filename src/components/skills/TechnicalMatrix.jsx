@@ -54,7 +54,7 @@ export const TechnicalMatrix = () => {
 
       {/* Side Numbered Equation & Chapter Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">04</span>
+        <span className="wm-number mono">05</span>
         <div className="wm-equation mono">C = αAB + βC · CUDA TENSOR CORE GEMM</div>
       </div>
 
@@ -64,7 +64,7 @@ export const TechnicalMatrix = () => {
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">04 // CORE COMPETENCIES &amp; RUNTIME MATRIX</span>
+              <span className="scene-eyebrow">05 // CORE COMPETENCIES &amp; RUNTIME MATRIX</span>
               <h2 className="scene-title-editorial">
                 Technical Discipline &amp; Foundations
               </h2>

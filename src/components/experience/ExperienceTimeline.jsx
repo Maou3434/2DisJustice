@@ -15,7 +15,7 @@ export const ExperienceTimeline = () => {
 
       {/* Side Numbered Equation & Chapter Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">01</span>
+        <span className="wm-number mono">02</span>
         <div className="wm-equation mono">ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen // PINN Thermal Twin ODE</div>
       </div>
 
@@ -25,7 +25,7 @@ export const ExperienceTimeline = () => {
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">01 // FIELD RESEARCH &amp; APPLIED ENGINEERING</span>
+              <span className="scene-eyebrow">02 // FIELD RESEARCH &amp; APPLIED ENGINEERING</span>
               <h2 className="scene-title-editorial">
                 Internships &amp;{'\n'}Experience
               </h2>
