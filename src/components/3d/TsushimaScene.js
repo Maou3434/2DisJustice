@@ -33,24 +33,24 @@ export class TsushimaScene {
     this.scene.add(this.rimLight);
 
     // 2. 3D Maple Leaves with Real Assets & Interactive Wind
-    this.mapleLeaves = new MapleLeaves(this.scene, 75);
+    this.mapleLeaves = new MapleLeaves(this.scene, 80);
 
-    // 3. Subtle Golden Ember Sparkles
-    const sparkleCount = 140;
+    // 3. Subtle Cinnabar & Gold Ember Sparkles
+    const sparkleCount = 120;
     const sparkleGeom = new THREE.BufferGeometry();
     const sparklePos = new Float32Array(sparkleCount * 3);
     for (let i = 0; i < sparkleCount * 3; i += 3) {
-      sparklePos[i] = (Math.random() - 0.5) * 32;
-      sparklePos[i + 1] = (Math.random() - 0.5) * 18;
-      sparklePos[i + 2] = (Math.random() - 0.5) * 12;
+      sparklePos[i] = (Math.random() - 0.5) * 26;
+      sparklePos[i + 1] = (Math.random() - 0.5) * 12;
+      sparklePos[i + 2] = (Math.random() - 0.5) * 6;
     }
     sparkleGeom.setAttribute('position', new THREE.BufferAttribute(sparklePos, 3));
 
     const sparkleMat = new THREE.PointsMaterial({
-      color: 0xF59E0B,
-      size: 0.055,
+      color: 0xE84B35,
+      size: 0.065,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending
     });
     this.sparkles = new THREE.Points(sparkleGeom, sparkleMat);
@@ -76,9 +76,9 @@ export class TsushimaScene {
       const pos = this.sparkles.geometry.attributes.position.array;
       for (let i = 0; i < pos.length; i += 3) {
         pos[i] += 0.008 + (scrollVelocity * 0.0005);
-        pos[i + 1] -= 0.004 + (scrollVelocity * 0.001);
-        if (pos[i] > 16) pos[i] = -16;
-        if (pos[i + 1] < -9) pos[i + 1] = 9;
+        pos[i + 1] -= 0.005 + (scrollVelocity * 0.001);
+        if (pos[i] > 14) pos[i] = -14;
+        if (pos[i + 1] < -6) pos[i + 1] = 6;
       }
       this.sparkles.geometry.attributes.position.needsUpdate = true;
     }

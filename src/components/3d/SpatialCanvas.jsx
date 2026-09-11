@@ -45,7 +45,7 @@ export const SpatialCanvas = () => {
     let isVisible = true;
 
     const checkVisibility = () => {
-      isVisible = !document.hidden && (window.scrollY < window.innerHeight * 2.8);
+      isVisible = !document.hidden;
     };
 
     const handleMouseMove = (e) => {
@@ -143,7 +143,7 @@ export const SpatialCanvas = () => {
         width: '100vw',
         height: '100vh',
         pointerEvents: 'none',
-        zIndex: 1,
+        zIndex: 12,
         overflow: 'hidden'
       }}
       aria-hidden="true"
