@@ -5,7 +5,7 @@ import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 export const ExperienceTimeline = () => {
   return (
     <section id="experience" className="scene-section experience-section">
-      {/* Dedicated Coastal Bluffs Backdrop matching Reference 1 */}
+      {/* Dedicated Coastal Bluffs Backdrop */}
       <SceneBackdrop
         image="/images/cinematic_sea.png"
         position="center 40%"
@@ -13,19 +13,25 @@ export const ExperienceTimeline = () => {
         overlayDarkness={0.78}
       />
 
+      {/* Side Numbered Equation & Chapter Watermark */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-number mono">01</span>
+        <div className="wm-equation mono">ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen // PINN Thermal Twin ODE</div>
+      </div>
+
       <div className="container scene-content experience-content">
         
-        {/* Editorial Scene Header (Matching Reference 1) */}
+        {/* Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">02 / ENVIRONMENTAL PROGRESSION</span>
+              <span className="scene-eyebrow">01 // FIELD RESEARCH &amp; APPLIED ENGINEERING</span>
               <h2 className="scene-title-editorial">
                 Internships &amp;{'\n'}Experience
               </h2>
             </div>
             <p className="scene-head-right-subtext">
-              CHRONOLOGICAL TENURE CARVED INTO THE COASTAL BLUFFS ACROSS PHYSICS-INFORMED ML DIGITAL TWINS, REAL-TIME LAKEHOUSES, AND DISTRIBUTED EMBEDDED SYSTEMS.
+              CHRONOLOGICAL TENURE ACROSS PHYSICS-INFORMED ML DIGITAL TWINS, REAL-TIME LAKEHOUSES, AND DISTRIBUTED EMBEDDED SYSTEMS.
             </p>
           </div>
           <div className="scene-divider-rule" />
@@ -37,7 +43,7 @@ export const ExperienceTimeline = () => {
 
           {resumeData.professional_experience.map((exp, idx) => {
             const isRecent = idx === 0;
-            const nodeClass = idx === 0 ? 'node-gold' : idx === 1 ? 'node-silver' : 'node-emerald';
+            const nodeClass = idx === 0 ? 'node-cinnabar' : 'node-subtle';
             const pillLabel = idx === 0 ? 'RESEARCH' : 'INTERNSHIP';
 
             return (
@@ -52,7 +58,7 @@ export const ExperienceTimeline = () => {
                   <div className="entry-header-row">
                     <div className="entry-role-group">
                       <h3 className="entry-role-title">{exp.role}</h3>
-                      <span className={`entry-status-pill mono ${isRecent ? 'pill-gold' : 'pill-muted'}`}>
+                      <span className={`entry-status-pill mono ${isRecent ? 'pill-cinnabar' : 'pill-muted'}`}>
                         {pillLabel}
                       </span>
                     </div>
@@ -64,7 +70,7 @@ export const ExperienceTimeline = () => {
                     </div>
                   </div>
 
-                  {/* Company / Organization Name in Amber Accent */}
+                  {/* Company / Organization Name in Imperial Vermilion Accent */}
                   <div className="entry-company mono">
                     {exp.organization}
                   </div>
@@ -142,19 +148,14 @@ export const ExperienceTimeline = () => {
           z-index: 2;
         }
 
-        .node-gold {
-          border: 2px solid #F59E0B;
-          box-shadow: 0 0 10px rgba(245, 158, 11, 0.65), inset 0 0 4px rgba(245, 158, 11, 0.4);
+        .node-cinnabar {
+          border: 2px solid var(--accent-primary);
+          box-shadow: 0 0 10px rgba(200, 50, 38, 0.7), inset 0 0 4px rgba(200, 50, 38, 0.4);
         }
 
-        .node-silver {
-          border: 2px solid #94A3B8;
-          box-shadow: 0 0 8px rgba(148, 163, 184, 0.35);
-        }
-
-        .node-emerald {
-          border: 2px solid #10B981;
-          box-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
+        .node-subtle {
+          border: 2px solid rgba(255, 255, 255, 0.28);
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.12);
         }
 
         /* Entry Body */
@@ -196,10 +197,10 @@ export const ExperienceTimeline = () => {
           text-transform: uppercase;
         }
 
-        .pill-gold {
-          color: #F59E0B;
-          border: 1px solid rgba(245, 158, 11, 0.4);
-          background: rgba(245, 158, 11, 0.08);
+        .pill-cinnabar {
+          color: var(--accent-primary);
+          border: 1px solid rgba(200, 50, 38, 0.4);
+          background: rgba(200, 50, 38, 0.1);
         }
 
         .pill-muted {
@@ -225,7 +226,7 @@ export const ExperienceTimeline = () => {
         .entry-company {
           font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
           font-weight: 600;
-          color: #E2A955; /* Warm Feudal Amber */
+          color: var(--accent-primary);
           letter-spacing: 0.04em;
         }
 
@@ -258,7 +259,7 @@ export const ExperienceTimeline = () => {
 
         .entry-tag-item:hover {
           color: #FFFFFF;
-          border-color: #E2A955;
+          border-color: var(--accent-primary);
         }
 
         .tag-separator {

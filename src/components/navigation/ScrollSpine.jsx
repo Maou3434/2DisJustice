@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 const CHAPTERS = [
-  { id: 'top', label: 'PROLOGUE', num: '01' },
-  { id: 'experience', label: 'EXPERIENCE', num: '02' },
-  { id: 'projects', label: 'PROJECTS', num: '03' },
-  { id: 'patents', label: 'PATENTS', num: '04' },
-  { id: 'skills', label: 'SKILLS', num: '05' },
-  { id: 'education', label: 'EDUCATION', num: '06' },
-  { id: 'contact', label: 'CONTACT', num: '07' }
+  { id: 'top', label: 'PROLOGUE', num: '00' },
+  { id: 'experience', label: 'EXPERIENCE', num: '01' },
+  { id: 'projects', label: 'PROJECTS', num: '02' },
+  { id: 'patents', label: 'PATENTS', num: '03' },
+  { id: 'skills', label: 'SKILLS', num: '04' },
+  { id: 'education', label: 'EDUCATION', num: '05' },
+  { id: 'contact', label: 'CONTACT', num: '06' }
 ];
 
 export const ScrollSpine = () => {

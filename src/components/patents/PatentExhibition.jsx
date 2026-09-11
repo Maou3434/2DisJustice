@@ -48,13 +48,19 @@ export const PatentExhibition = () => {
         overlayDarkness={0.8}
       />
 
+      {/* Side Numbered Equation & Chapter Watermark */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-number mono">03</span>
+        <div className="wm-equation mono">IN 202641027735 · Spectral CIELAB Matching System</div>
+      </div>
+
       <div className="container scene-content patents-content">
         
         {/* Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">04 / INTELLECTUAL PROPERTY</span>
+              <span className="scene-eyebrow">03 // INTELLECTUAL PROPERTY &amp; INVENTIONS</span>
               <h2 className="scene-title-editorial">
                 Published Inventions &amp; Patents
               </h2>
@@ -195,8 +201,8 @@ export const PatentExhibition = () => {
         }
 
         .patent-blueprint-frame:hover {
-          border-color: #D4AF37;
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.2);
+          border-color: var(--accent-primary);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 24px rgba(200, 50, 38, 0.35);
           transform: translateY(-2px);
         }
 
@@ -211,7 +217,7 @@ export const PatentExhibition = () => {
         }
 
         .blueprint-tag {
-          color: #F59E0B;
+          color: var(--accent-primary);
           letter-spacing: 0.05em;
         }
 
@@ -300,9 +306,9 @@ export const PatentExhibition = () => {
         .patent-status-pill {
           font-size: 0.6875rem;
           font-weight: 700;
-          color: #10B981;
-          border: 1px solid rgba(16, 185, 129, 0.35);
-          background: rgba(16, 185, 129, 0.08);
+          color: var(--accent-primary);
+          border: 1px solid rgba(200, 50, 38, 0.4);
+          background: rgba(200, 50, 38, 0.1);
           padding: 2px 8px;
           border-radius: var(--radius-sm);
         }
@@ -312,7 +318,7 @@ export const PatentExhibition = () => {
           font-size: 0.625rem;
           font-weight: 700;
           color: #FFFFFF;
-          background: #C83226;
+          background: var(--accent-primary);
           padding: 2px 6px;
           border-radius: var(--radius-sm);
           box-shadow: 0 0 10px rgba(200, 50, 38, 0.4);
@@ -336,7 +342,7 @@ export const PatentExhibition = () => {
         }
 
         .app-val {
-          color: #F59E0B;
+          color: var(--accent-primary);
         }
 
         .patent-summary-text {
@@ -355,7 +361,7 @@ export const PatentExhibition = () => {
         }
 
         .verify-icon {
-          color: #10B981;
+          color: var(--accent-primary);
         }
 
         /* Lightbox Modal */
@@ -394,7 +400,7 @@ export const PatentExhibition = () => {
 
         .lightbox-title {
           font-size: 0.75rem;
-          color: #D4AF37;
+          color: var(--accent-primary);
           letter-spacing: 0.08em;
         }
 

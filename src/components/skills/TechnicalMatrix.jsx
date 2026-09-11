@@ -52,19 +52,25 @@ export const TechnicalMatrix = () => {
         overlayDarkness={0.8}
       />
 
+      {/* Side Numbered Equation & Chapter Watermark */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-number mono">04</span>
+        <div className="wm-equation mono">C = αAB + βC · CUDA TENSOR CORE GEMM</div>
+      </div>
+
       <div className="container scene-content skills-content">
         
         {/* Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">05 / SYSTEM CAPABILITIES</span>
+              <span className="scene-eyebrow">04 // CORE COMPETENCIES &amp; RUNTIME MATRIX</span>
               <h2 className="scene-title-editorial">
                 Technical Discipline &amp; Foundations
               </h2>
             </div>
             <p className="scene-head-right-subtext">
-              COMPUTATIONAL DOMAINS SPANNING HARDWARE ACCELERATION, SCIENTIFIC AI, AND DATA INFRASTRUCTURE EMBEDDED IN CEDAR SHADOWS.
+              HARDWARE ACCELERATION, SCIENTIFIC AI, AND LAKEHOUSE DATA INFRASTRUCTURE.
             </p>
           </div>
           <div className="scene-divider-rule" />
@@ -123,7 +129,7 @@ export const TechnicalMatrix = () => {
         }
 
         .skill-pillar-item:hover {
-          border-color: #D4AF37;
+          border-color: var(--accent-primary);
         }
 
         .pillar-top-row {
@@ -133,7 +139,7 @@ export const TechnicalMatrix = () => {
         }
 
         .pillar-icon {
-          color: #F59E0B;
+          color: var(--accent-primary);
           display: flex;
           align-items: center;
         }
@@ -172,8 +178,8 @@ export const TechnicalMatrix = () => {
         }
 
         .skill-pillar-item:hover .skill-pill-item {
-          border-color: rgba(212, 175, 55, 0.3);
-          color: #F5EFE6;
+          border-color: rgba(200, 50, 38, 0.4);
+          color: #FFFFFF;
         }
 
         @media (max-width: 900px) {

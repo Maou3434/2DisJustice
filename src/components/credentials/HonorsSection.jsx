@@ -14,13 +14,19 @@ export const HonorsSection = () => {
         overlayDarkness={0.78}
       />
 
+      {/* Side Numbered Equation & Chapter Watermark */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-number mono">05</span>
+        <div className="wm-equation mono">DEFENSE CADET &amp; COMPETITIVE EXCELLENCE</div>
+      </div>
+
       <div className="container scene-content honors-content">
         
         {/* Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">06 / ACADEMIC &amp; SERVICE CREDENTIALS</span>
+              <span className="scene-eyebrow">05 // ACADEMIC FOUNDATIONS &amp; MILITARY HONORS</span>
               <h2 className="scene-title-editorial">
                 Education, Service &amp; Honors
               </h2>
@@ -43,8 +49,8 @@ export const HonorsSection = () => {
             </div>
 
             <div className="academic-feature-block">
-              <div className="institution-name">{resumeData.personal.education.institution}</div>
-              <div className="degree-name">{resumeData.personal.education.degree}</div>
+              <span className="institution-name">{resumeData.personal.education.institution}</span>
+              <h4 className="degree-name">{resumeData.personal.education.degree}</h4>
               
               <div className="academic-stats-row mono">
                 <div className="stat-pill">
@@ -136,7 +142,7 @@ export const HonorsSection = () => {
         }
 
         .credential-col:hover {
-          border-color: #D4AF37;
+          border-color: var(--accent-primary);
         }
 
         .col-header-row {
@@ -146,7 +152,7 @@ export const HonorsSection = () => {
         }
 
         .col-icon {
-          color: #F59E0B;
+          color: var(--accent-primary);
         }
 
         .col-title {
@@ -167,7 +173,7 @@ export const HonorsSection = () => {
         .institution-name {
           font-size: clamp(1.05rem, 1.35vw, 1.25rem);
           font-weight: 700;
-          color: #E2A955;
+          color: var(--accent-primary);
           line-height: 1.2;
         }
 
@@ -200,7 +206,8 @@ export const HonorsSection = () => {
 
         .stat-val {
           font-size: 0.8125rem;
-          color: #10B981;
+          color: var(--accent-primary);
+          font-weight: 700;
         }
 
         .academic-desc {
@@ -231,7 +238,7 @@ export const HonorsSection = () => {
         }
 
         .cert-year {
-          color: #F59E0B;
+          color: var(--accent-primary);
         }
 
         .cert-issuer {
@@ -250,12 +257,12 @@ export const HonorsSection = () => {
           align-items: center;
           gap: 5px;
           font-size: 0.625rem;
-          color: #10B981;
+          color: var(--accent-primary);
           margin-top: 1px;
         }
 
         .check-icon {
-          color: #10B981;
+          color: var(--accent-primary);
         }
 
         /* Honors List */
@@ -280,7 +287,7 @@ export const HonorsSection = () => {
 
         .honor-org-meta {
           font-size: 0.6875rem;
-          color: #D4AF37;
+          color: var(--accent-primary);
         }
 
         .honor-note-text {

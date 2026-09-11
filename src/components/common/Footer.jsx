@@ -21,13 +21,19 @@ export const Footer = () => {
       {/* Deep Obsidian Mist Backdrop */}
       <div className="contact-dark-backdrop" aria-hidden="true" />
 
+      {/* Side Numbered Chapter Watermark */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-number mono">06</span>
+        <div className="wm-equation mono">DISPATCH // DIRECT ENCRYPTED CHANNELS</div>
+      </div>
+
       <div className="container scene-content footer-content">
         
         {/* Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">07 / TRANSMISSION</span>
+              <span className="scene-eyebrow">06 // TERMINAL DISPATCH &amp; CONTACT</span>
               <h2 className="scene-title-editorial">
                 Initiate Connection
               </h2>
@@ -276,7 +282,7 @@ export const Footer = () => {
 
         .channels-title {
           font-size: 0.6875rem;
-          color: #D4AF37;
+          color: var(--accent-primary);
           letter-spacing: 0.1em;
         }
 
@@ -298,12 +304,12 @@ export const Footer = () => {
         }
 
         .direct-channel-card:hover {
-          border-color: rgba(212, 175, 55, 0.4);
+          border-color: rgba(200, 50, 38, 0.4);
           background: rgba(255, 255, 255, 0.06);
         }
 
         .channel-icon-col {
-          color: #F59E0B;
+          color: var(--accent-primary);
           display: flex;
           align-items: center;
         }
@@ -327,7 +333,7 @@ export const Footer = () => {
         }
 
         .channel-val:hover {
-          color: #F59E0B;
+          color: var(--accent-primary);
         }
 
         .channel-copy-btn {
@@ -343,7 +349,7 @@ export const Footer = () => {
         }
 
         .copied-icon {
-          color: #10B981;
+          color: var(--accent-primary);
         }
 
         .footer-bottom-actions {
@@ -374,8 +380,8 @@ export const Footer = () => {
 
         .social-btn:hover {
           color: #F5EFE6;
-          border-color: #D4AF37;
-          background: rgba(212, 175, 55, 0.08);
+          border-color: var(--accent-primary);
+          background: rgba(200, 50, 38, 0.08);
         }
 
         .scroll-top-btn {
@@ -384,16 +390,17 @@ export const Footer = () => {
           gap: 6px;
           font-size: 0.6875rem;
           font-weight: 700;
-          color: #D4AF37;
+          color: var(--accent-primary);
           padding: 6px 12px;
-          border: 1px solid rgba(212, 175, 55, 0.3);
+          border: 1px solid rgba(200, 50, 38, 0.35);
           border-radius: var(--radius-sm);
           transition: all 150ms ease;
         }
 
         .scroll-top-btn:hover {
-          background: #D4AF37;
-          color: #06070A;
+          background: var(--accent-primary);
+          color: #FFFFFF;
+          box-shadow: 0 0 16px var(--accent-glow);
         }
 
         @media (max-width: 900px) {

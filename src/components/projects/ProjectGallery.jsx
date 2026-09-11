@@ -43,7 +43,7 @@ export const ProjectGallery = () => {
 
   return (
     <section id="projects" className="scene-section projects-section">
-      {/* Dedicated River Valley Backdrop matching Reference 2 */}
+      {/* Dedicated River Valley Backdrop */}
       <SceneBackdrop
         image="/images/cinematic_forest.png"
         position="center 35%"
@@ -51,19 +51,25 @@ export const ProjectGallery = () => {
         overlayDarkness={0.78}
       />
 
+      {/* Side Numbered Equation & Chapter Watermark */}
+      <div className="section-backdrop-watermark" aria-hidden="true">
+        <span className="wm-number mono">02</span>
+        <div className="wm-equation mono">min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt // TSP Reorder</div>
+      </div>
+
       <div className="container scene-content projects-content">
         
-        {/* Editorial Scene Header (Matching Reference 2) */}
+        {/* Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">03 / TECHNICAL ARCHITECTURE</span>
+              <span className="scene-eyebrow">02 // SYSTEMS ARCHITECTURE &amp; RESEARCH</span>
               <h2 className="scene-title-editorial">
                 Projects
               </h2>
             </div>
             <p className="scene-head-right-subtext">
-              FULL-VIEWPORT LAKEHOUSE PIPELINES, HEURISTIC VIDEO RECONSTRUCTION, AND DISTRIBUTED CLOUD AUTOMATION EMBEDDED IN THE RIVER VALLEY.
+              LAKEHOUSE PIPELINES, HEURISTIC VIDEO RECONSTRUCTION, AND DISTRIBUTED CLOUD AUTOMATION.
             </p>
           </div>
           <div className="scene-divider-rule" />
@@ -290,8 +296,8 @@ export const ProjectGallery = () => {
         }
 
         .project-visual-frame:hover {
-          border-color: #D4AF37;
-          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
+          border-color: var(--accent-primary);
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(200, 50, 38, 0.35);
           transform: translateY(-2px);
         }
 
@@ -306,7 +312,7 @@ export const ProjectGallery = () => {
         }
 
         .file-indicator {
-          color: #F59E0B;
+          color: var(--accent-primary);
         }
 
         .engine-indicator {
@@ -376,8 +382,9 @@ export const ProjectGallery = () => {
 
         .metric-value {
           font-size: 0.75rem;
-          color: #10B981;
+          color: var(--accent-primary);
           letter-spacing: 0.04em;
+          font-weight: 700;
         }
 
         /* Editorial Side */
@@ -389,9 +396,10 @@ export const ProjectGallery = () => {
 
         .project-category {
           font-size: clamp(0.625rem, 0.85vw, 0.6875rem);
-          color: #D4AF37;
+          color: var(--accent-primary);
           letter-spacing: 0.12em;
           text-transform: uppercase;
+          font-weight: 700;
         }
 
         .project-title {
@@ -428,7 +436,7 @@ export const ProjectGallery = () => {
         }
 
         .point-bullet {
-          color: #F59E0B;
+          color: var(--accent-primary);
           font-size: 0.55rem;
         }
 
@@ -448,13 +456,13 @@ export const ProjectGallery = () => {
           letter-spacing: 0.08em;
           color: #F5EFE6;
           padding: 4px 0;
-          border-bottom: 1px solid #D4AF37;
+          border-bottom: 1px solid var(--accent-primary);
           transition: color 150ms ease, border-color 150ms ease;
         }
 
         .action-btn-editorial:hover {
-          color: #F59E0B;
-          border-color: #F59E0B;
+          color: var(--accent-primary);
+          border-color: var(--accent-hover);
         }
 
         .action-btn-secondary {
