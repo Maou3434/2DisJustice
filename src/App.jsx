@@ -10,14 +10,10 @@ import { HonorsSection } from './components/credentials/HonorsSection.jsx';
 import { Footer } from './components/common/Footer.jsx';
 import { CinematicCursor } from './components/common/CinematicCursor.jsx';
 import { ScrollSpine } from './components/navigation/ScrollSpine.jsx';
-import { HeroBackdrop } from './components/hero/HeroBackdrop.jsx';
 
 export const App = () => {
   return (
     <div className="portfolio-app-root">
-      {/* Cinematic Landing Landscape Layer */}
-      <HeroBackdrop />
-
       {/* Interactive Cinematic Mouse Aura */}
       <CinematicCursor />
 
@@ -27,22 +23,19 @@ export const App = () => {
       {/* 3D WebGL Background Layer (Atmospheric falling leaves & embers) */}
       <SpatialCanvas />
 
-      {/* Atmospheric Spatial Overlay */}
-      <div className="spatial-overlay" aria-hidden="true" />
+      {/* Fixed Navigation Header */}
+      <Header />
 
-      {/* Main Foreground Editorial Content */}
-        <div className="content-surface">
-          <Header />
-          <main>
-            <HeroSection />
-            <ExperienceTimeline />
-            <ProjectGallery />
-            <PatentExhibition />
-            <TechnicalMatrix />
-            <HonorsSection />
-          </main>
-          <Footer />
-        </div>
+      {/* Main Foreground Editorial Scenes with Scroll Snapping */}
+      <main className="content-surface">
+        <HeroSection />
+        <ExperienceTimeline />
+        <ProjectGallery />
+        <PatentExhibition />
+        <TechnicalMatrix />
+        <HonorsSection />
+        <Footer />
+      </main>
 
         <style>{`
           .portfolio-app-root {

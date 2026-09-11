@@ -1,97 +1,95 @@
 import React from 'react';
-import resumeData from '../../../data/resume_data.json';
 import { Code2, Cpu, Database, Cloud, Terminal, Zap } from 'lucide-react';
+import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const TechnicalMatrix = () => {
   const skillCategories = [
     {
       title: 'Core Languages & Systems',
-      icon: <Code2 size={18} />,
+      icon: <Code2 size={16} />,
       skills: ['Python', 'Modern C++', 'Java', 'JavaScript / TS', 'SQL', 'C'],
       note: 'Systems programming, algorithmic pipelines & multi-paradigm runtime architectures'
     },
     {
       title: 'AI, Neural ODEs & Scientific ML',
-      icon: <Cpu size={18} />,
+      icon: <Cpu size={16} />,
       skills: ['PyTorch', 'PINN Digital Twins', 'Scikit-Learn', 'Sentence Transformers', 'XGBoost', 'Neural ODEs'],
       note: 'Physics-informed neural networks (PINN), dynamical ODEs & psycholinguistic regression'
     },
     {
       title: 'Databases & Lakehouse Engineering',
-      icon: <Database size={18} />,
+      icon: <Database size={16} />,
       skills: ['DuckDB (OLAP)', 'Delta Lake', 'Medallion Architecture', 'SCD Type 2', 'MySQL', 'MongoDB'],
       note: 'Vectorized in-process OLAP, ACID lakehouse tables & auditable dimension tracking'
     },
     {
       title: 'Distributed Systems & Microservices',
-      icon: <Terminal size={18} />,
+      icon: <Terminal size={16} />,
       skills: ['FastAPI (Async)', 'Spring Boot', 'Django', 'React', 'REST APIs', 'Docker'],
       note: 'Asynchronous streaming backends, enterprise layered microservices & responsive UIs'
     },
     {
       title: 'GPU Acceleration & High Compute',
-      icon: <Zap size={18} />,
+      icon: <Zap size={16} />,
       skills: ['CUDA C/C++', 'Tensor Cores', 'DirectML', 'AMP / TF32', 'SIMD Vectorization', 'DirectX'],
       note: 'Hardware acceleration, custom CUDA kernels, mixed-precision training & parallel reduction'
     },
     {
       title: 'Cloud Infrastructure & Telemetry',
-      icon: <Cloud size={18} />,
-      skills: ['AWS (EC2, S3, DynamoDB)', 'MQTT IoT Protocols', 'Git / GitHub', 'SonarQube CI/CD', 'Simulink', 'Agile / Scrum'],
+      icon: <Cloud size={16} />,
+      skills: ['AWS (EC2, S3, DynamoDB)', 'MQTT IoT Protocols', 'Git / GitHub', 'SonarQube CI/CD', 'Simulink'],
       note: 'Resilient cloud infrastructure, high-frequency device telemetry & automated code quality gates'
     }
   ];
 
   return (
-    <section id="skills" className="skills-section">
-      {/* Ambient Section Watermark: Pushed far right at 6% opacity with fade mask */}
-      <div className="section-backdrop-watermark" aria-hidden="true">
-        <div className="watermark-meta-wrap">
-          <span className="wm-num mono">04</span>
-        </div>
-        <div className="wm-equation mono">
-          C = αAB + βC · CUDA TENSOR CORE GEMM
-        </div>
-      </div>
+    <section id="skills" className="scene-section skills-section">
+      {/* Dedicated Cedar Lantern Shrine Backdrop */}
+      <SceneBackdrop
+        image="/images/cinematic_shrine.png"
+        position="center 40%"
+        opacity={0.84}
+        overlayDarkness={0.8}
+      />
 
-      <div className="container">
+      <div className="container scene-content skills-content">
         
-        {/* Section Header */}
-        <div className="section-head">
-          <div className="section-tag">
-            <span className="mono">// CORE COMPETENCIES · SYSTEMS &amp; ACCELERATION</span>
+        {/* Editorial Scene Header */}
+        <div className="scene-head-editorial">
+          <div className="scene-head-top">
+            <div className="scene-head-left">
+              <span className="scene-eyebrow">05 / SYSTEM CAPABILITIES</span>
+              <h2 className="scene-title-editorial">
+                Technical Discipline &amp; Foundations
+              </h2>
+            </div>
+            <p className="scene-head-right-subtext">
+              COMPUTATIONAL DOMAINS SPANNING HARDWARE ACCELERATION, SCIENTIFIC AI, AND DATA INFRASTRUCTURE EMBEDDED IN CEDAR SHADOWS.
+            </p>
           </div>
-          <h2 className="section-title">
-            Technical Discipline &amp; Foundations
-          </h2>
-          <p className="section-subtitle">
-            Systematic capabilities developed across academic research, open-source infrastructure, and industry internships.
-          </p>
+          <div className="scene-divider-rule" />
         </div>
 
-        {/* Matrix Grid: Perfectly Balanced 3x2 Symmetrical Array */}
-        <div className="skills-grid">
-          {skillCategories.map((category, idx) => (
-            <div
-              key={idx}
-              className="skill-category-card"
-            >
-              <div className="category-top">
-                <div className="category-icon-title">
-                  <span className="category-icon">{category.icon}</span>
-                  <h3 className="category-name">{category.title}</h3>
-                </div>
+        {/* 3x2 Matrix Grid (Editorial Open Pillars, No Generic Cards) */}
+        <div className="skills-grid-editorial">
+          {skillCategories.map((cat, idx) => (
+            <div key={idx} className="skill-pillar-item">
+              
+              <div className="pillar-top-row">
+                <span className="pillar-icon" aria-hidden="true">{cat.icon}</span>
+                <h3 className="pillar-title">{cat.title}</h3>
               </div>
 
-              <p className="category-note">{category.note}</p>
+              <p className="pillar-note">{cat.note}</p>
 
-              <div className="skills-pill-wrap">
-                {category.skills.map((skill) => (
-                  <span key={skill} className="skill-pill mono">
+              <div className="pillar-pills-wrap mono">
+                {cat.skills.map((skill) => (
+                  <span key={skill} className="skill-pill-item">
                     {skill}
                   </span>
                 ))}
               </div>
+
             </div>
           ))}
         </div>
@@ -100,165 +98,98 @@ export const TechnicalMatrix = () => {
 
       <style>{`
         .skills-section {
-          position: relative;
-          padding: var(--space-16) 0;
-          z-index: var(--z-content);
-          border-top: 1px solid var(--border-subtle);
-          overflow: hidden;
+          background-color: #0A0B0E;
         }
 
-        .section-backdrop-watermark {
-          position: absolute;
-          top: 16px;
-          right: 24px;
-          pointer-events: none;
-          opacity: 0.06;
-          z-index: 0;
-          user-select: none;
-          text-align: right;
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+        .skills-content {
+          padding-top: clamp(1rem, 2.5vh, 2rem);
+          padding-bottom: clamp(1rem, 2.5vh, 2rem);
         }
 
-        .watermark-meta-wrap {
-          display: flex;
-          align-items: baseline;
-          justify-content: flex-end;
-          gap: 16px;
-        }
-
-        .wm-num {
-          font-size: clamp(3rem, 6vw, 5.5rem);
-          font-weight: 800;
-          color: var(--accent-primary);
-          opacity: 0.85;
-          line-height: 0.85;
-        }
-
-        .wm-equation {
-          font-size: 0.75rem;
-          letter-spacing: 0.18em;
-          color: var(--text-secondary);
-          margin-top: 8px;
-        }
-
-        .section-head {
-          margin-bottom: var(--space-12);
-        }
-
-        .section-tag {
-          font-size: 0.75rem;
-          color: var(--accent-primary);
-          margin-bottom: var(--space-2);
-          letter-spacing: 0.05em;
-        }
-
-        .section-title {
-          font-size: clamp(1.875rem, 3.5vw, 2.75rem);
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: var(--space-3);
-        }
-
-        .section-subtitle {
-          font-size: 1.0625rem;
-          color: var(--text-secondary);
-          max-width: 650px;
-        }
-
-        .skills-grid {
+        .skills-grid-editorial {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: var(--space-6);
+          gap: clamp(1rem, 2.5vh, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+          margin-top: clamp(0.5rem, 1.5vh, 1.25rem);
         }
 
-        @media (max-width: 1100px) {
-          .skills-grid {
+        .skill-pillar-item {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          border-left: 1px solid rgba(255, 255, 255, 0.14);
+          padding-left: clamp(12px, 1.5vw, 20px);
+          transition: border-color 200ms ease;
+        }
+
+        .skill-pillar-item:hover {
+          border-color: #D4AF37;
+        }
+
+        .pillar-top-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .pillar-icon {
+          color: #F59E0B;
+          display: flex;
+          align-items: center;
+        }
+
+        .pillar-title {
+          font-family: var(--font-body);
+          font-size: clamp(0.9375rem, 1.2vw, 1.125rem);
+          font-weight: 700;
+          color: #FFFFFF;
+          line-height: 1.2;
+          letter-spacing: -0.01em;
+        }
+
+        .pillar-note {
+          font-size: clamp(0.6875rem, 0.9vw, 0.78125rem);
+          line-height: 1.45;
+          color: #9CA3AF;
+        }
+
+        .pillar-pills-wrap {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5px;
+          margin-top: 4px;
+        }
+
+        .skill-pill-item {
+          font-size: clamp(0.625rem, 0.8vw, 0.6875rem);
+          color: #D1D5DB;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-sm);
+          padding: 2px 7px;
+          letter-spacing: 0.02em;
+          transition: all 150ms ease;
+        }
+
+        .skill-pillar-item:hover .skill-pill-item {
+          border-color: rgba(212, 175, 55, 0.3);
+          color: #F5EFE6;
+        }
+
+        @media (max-width: 900px) {
+          .skills-grid-editorial {
             grid-template-columns: repeat(2, 1fr);
           }
         }
 
-        @media (max-width: 680px) {
-          .skills-grid {
+        @media (max-width: 600px) {
+          .skills-grid-editorial {
             grid-template-columns: 1fr;
           }
-        }
-
-        .skill-category-card {
-          padding: var(--space-6);
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-md);
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-4);
-          transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
-                      border-color 200ms ease,
-                      box-shadow 200ms ease;
-        }
-
-        .skill-category-card:hover {
-          transform: translateY(-3px);
-          border-color: var(--accent-primary);
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(200, 50, 38, 0.14);
-        }
-
-        .category-icon-title {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .category-icon {
-          color: var(--accent-primary);
-          display: flex;
-          align-items: center;
-        }
-
-        .category-name {
-          font-size: 1.0625rem;
-          font-weight: 700;
-          color: var(--text-primary);
-          letter-spacing: 0.01em;
-        }
-
-        .category-note {
-          font-size: 0.8125rem;
-          color: var(--text-muted);
-          line-height: 1.5;
-          min-height: 38px;
-        }
-
-        .skills-pill-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-top: auto;
-          padding-top: var(--space-2);
-        }
-
-        .skill-pill {
-          font-size: 0.75rem;
-          padding: 4px 10px;
-          background: rgba(24, 28, 38, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #D6CFBE;
-          border-radius: var(--radius-sm);
-          transition: all var(--transition-fast);
-          letter-spacing: 0.02em;
-        }
-
-        .skill-category-card:hover .skill-pill {
-          border-color: rgba(255, 255, 255, 0.22);
-          color: #FFF;
-        }
-
-        .skill-pill:hover {
-          background: var(--accent-subtle);
-          border-color: var(--accent-primary);
-          color: #FFF;
-          box-shadow: 0 0 10px rgba(200, 50, 38, 0.25);
         }
       `}</style>
     </section>
   );
 };
+
+export default TechnicalMatrix;

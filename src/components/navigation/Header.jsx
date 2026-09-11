@@ -16,11 +16,11 @@ export const Header = () => {
   }, []);
 
   const navLinks = [
-    { label: 'Research', href: '#research' },
-    { label: 'Systems & Code', href: '#projects' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Projects', href: '#projects' },
     { label: 'Patents', href: '#patents' },
     { label: 'Capabilities', href: '#skills' },
-    { label: 'Honors', href: '#honors' },
+    { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
   ];
 

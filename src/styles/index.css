@@ -8,6 +8,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -109,3 +110,116 @@ code, pre, .mono {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Full-Screen Scene Architecture & Editorial System
+   ========================================================================== */
+
+.scene-section {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scene-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-height: 720px), (max-width: 900px) {
+  .scene-section {
+    height: auto;
+    min-height: 100vh;
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+
+  .scene-content {
+    max-height: none;
+  }
+}
+
+/* Editorial Scene Header (Inspired by References 1 & 2) */
+.scene-head-editorial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: clamp(1.25rem, 3vh, 2.25rem);
+  width: 100%;
+}
+
+.scene-head-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.scene-head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.scene-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #D4AF37; /* Feudal Amber Gold */
+  text-transform: uppercase;
+}
+
+.scene-title-editorial {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: #F5EFE6;
+  letter-spacing: -0.02em;
+  white-space: pre-line;
+}
+
+.scene-head-right-subtext {
+  max-width: 420px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.55;
+  letter-spacing: 0.08em;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.scene-divider-rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  .scene-head-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .scene-head-right-subtext {
+    text-align: left;
+    max-width: 100%;
+  }
+}
+

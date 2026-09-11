@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 const CHAPTERS = [
   { id: 'top', label: 'PROLOGUE', num: '01' },
   { id: 'experience', label: 'EXPERIENCE', num: '02' },
-  { id: 'projects', label: 'SYSTEMS', num: '03' },
+  { id: 'projects', label: 'PROJECTS', num: '03' },
   { id: 'patents', label: 'PATENTS', num: '04' },
-  { id: 'skills', label: 'CAPABILITIES', num: '05' },
-  { id: 'honors', label: 'HONORS', num: '06' },
+  { id: 'skills', label: 'SKILLS', num: '05' },
+  { id: 'education', label: 'EDUCATION', num: '06' },
   { id: 'contact', label: 'CONTACT', num: '07' }
 ];
 

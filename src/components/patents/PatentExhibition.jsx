@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
-import { Award, ShieldCheck, FileCheck2, ExternalLink, ZoomIn, X } from 'lucide-react';
+import { ShieldCheck, FileCheck2, ZoomIn, X } from 'lucide-react';
+import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const PatentExhibition = () => {
   const [zoomedImage, setZoomedImage] = useState(null);
@@ -37,136 +38,104 @@ export const PatentExhibition = () => {
     };
   };
 
-  const handleCardMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / (rect.height / 2)) * 5;
-    const rotY = (x / (rect.width / 2)) * 5;
-    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
-  };
-
-  const handleCardMouseLeave = (e) => {
-    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    e.currentTarget.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease';
-  };
-
-  const handleCardMouseEnter = (e) => {
-    e.currentTarget.style.transition = 'transform 60ms ease-out, border-color 200ms ease';
-  };
-
   return (
-    <section id="patents" className="patents-section">
-      {/* Localized Section Watermark (Guaranteed Zero Global Drift) */}
-      <div className="section-backdrop-watermark" aria-hidden="true">
-        <div className="watermark-meta-wrap">
-          <span className="wm-num mono">03</span>
-        </div>
-        <div className="wm-equation mono">
-          IN 202641027735 · Spectral CIELAB Matching System
-        </div>
-      </div>
+    <section id="patents" className="scene-section patents-section">
+      {/* Dedicated Windswept Pampas Meadow Backdrop */}
+      <SceneBackdrop
+        image="/images/cinematic_pampas.png"
+        position="center 30%"
+        opacity={0.82}
+        overlayDarkness={0.8}
+      />
 
-      <div className="container">
+      <div className="container scene-content patents-content">
         
-        {/* Section Header */}
-        <div className="section-head">
-          <div className="section-tag">
-            <span className="mono">// IP REGISTRY · 2 PUBLISHED SPECIFICATIONS</span>
+        {/* Editorial Scene Header */}
+        <div className="scene-head-editorial">
+          <div className="scene-head-top">
+            <div className="scene-head-left">
+              <span className="scene-eyebrow">04 / INTELLECTUAL PROPERTY</span>
+              <h2 className="scene-title-editorial">
+                Published Inventions &amp; Patents
+              </h2>
+            </div>
+            <p className="scene-head-right-subtext">
+              FORMAL PATENT SPECIFICATIONS PUBLISHED IN THE GAZETTE OF THE PATENT OFFICE OF INDIA (IP INDIA) VALIDATING NOVEL ALGORITHMIC &amp; EMBEDDED SYSTEMS.
+            </p>
           </div>
-          <h2 className="section-title">
-            Published Inventions &amp; Patents
-          </h2>
-          <p className="section-subtitle">
-            Formal patent publications registered with the Patent Office of India (IP India), validating novel algorithmic and embedded biomedical systems.
-          </p>
+          <div className="scene-divider-rule" />
         </div>
 
-        {/* Patents Grid */}
-        <div className="patents-grid">
+        {/* 2-Column Symmetrical Patent Exhibition Grid */}
+        <div className="patents-grid-editorial">
           {resumeData.patents.map((patent) => {
             const drawing = getPatentDrawing(patent.application_number);
 
             return (
-              <div
-                key={patent.application_number}
-                className="patent-card-wrap"
-              >
-                <article
-                  className="patent-card"
-                  onMouseMove={handleCardMouseMove}
-                  onMouseEnter={handleCardMouseEnter}
-                  onMouseLeave={handleCardMouseLeave}
-                >
+              <article key={patent.application_number} className="patent-column-item">
                 
-                {/* Embedded Patent Drawing Banner */}
+                {/* Visual Patent Drawing Blueprint Frame */}
                 <div
-                  className="patent-drawing-frame"
+                  className="patent-blueprint-frame"
                   onClick={() => setZoomedImage(drawing)}
                   role="button"
                   tabIndex={0}
-                  title="Click to zoom patent blueprint"
+                  aria-label={`Zoom patent drawing for ${patent.title}`}
                 >
-                  <img
-                    src={drawing.src}
-                    alt={drawing.alt}
-                    className="patent-drawing-img"
-                    loading="lazy"
-                  />
-                  <div className="drawing-overlay">
-                    <span className="drawing-caption mono">{drawing.caption}</span>
-                    <span className="drawing-zoom mono">
+                  <div className="blueprint-top-bar mono">
+                    <span className="blueprint-tag">IP INDIA · OFFICIAL DRAWING</span>
+                    <span className="blueprint-app mono">#{patent.application_number}</span>
+                  </div>
+
+                  <div className="blueprint-media-wrap">
+                    <img
+                      src={drawing.src}
+                      alt={drawing.alt}
+                      className="blueprint-img"
+                      loading="lazy"
+                    />
+                    <div className="blueprint-hover-overlay mono">
                       <ZoomIn size={14} />
-                      <span>Expand Blueprint</span>
-                    </span>
+                      <span>EXPAND BLUEPRINT</span>
+                    </div>
+                  </div>
+
+                  <div className="blueprint-caption-bar mono">
+                    {drawing.caption}
                   </div>
                 </div>
 
-                {/* Card Content Area */}
-                <div className="patent-card-body">
-                  {/* Card Header & Seal */}
-                  <div className="patent-card-head">
-                    <div className="patent-badges">
-                      <span className="jurisdiction-badge mono">
-                        <ShieldCheck size={14} className="badge-icon" />
-                        {patent.jurisdiction}
-                      </span>
-                      <span className="status-badge mono">
-                        {patent.status}
-                      </span>
-                    </div>
-                    
-                    <div className="patent-seal-stamp mono" title="Official Published Patent">
-                      <span>PAT</span>
-                    </div>
-                  </div>
-
-                  {/* Title & App Number */}
-                  <div className="patent-body">
-                    <h3 className="patent-title">{patent.title}</h3>
-                    <div className="patent-app-num mono">
-                      <span>Application No:</span>
-                      <strong className="app-id">{patent.application_number}</strong>
-                    </div>
-                    <p className="patent-summary">{patent.summary}</p>
-                  </div>
-
-                  {/* Card Footer */}
-                  <div className="patent-card-footer">
-                    <div className="footer-meta mono">
-                      <FileCheck2 size={15} className="meta-icon" />
-                      <span>Official Patent Gazette Publication</span>
-                    </div>
-                    <span className="verify-link mono">
-                      IP India Registry Verified
+                {/* Patent Editorial Body */}
+                <div className="patent-editorial-body">
+                  <div className="patent-badge-row">
+                    <span className="patent-jurisdiction-pill mono">
+                      <ShieldCheck size={13} />
+                      <span>{patent.jurisdiction}</span>
                     </span>
+                    <span className="patent-status-pill mono">
+                      {patent.status}
+                    </span>
+                    <span className="patent-seal-monogram mono">PAT</span>
+                  </div>
+
+                  <h3 className="patent-title-editorial">{patent.title}</h3>
+
+                  <div className="patent-app-line mono">
+                    <span className="app-label">Application Number:</span>
+                    <strong className="app-val">{patent.application_number}</strong>
+                  </div>
+
+                  <p className="patent-summary-text">{patent.summary}</p>
+
+                  <div className="patent-footer-verify mono">
+                    <FileCheck2 size={14} className="verify-icon" />
+                    <span>Official Patent Office Gazette Publication Verified</span>
                   </div>
                 </div>
 
               </article>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
 
       </div>
@@ -179,7 +148,7 @@ export const PatentExhibition = () => {
           role="dialog"
           aria-modal="true"
         >
-          <div className="drawing-lightbox-card" onClick={e => e.stopPropagation()}>
+          <div className="drawing-lightbox-card" onClick={(e) => e.stopPropagation()}>
             <div className="lightbox-header">
               <span className="mono lightbox-title">{zoomedImage.caption}</span>
               <button onClick={() => setZoomedImage(null)} className="lightbox-close-btn" aria-label="Close">
@@ -193,353 +162,267 @@ export const PatentExhibition = () => {
 
       <style>{`
         .patents-section {
-          position: relative;
-          padding: var(--space-20) 0;
-          z-index: var(--z-content);
-          border-top: 1px solid var(--border-subtle);
-          overflow: hidden;
+          background-color: #0A0B0E;
         }
 
-        .section-backdrop-watermark {
-          position: absolute;
-          top: 16px;
-          right: 28px;
-          pointer-events: none;
-          opacity: 0.06;
-          z-index: 0;
-          user-select: none;
-          text-align: right;
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+        .patents-content {
+          padding-top: clamp(1rem, 2.5vh, 2rem);
+          padding-bottom: clamp(1rem, 2.5vh, 2rem);
         }
 
-        .watermark-meta-wrap {
+        .patents-grid-editorial {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: clamp(1.5rem, 3.5vw, 3rem);
+          margin-top: clamp(0.75rem, 2vh, 1.5rem);
+        }
+
+        .patent-column-item {
           display: flex;
-          align-items: baseline;
-          justify-content: flex-end;
-          gap: 16px;
+          flex-direction: column;
+          gap: clamp(0.75rem, 1.8vh, 1.25rem);
         }
 
-        .wm-num {
-          font-size: clamp(3rem, 6vw, 5.5rem);
-          font-weight: 800;
-          color: var(--accent-primary);
-          opacity: 0.85;
-          line-height: 0.85;
+        /* Technical Blueprint Frame */
+        .patent-blueprint-frame {
+          background: rgba(8, 10, 15, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: var(--radius-sm);
+          overflow: hidden;
+          cursor: pointer;
+          transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         }
 
-        .wm-equation {
-          font-size: 0.75rem;
-          letter-spacing: 0.18em;
-          color: var(--text-secondary);
-          margin-top: 8px;
+        .patent-blueprint-frame:hover {
+          border-color: #D4AF37;
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.2);
+          transform: translateY(-2px);
         }
 
-        .section-head {
-          margin-bottom: var(--space-12);
-          max-width: 680px;
-          position: relative;
-          z-index: 2;
+        .blueprint-top-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 6px 12px;
+          background: rgba(14, 17, 24, 0.95);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          font-size: 0.6875rem;
         }
 
-        .section-tag {
-          font-size: 0.75rem;
-          color: var(--accent-primary);
-          margin-bottom: var(--space-2);
+        .blueprint-tag {
+          color: #F59E0B;
           letter-spacing: 0.05em;
         }
 
-        .section-title {
-          font-size: clamp(1.875rem, 3.5vw, 2.75rem);
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: var(--space-3);
+        .blueprint-app {
+          color: #9CA3AF;
         }
 
-        .section-subtitle {
-          font-size: 1.0625rem;
-          color: var(--text-secondary);
-          max-width: 650px;
-        }
-
-        .patents-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-8);
-        }
-
-        .patent-card {
-          display: flex;
-          flex-direction: column;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-md);
-          overflow: hidden;
-          transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-        }
-
-        .patent-card:hover {
-          border-color: var(--accent-primary);
-          box-shadow: var(--shadow-prominent), 0 0 35px rgba(200, 50, 38, 0.15);
-        }
-
-        /* Patent Blueprint Frame with 3D Float */
-        .patent-drawing-frame {
+        .blueprint-media-wrap {
           position: relative;
           width: 100%;
-          height: 260px;
-          background: #060912;
-          border-bottom: 1px solid var(--border-subtle);
+          height: clamp(140px, 18vh, 185px);
+          background: #040507;
           overflow: hidden;
-          cursor: pointer;
-          transform: translateZ(26px);
         }
 
-        .patent-body {
-          transform: translateZ(36px);
-        }
-
-        .patent-drawing-img {
+        .blueprint-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center;
-          transition: transform 500ms ease;
+          transition: transform 400ms ease;
+          opacity: 0.9;
         }
 
-        .patent-drawing-frame:hover .patent-drawing-img {
+        .patent-blueprint-frame:hover .blueprint-img {
           transform: scale(1.03);
+          opacity: 1;
         }
 
-        /* Separated Quadrant Overlay: Caption anchored top-left, zoom button bottom-right */
-        .drawing-overlay {
+        .blueprint-hover-overlay {
           position: absolute;
           inset: 0;
-          pointer-events: none;
-          background: linear-gradient(180deg, rgba(8, 10, 16, 0.85) 0%, transparent 35%, transparent 60%, rgba(8, 10, 16, 0.9) 100%);
-        }
-
-        .drawing-caption {
-          position: absolute;
-          top: 12px;
-          left: 14px;
-          font-size: 0.6875rem;
-          color: var(--text-secondary);
-          background: rgba(10, 12, 18, 0.88);
-          backdrop-filter: blur(8px);
-          padding: 4px 10px;
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-sm);
-          max-width: calc(100% - 28px);
-          line-height: 1.35;
-          letter-spacing: 0.04em;
-        }
-
-        .drawing-zoom {
-          position: absolute;
-          bottom: 12px;
-          right: 14px;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 0.6875rem;
-          color: var(--accent-primary);
-          background: rgba(10, 12, 18, 0.92);
-          backdrop-filter: blur(8px);
-          padding: 5px 11px;
-          border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-sm);
-          pointer-events: auto;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-          transition: all var(--transition-fast);
-        }
-
-        .patent-drawing-frame:hover .drawing-zoom {
-          border-color: var(--accent-primary);
-          box-shadow: 0 0 14px var(--accent-glow);
-          color: #FFF;
-        }
-
-        /* Card Content Area */
-        .patent-card-body {
-          padding: var(--space-6) var(--space-8) var(--space-8);
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-4);
-          flex: 1;
-        }
-
-        .patent-card-head {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .patent-badges {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .jurisdiction-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 0.75rem;
-          padding: 3px 8px;
-          background: var(--bg-primary);
-          border: 1px solid var(--border-subtle);
-          color: var(--text-secondary);
-          border-radius: var(--radius-sm);
-        }
-
-        .status-badge {
-          font-size: 0.75rem;
-          padding: 3px 8px;
-          background: var(--accent-subtle);
-          color: var(--accent-primary);
-          border: 1px solid var(--border-accent);
-          border-radius: var(--radius-sm);
-          font-weight: 600;
-        }
-
-        .patent-seal-stamp {
-          width: 32px;
-          height: 24px;
-          background: var(--accent-primary);
-          color: #FFF;
+          background: rgba(8, 9, 13, 0.65);
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: var(--radius-sm);
-          font-family: var(--font-mono);
-          font-weight: 700;
+          gap: 6px;
+          color: #F5EFE6;
           font-size: 0.6875rem;
           letter-spacing: 0.08em;
-          box-shadow: var(--shadow-accent);
+          opacity: 0;
+          transition: opacity 180ms ease;
         }
 
-        .patent-body {
+        .patent-blueprint-frame:hover .blueprint-hover-overlay {
+          opacity: 1;
+        }
+
+        .blueprint-caption-bar {
+          padding: 6px 12px;
+          background: rgba(12, 15, 22, 0.95);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          font-size: 0.625rem;
+          letter-spacing: 0.06em;
+          color: #9CA3AF;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        /* Editorial Body */
+        .patent-editorial-body {
           display: flex;
           flex-direction: column;
-          gap: var(--space-2);
+          gap: 6px;
         }
 
-        .patent-title {
-          font-size: 1.375rem;
-          font-weight: 700;
-          color: var(--text-primary);
-          line-height: 1.3;
-        }
-
-        .patent-app-num {
+        .patent-badge-row {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 0.8125rem;
-          color: var(--text-muted);
         }
 
-        .app-id {
-          color: var(--accent-primary);
-        }
-
-        .patent-summary {
-          font-size: 0.9375rem;
-          line-height: 1.6;
-          color: var(--text-secondary);
-          margin-top: 4px;
-        }
-
-        .patent-card-footer {
-          display: flex;
+        .patent-jurisdiction-pill {
+          display: inline-flex;
           align-items: center;
-          justify-content: space-between;
-          padding-top: var(--space-4);
-          border-top: 1px solid var(--border-subtle);
-          font-size: 0.75rem;
-          color: var(--text-muted);
-          margin-top: auto;
+          gap: 4px;
+          font-size: 0.6875rem;
+          color: #94A3B8;
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          background: rgba(148, 163, 184, 0.06);
+          padding: 2px 8px;
+          border-radius: var(--radius-sm);
         }
 
-        .footer-meta {
+        .patent-status-pill {
+          font-size: 0.6875rem;
+          font-weight: 700;
+          color: #10B981;
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          background: rgba(16, 185, 129, 0.08);
+          padding: 2px 8px;
+          border-radius: var(--radius-sm);
+        }
+
+        .patent-seal-monogram {
+          margin-left: auto;
+          font-size: 0.625rem;
+          font-weight: 700;
+          color: #FFFFFF;
+          background: #C83226;
+          padding: 2px 6px;
+          border-radius: var(--radius-sm);
+          box-shadow: 0 0 10px rgba(200, 50, 38, 0.4);
+        }
+
+        .patent-title-editorial {
+          font-family: var(--font-body);
+          font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+          font-weight: 700;
+          color: #FFFFFF;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+
+        .patent-app-line {
+          font-size: 0.75rem;
+          color: #9CA3AF;
           display: flex;
           align-items: center;
           gap: 6px;
         }
 
-        .meta-icon {
-          color: var(--accent-primary);
+        .app-val {
+          color: #F59E0B;
         }
 
-        .verify-link {
-          color: var(--text-muted);
+        .patent-summary-text {
+          font-size: clamp(0.75rem, 0.95vw, 0.85rem);
+          line-height: 1.55;
+          color: #D1D5DB;
+        }
+
+        .patent-footer-verify {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.6875rem;
+          color: #6B7280;
+          margin-top: 4px;
+        }
+
+        .verify-icon {
+          color: #10B981;
         }
 
         /* Lightbox Modal */
         .drawing-lightbox-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.88);
-          backdrop-filter: blur(14px);
           z-index: var(--z-modal);
+          background: rgba(4, 5, 8, 0.92);
+          backdrop-filter: blur(12px);
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: var(--space-6);
+          padding: var(--space-8);
         }
 
         .drawing-lightbox-card {
-          width: 100%;
-          max-width: 1000px;
-          background: var(--bg-surface-elevated);
-          border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-md);
+          background: #0A0B0E;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: var(--radius-sm);
+          max-width: 90vw;
+          max-height: 88vh;
+          display: flex;
+          flex-direction: column;
           overflow: hidden;
-          box-shadow: var(--shadow-prominent);
+          box-shadow: 0 24px 64px rgba(0, 0, 0, 0.9);
         }
 
         .lightbox-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 12px 20px;
-          background: var(--bg-primary);
-          border-bottom: 1px solid var(--border-subtle);
+          padding: 12px 18px;
+          background: #101218;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .lightbox-title {
           font-size: 0.75rem;
-          color: var(--accent-primary);
+          color: #D4AF37;
+          letter-spacing: 0.08em;
         }
 
         .lightbox-close-btn {
-          color: var(--text-muted);
-          transition: color var(--transition-fast);
+          color: #9CA3AF;
+          transition: color 150ms ease;
         }
 
         .lightbox-close-btn:hover {
-          color: var(--text-primary);
+          color: #FFFFFF;
         }
 
         .lightbox-img {
-          width: 100%;
-          height: auto;
-          display: block;
+          max-width: 100%;
+          max-height: 78vh;
+          object-fit: contain;
+          background: #050608;
         }
 
-        @media (max-width: 860px) {
-          .patents-grid {
+        @media (max-width: 768px) {
+          .patents-grid-editorial {
             grid-template-columns: 1fr;
-          }
-          .patent-drawing-frame {
-            height: 200px;
-          }
-          .patent-card-body {
-            padding: var(--space-5);
+            gap: 24px;
           }
         }
       `}</style>
     </section>
   );
 };
+
+export default PatentExhibition;

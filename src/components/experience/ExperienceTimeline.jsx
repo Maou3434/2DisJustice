@@ -1,281 +1,284 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
-import { Calendar, MapPin } from 'lucide-react';
+import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const ExperienceTimeline = () => {
   return (
-    <section id="research" className="experience-section">
-      {/* Localized Section Watermark */}
-      <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">01</span>
-        <div className="wm-equation mono">
-          ρ·c_p·(∂T/∂t) = k·∇²T + q̇_gen  // PINN Thermal Twin ODE
-        </div>
-      </div>
+    <section id="experience" className="scene-section experience-section">
+      {/* Dedicated Coastal Bluffs Backdrop matching Reference 1 */}
+      <SceneBackdrop
+        image="/images/cinematic_sea.png"
+        position="center 40%"
+        opacity={0.85}
+        overlayDarkness={0.78}
+      />
 
-      <div className="container relative-content">
-        {/* Section Header */}
-        <div className="section-head">
-          <div className="section-tag">
-            <span className="mono">// FIELD RESEARCH · VIT AUTOMOTIVE RESEARCH CENTRE</span>
+      <div className="container scene-content experience-content">
+        
+        {/* Editorial Scene Header (Matching Reference 1) */}
+        <div className="scene-head-editorial">
+          <div className="scene-head-top">
+            <div className="scene-head-left">
+              <span className="scene-eyebrow">02 / ENVIRONMENTAL PROGRESSION</span>
+              <h2 className="scene-title-editorial">
+                Internships &amp;{'\n'}Experience
+              </h2>
+            </div>
+            <p className="scene-head-right-subtext">
+              CHRONOLOGICAL TENURE CARVED INTO THE COASTAL BLUFFS ACROSS PHYSICS-INFORMED ML DIGITAL TWINS, REAL-TIME LAKEHOUSES, AND DISTRIBUTED EMBEDDED SYSTEMS.
+            </p>
           </div>
-          <h2 className="section-title">
-            Research &amp; Applied Engineering
-          </h2>
-          <p className="section-subtitle">
-            Focused on scientific digital twins, high-frequency IoT ingest pipelines, and enterprise-grade software standards.
-          </p>
+          <div className="scene-divider-rule" />
         </div>
 
-        {/* Experience Cards */}
-        <div className="experience-stack">
-          {resumeData.professional_experience.map((exp, idx) => (
-            <article key={idx} className="experience-entry">
-                
-                {/* Left Meta Column */}
-                <div className="exp-meta">
-                  <span className="exp-period mono">
-                    <Calendar size={13} className="inline-icon" />
-                    {exp.period}
-                  </span>
-                  <span className="exp-location mono">
-                    <MapPin size={13} className="inline-icon" />
-                    {exp.location}
-                  </span>
-                </div>
+        {/* Vertical Timeline Progression (No Cards, Pure Editorial Layout) */}
+        <div className="timeline-flow">
+          <div className="timeline-spine-line" aria-hidden="true" />
 
-                {/* Center Content Column */}
-                <div className="exp-content">
-                  <div className="exp-header">
-                    <h3 className="exp-role">{exp.role}</h3>
-                    <span className="exp-org">{exp.organization}</span>
-                  </div>
+          {resumeData.professional_experience.map((exp, idx) => {
+            const isRecent = idx === 0;
+            const nodeClass = idx === 0 ? 'node-gold' : idx === 1 ? 'node-silver' : 'node-emerald';
+            const pillLabel = idx === 0 ? 'RESEARCH' : 'INTERNSHIP';
 
-                  <ul className="exp-highlights">
-                    {exp.highlights.map((bullet, bIdx) => (
-                      <li key={bIdx} className="exp-bullet">
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
+            return (
+              <article key={idx} className="timeline-entry">
+                {/* Node Ring Marker */}
+                <div className={`timeline-node-ring ${nodeClass}`} aria-hidden="true" />
 
-                  {/* Tags */}
-                  <div className="exp-tags">
-                    {exp.tags.map((tag) => (
-                      <span key={tag} className="tech-tag mono">
-                        {tag}
+                {/* Main Content Block */}
+                <div className="timeline-entry-body">
+                  
+                  {/* Top Row: Role + Status Pill (Left) & Dates + Location (Right) */}
+                  <div className="entry-header-row">
+                    <div className="entry-role-group">
+                      <h3 className="entry-role-title">{exp.role}</h3>
+                      <span className={`entry-status-pill mono ${isRecent ? 'pill-gold' : 'pill-muted'}`}>
+                        {pillLabel}
                       </span>
+                    </div>
+
+                    <div className="entry-meta-right mono">
+                      <span>{exp.period}</span>
+                      <span className="meta-dot">•</span>
+                      <span>{exp.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Company / Organization Name in Amber Accent */}
+                  <div className="entry-company mono">
+                    {exp.organization}
+                  </div>
+
+                  {/* Editorial Description Text */}
+                  <p className="entry-description">
+                    {exp.highlights.join(' ')}
+                  </p>
+
+                  {/* Inline Monospace Tech Stack */}
+                  <div className="entry-tags-row mono">
+                    {exp.tags.map((tag, tIdx) => (
+                      <React.Fragment key={tag}>
+                        <span className="entry-tag-item">{tag}</span>
+                        {tIdx < exp.tags.length - 1 && (
+                          <span className="tag-separator">•</span>
+                        )}
+                      </React.Fragment>
                     ))}
                   </div>
-                </div>
 
+                </div>
               </article>
-          ))}
+            );
+          })}
         </div>
 
       </div>
 
       <style>{`
         .experience-section {
-          position: relative;
-          padding: var(--space-16) 0;
-          z-index: var(--z-content);
-          border-top: 1px solid var(--border-subtle);
-          overflow: hidden;
+          background-color: #0A0B0E;
         }
 
-        .relative-content {
-          position: relative;
-          z-index: 2;
+        .experience-content {
+          padding-top: clamp(1rem, 2.5vh, 2rem);
+          padding-bottom: clamp(1rem, 2.5vh, 2rem);
         }
 
-        .section-backdrop-watermark {
+        /* Continuous Vertical Timeline Flow */
+        .timeline-flow {
+          position: relative;
+          padding-left: 28px;
+          margin-top: clamp(0.75rem, 2vh, 1.5rem);
+          display: flex;
+          flex-direction: column;
+          gap: clamp(1rem, 2.2vh, 1.85rem);
+        }
+
+        .timeline-spine-line {
           position: absolute;
-          top: 16px;
-          right: 28px;
+          left: 5px;
+          top: 8px;
+          bottom: 12px;
+          width: 1px;
+          background: rgba(255, 255, 255, 0.16);
+        }
+
+        .timeline-entry {
+          position: relative;
           display: flex;
           flex-direction: column;
-          align-items: flex-end;
-          user-select: none;
-          pointer-events: none;
-          opacity: 0.06;
-          line-height: 0.85;
-          letter-spacing: -0.04em;
-          z-index: 0;
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
         }
 
-        .wm-number {
-          font-size: clamp(3rem, 6.5vw, 6.5rem);
-          color: var(--accent-primary);
-          opacity: 0.85;
-          margin-top: -10px;
-          font-weight: 700;
-        }
-
-        .wm-equation {
-          font-size: 0.8125rem;
-          color: var(--text-secondary);
-          letter-spacing: 0.08em;
-          margin-top: 16px;
-          opacity: 0.85;
-          background: rgba(18, 20, 26, 0.55);
-          padding: 6px 14px;
-          border-left: 2px solid var(--accent-primary);
-          border-radius: var(--radius-sm);
-        }
-
-        .section-head {
-          margin-bottom: var(--space-12);
-          max-width: 680px;
-          position: relative;
+        /* Node Markers (Illuminated Outline Rings) */
+        .timeline-node-ring {
+          position: absolute;
+          left: -28px;
+          top: 5px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #0A0B0E;
+          box-sizing: border-box;
           z-index: 2;
         }
 
-        .section-tag {
-          font-size: 0.75rem;
-          color: var(--accent-primary);
-          margin-bottom: var(--space-2);
-          letter-spacing: 0.05em;
+        .node-gold {
+          border: 2px solid #F59E0B;
+          box-shadow: 0 0 10px rgba(245, 158, 11, 0.65), inset 0 0 4px rgba(245, 158, 11, 0.4);
         }
 
-        .section-title {
-          font-size: clamp(1.875rem, 3.5vw, 2.75rem);
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: var(--space-3);
+        .node-silver {
+          border: 2px solid #94A3B8;
+          box-shadow: 0 0 8px rgba(148, 163, 184, 0.35);
         }
 
-        .section-subtitle {
-          font-size: 1.0625rem;
-          color: var(--text-secondary);
-          max-width: 650px;
+        .node-emerald {
+          border: 2px solid #10B981;
+          box-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
         }
 
-        .experience-stack {
+        /* Entry Body */
+        .timeline-entry-body {
           display: flex;
           flex-direction: column;
-          gap: var(--space-6);
+          gap: 4px;
         }
 
-        .experience-entry {
-          display: grid;
-          grid-template-columns: 240px 1fr;
-          gap: var(--space-8);
-          padding: var(--space-8);
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-md);
-          transition: border-color var(--transition-fast), background-color var(--transition-fast);
-        }
-
-        .experience-entry:hover {
-          border-color: var(--border-prominent);
-          background: var(--bg-surface-elevated);
-        }
-
-        .exp-meta {
+        .entry-header-row {
           display: flex;
-          flex-direction: column;
-          gap: var(--space-2);
-        }
-
-        .exp-period {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 0.8125rem;
-          color: var(--text-secondary);
-          font-weight: 600;
-          letter-spacing: 0.02em;
-        }
-
-        .exp-period .inline-icon {
-          color: var(--accent-primary);
-        }
-
-        .exp-location {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 0.75rem;
-          color: var(--text-muted);
-        }
-
-        .inline-icon {
-          flex-shrink: 0;
-        }
-
-        .exp-content {
-          display: flex;
-          flex-direction: column;
+          align-items: baseline;
+          justify-content: space-between;
           gap: var(--space-4);
         }
 
-        .exp-header {
+        .entry-role-group {
           display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-
-        .exp-role {
-          font-size: 1.375rem;
-          font-weight: 700;
-          color: var(--text-primary);
-        }
-
-        .exp-org {
-          font-family: var(--font-heading);
-          font-size: 1.0625rem;
-          color: var(--text-secondary);
-        }
-
-        .exp-highlights {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-3);
-        }
-
-        .exp-bullet {
-          position: relative;
-          padding-left: 18px;
-          font-size: 0.9375rem;
-          line-height: 1.6;
-          color: var(--text-secondary);
-        }
-
-        .exp-bullet::before {
-          content: '—';
-          position: absolute;
-          left: 0;
-          color: var(--accent-primary);
-        }
-
-        .exp-tags {
-          display: flex;
+          align-items: center;
+          gap: 12px;
           flex-wrap: wrap;
-          gap: 8px;
-          margin-top: var(--space-2);
         }
 
-        .tech-tag {
-          font-size: 0.75rem;
-          padding: 3px 9px;
-          background: var(--bg-primary);
-          border: 1px solid var(--border-subtle);
-          color: var(--text-secondary);
-          border-radius: var(--radius-sm);
+        .entry-role-title {
+          font-family: var(--font-body);
+          font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+          font-weight: 700;
+          color: #FFFFFF;
+          letter-spacing: -0.02em;
+          line-height: 1.15;
+        }
+
+        .entry-status-pill {
+          font-size: 0.625rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          padding: 2px 8px;
+          border-radius: 9999px;
+          text-transform: uppercase;
+        }
+
+        .pill-gold {
+          color: #F59E0B;
+          border: 1px solid rgba(245, 158, 11, 0.4);
+          background: rgba(245, 158, 11, 0.08);
+        }
+
+        .pill-muted {
+          color: #94A3B8;
+          border: 1px solid rgba(148, 163, 184, 0.3);
+          background: rgba(148, 163, 184, 0.06);
+        }
+
+        .entry-meta-right {
+          font-size: clamp(0.6875rem, 0.9vw, 0.75rem);
+          letter-spacing: 0.08em;
+          color: #9CA3AF;
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .meta-dot {
+          color: #6B7280;
+        }
+
+        .entry-company {
+          font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
+          font-weight: 600;
+          color: #E2A955; /* Warm Feudal Amber */
+          letter-spacing: 0.04em;
+        }
+
+        .entry-description {
+          font-family: var(--font-body);
+          font-size: clamp(0.8125rem, 1.05vw, 0.875rem);
+          line-height: 1.55;
+          color: #D1D5DB;
+          max-width: 1050px;
+          margin-top: 2px;
+        }
+
+        /* Inline Monospace Tags */
+        .entry-tags-row {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 4px;
+          font-size: clamp(0.6875rem, 0.85vw, 0.75rem);
+          color: #9CA3AF;
+        }
+
+        .entry-tag-item {
+          color: #9CA3AF;
+          border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+          padding-bottom: 1px;
+          transition: color 150ms ease, border-color 150ms ease;
+        }
+
+        .entry-tag-item:hover {
+          color: #FFFFFF;
+          border-color: #E2A955;
+        }
+
+        .tag-separator {
+          color: #4B5563;
         }
 
         @media (max-width: 768px) {
-          .experience-entry {
-            grid-template-columns: 1fr;
-            gap: var(--space-4);
-            padding: var(--space-5);
+          .entry-header-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+          }
+
+          .entry-meta-right {
+            white-space: normal;
           }
         }
       `}</style>
     </section>
   );
 };
+
+export default ExperienceTimeline;

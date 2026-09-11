@@ -1,9 +1,18 @@
 import React from 'react';
 import { ArrowDown } from 'lucide-react';
+import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const HeroSection = () => {
   return (
-    <section id="top" className="hero-section">
+    <section id="top" className="scene-section hero-section">
+      {/* Dedicated Scene Backdrop */}
+      <SceneBackdrop
+        image="/images/tsushima-hero-bg.jpg"
+        position="center 25%"
+        opacity={0.9}
+        overlayDarkness={0.68}
+      />
+
       <div className="container hero-container">
         <div className="hero-landing-pure">
           
@@ -28,7 +37,7 @@ export const HeroSection = () => {
 
           {/* Bottom Airspace Controls: Anchored low in foreground shadow */}
           <div className="hero-bottom-controls">
-            <a href="#research" className="landing-scroll-cue" aria-label="Scroll to research archives">
+            <a href="#experience" className="landing-scroll-cue" aria-label="Scroll to experience archives">
               <ArrowDown size={14} className="scroll-arrow" />
               <span className="scroll-text mono">SCROLL TO ENTER ARCHIVES</span>
             </a>

@@ -1,462 +1,489 @@
 import React, { useState } from 'react';
 import resumeData from '../../../data/resume_data.json';
 import { ProjectModal } from './ProjectModal.jsx';
-import { ArrowUpRight, Database, Terminal, Cpu, Sparkles, ZoomIn } from 'lucide-react';
+import { ArrowUpRight, ZoomIn } from 'lucide-react';
+import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const ProjectGallery = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const getProjectImage = (id) => {
+  // We feature the two flagship systems in the alternating composition (matching Reference 2)
+  const flagshipProjects = resumeData.projects.slice(0, 2);
+  const remainingProjects = resumeData.projects.slice(2);
+
+  const getProjectVisual = (id) => {
     switch (id) {
       case 'retailsink':
-        return '/images/retailsink-architecture.svg';
+        return {
+          src: '/images/retailsink-architecture.svg',
+          alt: 'RetailSink Medallion Lakehouse Architecture',
+          filename: 'retailsink_lakehouse.py',
+          engine: 'DuckDB 1.0 • Delta Lake',
+          metrics: [
+            { label: 'INGEST LATENCY', val: '0.18s' },
+            { label: 'QUERY SPEEDUP', val: '10×' },
+            { label: 'STORAGE FORMAT', val: 'DELTA LAKE' }
+          ]
+        };
       case 'frame-order-restoration':
-        return '/images/video-frame-tsp.jpg';
-      case 'opendesign':
-        return '/images/pinn-thermal-twin.jpg'; // high-tech cloud infrastructure schematic
       default:
-        return '/images/pinn-thermal-twin.jpg';
+        return {
+          src: '/images/video-frame-tsp.jpg',
+          alt: 'Frame Order Restoration TSP Reconstruction Matrix',
+          filename: 'video_frame_tsp_solver.py',
+          engine: 'PyTorch • DirectML GPU',
+          metrics: [
+            { label: 'FRAME SIMILARITY', val: '> 99%' },
+            { label: 'OPTIMIZER', val: 'BEAM 2-OPT' },
+            { label: 'GPU BACKEND', val: 'DIRECTML' }
+          ]
+        };
     }
-  };
-
-  const getProjectIcon = (id) => {
-    switch (id) {
-      case 'retailsink': return <Database size={18} />;
-      case 'opendesign': return <Terminal size={18} />;
-      case 'frame-order-restoration': return <Cpu size={18} />;
-      default: return <Sparkles size={18} />;
-    }
-  };
-
-  const getInspectLabel = (id) => {
-    switch (id) {
-      case 'retailsink': return 'View Lakehouse Architecture';
-      case 'frame-order-restoration': return 'Inspect TSP Algorithm';
-      case 'opendesign': return 'View Infrastructure State Machine';
-      default: return 'Explore System Case Study';
-    }
-  };
-
-  const handleCardMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotX = -(y / (rect.height / 2)) * 5;
-    const rotY = (x / (rect.width / 2)) * 5;
-    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015, 1.015, 1.015)`;
-  };
-
-  const handleCardMouseLeave = (e) => {
-    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    e.currentTarget.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease';
-  };
-
-  const handleCardMouseEnter = (e) => {
-    e.currentTarget.style.transition = 'transform 60ms ease-out, border-color 200ms ease';
   };
 
   return (
-    <section id="projects" className="projects-section">
-      {/* Localized Section Watermark (Physically bounded to this section) */}
-      <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">02</span>
-        <div className="wm-equation mono">
-          min ∑ d(c_i, c_i+1) | Beam-Search 2-Opt  // TSP Reorder
-        </div>
-      </div>
+    <section id="projects" className="scene-section projects-section">
+      {/* Dedicated River Valley Backdrop matching Reference 2 */}
+      <SceneBackdrop
+        image="/images/cinematic_forest.png"
+        position="center 35%"
+        opacity={0.82}
+        overlayDarkness={0.78}
+      />
 
-      <div className="container relative-content">
+      <div className="container scene-content projects-content">
         
-        {/* Section Header */}
-        <div className="section-head">
-          <div className="section-tag">
-            <span className="mono">// SYSTEMS INDEX · 3 PRODUCTION BUILDS</span>
+        {/* Editorial Scene Header (Matching Reference 2) */}
+        <div className="scene-head-editorial">
+          <div className="scene-head-top">
+            <div className="scene-head-left">
+              <span className="scene-eyebrow">03 / TECHNICAL ARCHITECTURE</span>
+              <h2 className="scene-title-editorial">
+                Projects
+              </h2>
+            </div>
+            <p className="scene-head-right-subtext">
+              FULL-VIEWPORT LAKEHOUSE PIPELINES, HEURISTIC VIDEO RECONSTRUCTION, AND DISTRIBUTED CLOUD AUTOMATION EMBEDDED IN THE RIVER VALLEY.
+            </p>
           </div>
-          <h2 className="section-title">
-            Selected Systems &amp; Open Works
-          </h2>
-          <p className="section-subtitle">
-            Engineered systems spanning real-time analytical lakehouses, heuristic video reconstruction, and production deployment automation.
-          </p>
+          <div className="scene-divider-rule" />
         </div>
 
-        {/* Project Grid with Rich Visual Schematics */}
-        <div className="projects-grid">
-          {resumeData.projects.map((project, idx) => {
-            const isFeatured = idx === 0;
-            const projectImg = getProjectImage(project.id);
+        {/* Alternating Asymmetric Editorial Composition (Matching Reference 2) */}
+        <div className="projects-composition-flow">
+          
+          {/* Project 1: Visual Left | Editorial Right */}
+          {(() => {
+            const project = flagshipProjects[0];
+            const visual = getProjectVisual(project.id);
 
             return (
-              <div
-                key={project.id}
-                className={`project-card-wrap ${isFeatured ? 'is-featured' : ''}`}
-              >
+              <div key={project.id} className="project-row row-visual-left">
+                
+                {/* Visual Technical Frame */}
                 <div
-                  className={`project-card ${isFeatured ? 'is-featured' : 'standard-card'}`}
+                  className="project-visual-frame"
                   onClick={() => setSelectedProject(project)}
-                  onMouseMove={isFeatured ? handleCardMouseMove : undefined}
-                  onMouseEnter={isFeatured ? handleCardMouseEnter : undefined}
-                  onMouseLeave={isFeatured ? handleCardMouseLeave : undefined}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setSelectedProject(project);
-                    }
-                  }}
-                  aria-label={`Open case study for ${project.title}`}
+                  aria-label={`Inspect ${project.title} architecture`}
                 >
-                {/* Visual Architecture Image Banner */}
-                <div className="card-visual-media">
-                  <img
-                    src={projectImg}
-                    alt={`${project.title} Architectural Schematic`}
-                    className="card-media-img"
-                    loading="lazy"
-                  />
-                  <div className="media-overlay">
-                    <div className="media-inspect-btn mono">
+                  <div className="frame-top-bar mono">
+                    <span className="file-indicator">● {visual.filename}</span>
+                    <span className="engine-indicator">{visual.engine}</span>
+                  </div>
+
+                  <div className="frame-image-wrapper">
+                    <img
+                      src={visual.src}
+                      alt={visual.alt}
+                      className="frame-image"
+                      loading="lazy"
+                    />
+                    <div className="frame-hover-cue mono">
                       <ZoomIn size={14} />
-                      <span>{getInspectLabel(project.id)}</span>
+                      <span>EXPAND ARCHITECTURE</span>
                     </div>
+                  </div>
+
+                  <div className="frame-metrics-bar mono">
+                    {visual.metrics.map((m, mIdx) => (
+                      <div key={mIdx} className="metric-item">
+                        <span className="metric-label">{m.label}</span>
+                        <strong className="metric-value">{m.val}</strong>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Card Body */}
-                <div className="card-body-content">
-                  {/* Top Meta */}
-                  <div className="card-top">
-                    <div className="card-category mono">
-                      <span className="category-icon">{getProjectIcon(project.id)}</span>
-                      <span>{project.category}</span>
-                    </div>
-                    <div className="card-arrow" aria-hidden="true">
-                      <ArrowUpRight size={18} />
-                    </div>
+                {/* Editorial Content */}
+                <div className="project-editorial-side">
+                  <div className="project-category mono">
+                    {project.category} • {project.tech.slice(0, 3).join(' / ')}
                   </div>
 
-                  <h3 className="card-title">{project.title}</h3>
-                  <p className="card-summary">{project.summary}</p>
+                  <h3 className="project-title">{project.title}</h3>
+                  
+                  <p className="project-summary">{project.summary}</p>
 
-                  {/* Highlights preview */}
-                  <ul className="card-features">
-                    {project.key_features.slice(0, isFeatured ? 3 : 2).map((feat, fIdx) => (
-                      <li key={fIdx} className="feature-line">
-                        <span className="bullet">›</span> {feat}
+                  <ul className="project-key-points">
+                    {project.key_features.slice(0, 3).map((feat, fIdx) => (
+                      <li key={fIdx} className="point-item">
+                        <span className="point-bullet">▪</span>
+                        <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Tech Pills */}
-                  <div className="card-tech">
-                    {project.tech.map((t) => (
-                      <span key={t} className="tech-badge mono">
-                        {t}
-                      </span>
+                  <div className="project-action-links">
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      className="action-btn-editorial mono"
+                    >
+                      <span>VIEW LAKEHOUSE ARCHITECTURE</span>
+                      <ArrowUpRight size={14} />
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            );
+          })()}
+
+          {/* Project 2: Editorial Left | Visual Right */}
+          {(() => {
+            const project = flagshipProjects[1];
+            const visual = getProjectVisual(project.id);
+
+            return (
+              <div key={project.id} className="project-row row-visual-right">
+                
+                {/* Editorial Content */}
+                <div className="project-editorial-side">
+                  <div className="project-category mono">
+                    {project.category} • {project.tech.slice(0, 3).join(' / ')}
+                  </div>
+
+                  <h3 className="project-title">{project.title}</h3>
+                  
+                  <p className="project-summary">{project.summary}</p>
+
+                  <ul className="project-key-points">
+                    {project.key_features.slice(0, 3).map((feat, fIdx) => (
+                      <li key={fIdx} className="point-item">
+                        <span className="point-bullet">▪</span>
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="project-action-links">
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      className="action-btn-editorial mono"
+                    >
+                      <span>INSPECT TSP ALGORITHM</span>
+                      <ArrowUpRight size={14} />
+                    </button>
+                    {remainingProjects.length > 0 && (
+                      <button
+                        onClick={() => setSelectedProject(remainingProjects[0])}
+                        className="action-btn-secondary mono"
+                      >
+                        <span>MORE SYSTEMS ({remainingProjects.length}) ↗</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Visual Technical Frame */}
+                <div
+                  className="project-visual-frame"
+                  onClick={() => setSelectedProject(project)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Inspect ${project.title} algorithm`}
+                >
+                  <div className="frame-top-bar mono">
+                    <span className="file-indicator">● {visual.filename}</span>
+                    <span className="engine-indicator">{visual.engine}</span>
+                  </div>
+
+                  <div className="frame-image-wrapper">
+                    <img
+                      src={visual.src}
+                      alt={visual.alt}
+                      className="frame-image"
+                      loading="lazy"
+                    />
+                    <div className="frame-hover-cue mono">
+                      <ZoomIn size={14} />
+                      <span>INSPECT ALGORITHM</span>
+                    </div>
+                  </div>
+
+                  <div className="frame-metrics-bar mono">
+                    {visual.metrics.map((m, mIdx) => (
+                      <div key={mIdx} className="metric-item">
+                        <span className="metric-label">{m.label}</span>
+                        <strong className="metric-value">{m.val}</strong>
+                      </div>
                     ))}
                   </div>
                 </div>
+
               </div>
-            </div>
-          );
-          })}
+            );
+          })()}
+
         </div>
 
       </div>
 
-      {/* Deep-Dive Modal */}
+      {/* Deep Dive Case Study Lightbox / Modal */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
-          projectImage={getProjectImage(selectedProject.id)}
+          projectImage={getProjectVisual(selectedProject.id).src}
           onClose={() => setSelectedProject(null)}
         />
       )}
 
       <style>{`
         .projects-section {
-          position: relative;
-          padding: var(--space-20) 0;
-          z-index: var(--z-content);
-          border-top: 1px solid var(--border-subtle);
-          overflow: hidden;
+          background-color: #0A0B0E;
         }
 
-        .relative-content {
-          position: relative;
-          z-index: 2;
+        .projects-content {
+          padding-top: clamp(1rem, 2vh, 1.75rem);
+          padding-bottom: clamp(1rem, 2vh, 1.75rem);
         }
 
-        .section-backdrop-watermark {
-          position: absolute;
-          top: 16px;
-          right: 28px;
-          left: auto;
+        /* Alternating Composition Flow */
+        .projects-composition-flow {
           display: flex;
           flex-direction: column;
-          align-items: flex-end;
-          user-select: none;
-          pointer-events: none;
-          opacity: 0.06;
-          line-height: 0.85;
-          letter-spacing: -0.04em;
-          z-index: 0;
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+          gap: clamp(1rem, 2.2vh, 1.75rem);
+          margin-top: clamp(0.5rem, 1.5vh, 1.25rem);
         }
 
-        .wm-number {
-          font-size: clamp(3rem, 6.5vw, 6.5rem);
-          color: var(--accent-primary);
-          opacity: 0.85;
-          margin-top: -10px;
-          font-weight: 700;
-        }
-
-        .wm-equation {
-          font-size: 0.8125rem;
-          color: var(--text-secondary);
-          letter-spacing: 0.08em;
-          margin-top: 16px;
-          opacity: 0.85;
-          background: rgba(18, 20, 26, 0.55);
-          padding: 6px 14px;
-          border-left: 2px solid var(--accent-primary);
-          border-radius: var(--radius-sm);
-        }
-
-        .section-head {
-          margin-bottom: var(--space-12);
-          max-width: 680px;
-          position: relative;
-          z-index: 2;
-        }
-
-        .section-tag {
-          font-size: 0.75rem;
-          color: var(--accent-primary);
-          margin-bottom: var(--space-2);
-          letter-spacing: 0.05em;
-        }
-
-        .section-title {
-          font-size: clamp(1.875rem, 3.5vw, 2.75rem);
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: var(--space-3);
-        }
-
-        .section-subtitle {
-          font-size: 1.0625rem;
-          color: var(--text-secondary);
-          max-width: 650px;
-        }
-
-        /* Project Grid */
-        .projects-grid {
+        .project-row {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-8);
+          grid-template-columns: 1fr 1.15fr;
+          gap: clamp(1.5rem, 3.5vw, 3rem);
+          align-items: center;
         }
 
-        .project-card-wrap.is-featured {
-          grid-column: span 2;
+        .row-visual-right {
+          grid-template-columns: 1.15fr 1fr;
         }
 
-        .project-card {
-          display: flex;
-          flex-direction: column;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-md);
+        /* Visual Technical Frame (Replaces code block with technical diagram) */
+        .project-visual-frame {
+          background: rgba(8, 10, 15, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: var(--radius-sm);
           overflow: hidden;
           cursor: pointer;
-          transform-style: preserve-3d;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform 200ms ease;
+          transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
-        .project-card.standard-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent-primary);
-          box-shadow: var(--shadow-prominent), 0 0 25px rgba(200, 50, 38, 0.15);
+        .project-visual-frame:hover {
+          border-color: #D4AF37;
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
+          transform: translateY(-2px);
         }
 
-        .project-card:hover {
-          border-color: var(--accent-primary);
-          box-shadow: var(--shadow-prominent), 0 0 35px rgba(200, 50, 38, 0.15);
+        .frame-top-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 6px 12px;
+          background: rgba(14, 17, 24, 0.95);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          font-size: 0.6875rem;
         }
 
-        .project-card.is-featured {
-          width: 100%;
+        .file-indicator {
+          color: #F59E0B;
         }
 
-        /* Visual Media Banner with 3D Float */
-        .card-visual-media {
+        .engine-indicator {
+          color: #9CA3AF;
+        }
+
+        .frame-image-wrapper {
           position: relative;
           width: 100%;
-          height: 240px;
-          background: var(--bg-primary);
+          height: clamp(110px, 14.5vh, 150px);
+          background: #050608;
           overflow: hidden;
-          transform: translateZ(26px);
         }
 
-        .card-body-content {
-          transform: translateZ(34px);
-        }
-
-        .card-tech {
-          transform: translateZ(46px);
-        }
-
-        .project-card.is-featured .card-visual-media {
-          height: 340px;
-        }
-
-        .card-media-img {
+        .frame-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center;
-          transition: transform 500ms ease;
+          transition: transform 400ms ease;
+          opacity: 0.92;
         }
 
-        .project-card:hover .card-media-img {
+        .project-visual-frame:hover .frame-image {
           transform: scale(1.03);
-        }
-
-        .media-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(14, 16, 22, 0.95) 0%, transparent 60%);
-          display: flex;
-          align-items: flex-end;
-          padding: var(--space-4);
-          opacity: 0.85;
-          transition: opacity var(--transition-fast);
-        }
-
-        .project-card:hover .media-overlay {
           opacity: 1;
         }
 
-        .media-inspect-btn {
-          display: inline-flex;
+        .frame-hover-cue {
+          position: absolute;
+          inset: 0;
+          background: rgba(8, 9, 13, 0.65);
+          display: flex;
           align-items: center;
+          justify-content: center;
           gap: 6px;
-          padding: 6px 12px;
-          background: rgba(10, 11, 14, 0.75);
-          backdrop-filter: blur(8px);
-          border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-sm);
+          color: #F5EFE6;
           font-size: 0.6875rem;
-          color: var(--text-primary);
+          letter-spacing: 0.08em;
+          opacity: 0;
+          transition: opacity 180ms ease;
         }
 
-        /* Body Content */
-        .card-body-content {
-          padding: var(--space-6) var(--space-8) var(--space-8);
+        .project-visual-frame:hover .frame-hover-cue {
+          opacity: 1;
+        }
+
+        .frame-metrics-bar {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          padding: 6px 10px;
+          background: rgba(12, 15, 20, 0.95);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          gap: 8px;
+        }
+
+        .metric-item {
           display: flex;
           flex-direction: column;
-          gap: var(--space-3);
-          flex: 1;
         }
 
-        .card-top {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+        .metric-label {
+          font-size: 0.5625rem;
+          color: #6B7280;
+          letter-spacing: 0.05em;
         }
 
-        .card-category {
-          display: flex;
-          align-items: center;
-          gap: 8px;
+        .metric-value {
           font-size: 0.75rem;
-          color: var(--accent-primary);
+          color: #10B981;
           letter-spacing: 0.04em;
+        }
+
+        /* Editorial Side */
+        .project-editorial-side {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .project-category {
+          font-size: clamp(0.625rem, 0.85vw, 0.6875rem);
+          color: #D4AF37;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
         }
 
-        .category-icon {
-          display: flex;
-          align-items: center;
-        }
-
-        .card-arrow {
-          color: var(--text-muted);
-          transition: transform var(--transition-fast), color var(--transition-fast);
-        }
-
-        .project-card:hover .card-arrow {
-          color: var(--accent-primary);
-          transform: translate(2px, -2px);
-        }
-
-        .card-title {
-          font-size: 1.5rem;
+        .project-title {
+          font-family: var(--font-body);
+          font-size: clamp(1.25rem, 1.8vw, 1.65rem);
           font-weight: 700;
-          color: var(--text-primary);
-          line-height: 1.25;
+          color: #FFFFFF;
+          line-height: 1.15;
+          letter-spacing: -0.02em;
         }
 
-        .card-summary {
-          font-size: 0.9375rem;
-          line-height: 1.6;
-          color: var(--text-secondary);
+        .project-summary {
+          font-size: clamp(0.75rem, 0.95vw, 0.85rem);
+          line-height: 1.5;
+          color: #D1D5DB;
+          margin-top: 2px;
         }
 
-        .card-features {
+        .project-key-points {
           list-style: none;
+          margin: 4px 0 6px;
           display: flex;
           flex-direction: column;
-          gap: 6px;
-          margin-top: var(--space-2);
+          gap: 3px;
         }
 
-        .feature-line {
-          font-size: 0.875rem;
-          color: var(--text-muted);
-          line-height: 1.45;
-        }
-
-        .bullet {
-          color: var(--accent-primary);
-          font-weight: bold;
-        }
-
-        .card-tech {
+        .point-item {
           display: flex;
-          flex-wrap: wrap;
+          align-items: baseline;
           gap: 8px;
-          margin-top: auto;
-          padding-top: var(--space-4);
+          font-size: clamp(0.6875rem, 0.9vw, 0.78125rem);
+          line-height: 1.45;
+          color: #9CA3AF;
         }
 
-        .tech-badge {
-          font-size: 0.75rem;
-          padding: 3px 9px;
-          background: var(--bg-primary);
-          border: 1px solid var(--border-subtle);
-          color: var(--text-secondary);
-          border-radius: var(--radius-sm);
+        .point-bullet {
+          color: #F59E0B;
+          font-size: 0.55rem;
         }
 
-        @media (max-width: 860px) {
-          .projects-grid {
+        .project-action-links {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin-top: 2px;
+        }
+
+        .action-btn-editorial {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.6875rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          color: #F5EFE6;
+          padding: 4px 0;
+          border-bottom: 1px solid #D4AF37;
+          transition: color 150ms ease, border-color 150ms ease;
+        }
+
+        .action-btn-editorial:hover {
+          color: #F59E0B;
+          border-color: #F59E0B;
+        }
+
+        .action-btn-secondary {
+          font-size: 0.6875rem;
+          color: #9CA3AF;
+          transition: color 150ms ease;
+        }
+
+        .action-btn-secondary:hover {
+          color: #FFFFFF;
+        }
+
+        @media (max-width: 900px) {
+          .project-row,
+          .row-visual-right {
             grid-template-columns: 1fr;
+            gap: 16px;
           }
-          .project-card.is-featured {
-            grid-column: span 1;
+
+          .row-visual-right .project-editorial-side {
+            order: 2;
           }
-          .card-visual-media,
-          .project-card.is-featured .card-visual-media {
-            height: 200px;
-          }
-          .card-body-content {
-            padding: var(--space-5);
+          .row-visual-right .project-visual-frame {
+            order: 1;
           }
         }
       `}</style>
     </section>
   );
 };
+
+export default ProjectGallery;
