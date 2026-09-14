@@ -5,12 +5,12 @@ import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 export const HeroSection = () => {
   return (
     <section id="top" className="scene-section hero-section">
-      {/* Dedicated Scene Backdrop */}
+      {/* Dedicated Scene Backdrop: Sunrise Maple Grove & Torii Gate */}
       <SceneBackdrop
-        image="/images/tsushima-hero-bg.jpg"
-        position="center 25%"
-        opacity={0.9}
-        overlayDarkness={0.68}
+        image="/images/cinematic_maple.png"
+        position="center 30%"
+        opacity={0.88}
+        overlayDarkness={0.65}
       />
 
       <div className="container hero-container">

@@ -6,11 +6,11 @@ import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 export const HonorsSection = () => {
   return (
     <section id="education" className="scene-section honors-section">
-      {/* Dedicated Sunrise Torii Gate Backdrop */}
+      {/* Dedicated Mountain Stone Path & Lanterns Backdrop */}
       <SceneBackdrop
-        image="/images/cinematic_maple.png"
-        position="center 30%"
-        opacity={0.82}
+        image="/images/tsushima-hero-bg.jpg"
+        position="center 25%"
+        opacity={0.84}
         overlayDarkness={0.78}
       />
 
