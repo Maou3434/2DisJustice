@@ -16,25 +16,21 @@ export const HeroSection = () => {
       <div className="hero-atmosphere-mask" aria-hidden="true" />
 
       <div className="container hero-container">
-        <div className="hero-layered-layout">
-          
-          {/* Layered Monumental Title: Abimanyu physically overlapping Jayaganesh */}
-          <h1 className="hero-layered-title" aria-label="Abimanyu Jayaganesh">
-            <span className="layer-word layer-abimanyu">
-              <span className="swash-cap">A</span>bimanyu
-            </span>
-            <span className="layer-word layer-jayaganesh">
-              <span className="swash-cap">J</span>ayaganes<span className="swash-term">h</span>
-            </span>
-          </h1>
+        {/* Layered Monumental Title: Exact Viewport Center */}
+        <h1 className="hero-layered-title" aria-label="Abimanyu Jayaganesh">
+          <span className="layer-word layer-abimanyu">
+            <span className="swash-cap">A</span>bimanyu
+          </span>
+          <span className="layer-word layer-jayaganesh">
+            <span className="swash-cap">J</span>ayaganes<span className="swash-term">h</span>
+          </span>
+        </h1>
 
-          {/* Subtitle Stack */}
-          <div className="hero-specimen-subtitles">
-            <div className="specimen-sub-primary mono">
-              SOFTWARE ENGINEER · ML · SYSTEMS
-            </div>
+        {/* Bottom Center Descriptor Masthead */}
+        <div className="hero-bottom-masthead">
+          <div className="specimen-sub-primary mono">
+            SOFTWARE ENGINEER · ML · SYSTEMS
           </div>
-
         </div>
       </div>
 
@@ -42,6 +38,7 @@ export const HeroSection = () => {
         .hero-section {
           position: relative;
           min-height: 100vh;
+          height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -70,23 +67,14 @@ export const HeroSection = () => {
           z-index: 2;
           width: 100%;
           max-width: 100%;
+          height: 100%;
           padding: 0 3vw;
           display: flex;
+          align-items: center;
           justify-content: center;
         }
 
-        /* Full-Width Layered Lockup */
-        .hero-layered-layout {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          width: 100%;
-          margin: 0 auto;
-          user-select: none;
-        }
-
-        /* Page-Filling Layered Title with Violety Dreams luxury editorial cut */
+        /* Page-Filling Layered Title: Exactly Dead-Center */
         .hero-layered-title {
           font-family: var(--font-display);
           font-size: clamp(4.5rem, 14.5vw, 15.0rem);
@@ -102,6 +90,7 @@ export const HeroSection = () => {
           margin: 0;
           padding: 0;
           text-align: center;
+          user-select: none;
         }
 
         /* Surgical OpenType Stylistic Sets for Haute Couture Editorial Elegance */
@@ -139,25 +128,29 @@ export const HeroSection = () => {
           z-index: 2;
         }
 
-        /* Subtitle Stack - Pushed generously down for airy luxury negative space */
-        .hero-specimen-subtitles {
+        /* Descriptor Masthead: Centered between Name and Bottom of Viewport */
+        .hero-bottom-masthead {
+          position: absolute;
+          bottom: clamp(84px, 13.5vh, 140px);
+          left: 50%;
+          transform: translateX(-50%);
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          margin-top: clamp(60px, 11vh, 108px);
-          position: relative;
           z-index: 4;
+          width: 100%;
+          pointer-events: auto;
         }
 
-        /* Subtitle: Enlarged & Pushed Down with Refined Imperial Tracking */
+        /* Subtitle: Refined Bottom Ground Line */
         .specimen-sub-primary {
           color: var(--accent-primary);
           font-family: var(--font-mono);
-          font-size: clamp(1.0rem, 1.45vw, 1.35rem);
+          font-size: clamp(0.85rem, 1.2vw, 1.15rem);
           font-weight: 700;
-          letter-spacing: 0.30em;
-          text-indent: 0.30em;
+          letter-spacing: 0.32em;
+          text-indent: 0.32em;
           text-transform: uppercase;
           text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95);
         }

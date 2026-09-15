@@ -44,6 +44,15 @@ body {
   position: relative;
 }
 
+/* Hide default OS cursor on devices with fine pointer for CinematicCursor */
+@media (pointer: fine) {
+  html,
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

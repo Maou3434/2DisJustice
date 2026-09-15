@@ -100,7 +100,7 @@ export const CinematicCursor = () => {
           margin-top: -3px;
           margin-left: -3px;
           opacity: 0;
-          transition: opacity 200ms ease, transform 0ms linear, scale 150ms ease;
+          transition: opacity 200ms ease, scale 150ms cubic-bezier(0.16, 1, 0.3, 1);
           box-shadow: 0 0 10px var(--accent-primary);
         }
 
@@ -109,7 +109,7 @@ export const CinematicCursor = () => {
         }
 
         .cinematic-cursor-dot.is-clicked {
-          transform: scale(0.5);
+          scale: 0.5;
         }
 
         .cinematic-cursor-ring {
@@ -128,6 +128,7 @@ export const CinematicCursor = () => {
           transition: width 250ms cubic-bezier(0.16, 1, 0.3, 1),
                       height 250ms cubic-bezier(0.16, 1, 0.3, 1),
                       margin 250ms cubic-bezier(0.16, 1, 0.3, 1),
+                      scale 150ms cubic-bezier(0.16, 1, 0.3, 1),
                       background-color 250ms ease,
                       border-color 250ms ease,
                       opacity 200ms ease;
@@ -150,7 +151,7 @@ export const CinematicCursor = () => {
         }
 
         .cinematic-cursor-ring.is-clicked {
-          transform: scale(0.85);
+          scale: 0.85;
           background: rgba(200, 50, 38, 0.25);
         }
 
@@ -158,6 +159,12 @@ export const CinematicCursor = () => {
           .cinematic-cursor-dot,
           .cinematic-cursor-ring {
             display: none !important;
+          }
+        }
+
+        @media (pointer: fine) {
+          body, body * {
+            cursor: none !important;
           }
         }
       `}</style>
