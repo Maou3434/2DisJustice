@@ -1,3 +1,20 @@
+/* Custom Local Fonts */
+@font-face {
+  font-family: 'Violety Dreams';
+  src: url('/fonts/VioletyDreams.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Moralana';
+  src: url('/fonts/Moralana-DEMO.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Universal Reset */
 *, *::before, *::after {
   box-sizing: border-box;

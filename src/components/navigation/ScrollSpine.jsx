@@ -46,53 +46,64 @@ export const ScrollSpine = () => {
     }
   };
 
-  return (
-    <nav 
-      className="scroll-spine-nav" 
-      aria-label="Vertical Section Counter"
-    >
-      {/* Background Track Hairline */}
-      <div className="spine-track">
-        <div
-          className="spine-progress-fill"
-          style={{ height: `${scrollProgress}%` }}
-        />
-      </div>
+    const isLanding = activeSection === 'top';
 
-      {/* Chapter Nodes (Expanding Horizontal Pill on Hover) */}
-      <div className="spine-chapters">
-        {CHAPTERS.map((ch) => {
-          const isActive = activeSection === ch.id;
-          return (
-            <button
-              key={ch.id}
-              onClick={() => scrollTo(ch.id)}
-              className={`spine-node-pill ${isActive ? 'is-active' : ''}`}
-              aria-label={`Jump to Section ${ch.num}: ${ch.label}`}
-              title={`Section ${ch.num}: ${ch.label}`}
-            >
-              <span className="pill-num mono">{ch.num}</span>
-              <span className="pill-expansion">
-                <span className="pill-divider mono">//</span>
-                <span className="pill-label mono">{ch.label}</span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
+    return (
+      <nav 
+        className={`scroll-spine-nav ${isLanding ? 'is-hidden-on-landing' : ''}`} 
+        aria-label="Vertical Section Counter"
+      >
+        {/* Background Track Hairline */}
+        <div className="spine-track">
+          <div
+            className="spine-progress-fill"
+            style={{ height: `${scrollProgress}%` }}
+          />
+        </div>
 
-      <style>{`
-        .scroll-spine-nav {
-          position: fixed;
-          right: 24px;
-          top: 50%;
-          transform: translateY(-50%);
-          z-index: var(--z-nav);
-          display: flex;
-          align-items: center;
-          height: 390px;
-          pointer-events: auto;
-        }
+        {/* Chapter Nodes (Expanding Horizontal Pill on Hover) */}
+        <div className="spine-chapters">
+          {CHAPTERS.map((ch) => {
+            const isActive = activeSection === ch.id;
+            return (
+              <button
+                key={ch.id}
+                onClick={() => scrollTo(ch.id)}
+                className={`spine-node-pill ${isActive ? 'is-active' : ''}`}
+                aria-label={`Jump to Section ${ch.num}: ${ch.label}`}
+                title={`Section ${ch.num}: ${ch.label}`}
+              >
+                <span className="pill-num mono">{ch.num}</span>
+                <span className="pill-expansion">
+                  <span className="pill-divider mono">//</span>
+                  <span className="pill-label mono">{ch.label}</span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <style>{`
+          .scroll-spine-nav {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: var(--z-nav);
+            display: flex;
+            align-items: center;
+            height: 390px;
+            pointer-events: auto;
+            opacity: 1;
+            transition: opacity 360ms ease, transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          /* Hide on Landing Page (Quiet, Uncluttered Opening Frame) */
+          .scroll-spine-nav.is-hidden-on-landing {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-50%) translateX(28px);
+          }
 
         .spine-track {
           position: absolute;

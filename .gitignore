@@ -2,3 +2,9 @@ node_modules/
 dist/
 .DS_Store
 *.local
+fonts/
+public/fonts/
+*.otf
+*.ttf
+*.woff
+*.woff2
