@@ -38,6 +38,9 @@ export const SpatialCanvas = () => {
 
     // 3. Mouse & Scroll Velocity Tracking
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const mouseVelocity = { vx: 0, vy: 0, speed: 0 };
+    let prevMouseX = 0;
+    let prevMouseY = 0;
     let scrollOffset = 0;
     let targetScrollOffset = 0;
     let lastScrollY = window.scrollY;
@@ -93,11 +96,23 @@ export const SpatialCanvas = () => {
       if (!prefersReducedMotion) {
         // Smooth lerp mouse coordinates
         mouse.x += (mouse.targetX - mouse.x) * 0.08;
-        // Steady camera with subtle mouse sway (zero parallax scroll displacement)
-        const targetCamX = mouse.x * 0.4;
-        const targetCamY = mouse.y * 0.3;
-        const targetCamRotX = mouse.y * 0.015;
-        const targetCamRotY = -mouse.x * 0.015;
+        mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+        // Calculate smooth mouse velocity for wind vortex physics
+        const deltaX = mouse.x - prevMouseX;
+        const deltaY = mouse.y - prevMouseY;
+        prevMouseX = mouse.x;
+        prevMouseY = mouse.y;
+
+        mouseVelocity.vx += (deltaX - mouseVelocity.vx) * 0.35;
+        mouseVelocity.vy += (deltaY - mouseVelocity.vy) * 0.35;
+        mouseVelocity.speed = Math.hypot(mouseVelocity.vx, mouseVelocity.vy);
+
+        // Steady camera with subtle mouse sway
+        const targetCamX = mouse.x * 0.45;
+        const targetCamY = mouse.y * 0.32;
+        const targetCamRotX = mouse.y * 0.02;
+        const targetCamRotY = -mouse.x * 0.02;
 
         camera.position.x += (targetCamX - camera.position.x) * 0.05;
         camera.position.y += (targetCamY - camera.position.y) * 0.05;
@@ -107,7 +122,7 @@ export const SpatialCanvas = () => {
         camera.rotation.z = 0;
 
         if (activeSceneController) {
-          activeSceneController.update(mouse, 0, 0);
+          activeSceneController.update(mouse, mouseVelocity, scrollOffset, scrollVelocity);
         }
       }
 

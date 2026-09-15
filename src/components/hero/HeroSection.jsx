@@ -1,9 +1,73 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const HeroSection = () => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    // Only enable continuous 3D tilt tracking on pointer-fine desktop devices
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let targetPxX = window.innerWidth / 2;
+    let targetPxY = window.innerHeight / 2;
+    let currentPxX = targetPxX;
+    let currentPxY = targetPxY;
+    let animId;
+
+    const handleMouseMove = (e) => {
+      const rect = section.getBoundingClientRect();
+      targetX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      targetY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      targetPxX = e.clientX - rect.left;
+      targetPxY = e.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      targetX = 0;
+      targetY = 0;
+      targetPxX = section.clientWidth / 2;
+      targetPxY = section.clientHeight / 2;
+    };
+
+    const tick = () => {
+      // Weighted luxury lag (lerp)
+      currentX += (targetX - currentX) * 0.07;
+      currentY += (targetY - currentY) * 0.07;
+      currentPxX += (targetPxX - currentPxX) * 0.09;
+      currentPxY += (targetPxY - currentPxY) * 0.09;
+
+      section.style.setProperty('--mouse-x', currentX.toFixed(4));
+      section.style.setProperty('--mouse-y', currentY.toFixed(4));
+      section.style.setProperty('--cursor-px-x', `${currentPxX.toFixed(1)}px`);
+      section.style.setProperty('--cursor-px-y', `${currentPxY.toFixed(1)}px`);
+
+      animId = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+    animId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animId);
+    };
+  }, []);
+
   return (
-    <section id="top" className="scene-section hero-section" aria-label="Prologue">
+    <section 
+      ref={sectionRef}
+      id="top" 
+      className="scene-section hero-section" 
+      aria-label="Prologue"
+    >
       {/* Dominant Atmospheric Environment: Sunrise Maple Grove & Torii Gate */}
       <SceneBackdrop
         image="/images/cinematic_maple.png"
@@ -12,11 +76,14 @@ export const HeroSection = () => {
         overlayDarkness={0.70}
       />
 
-      {/* Controlled Atmosphere Mask for Focused Typographic Negative Space */}
+      {/* Controlled Atmosphere Mask with Interactive Lantern Glint */}
       <div className="hero-atmosphere-mask" aria-hidden="true" />
 
+      {/* Dynamic Specular Sheen Over Typography */}
+      <div className="hero-specular-light" aria-hidden="true" />
+
       <div className="container hero-container">
-        {/* Layered Monumental Title: Exact Viewport Center */}
+        {/* Layered Monumental Title: Exact Viewport Center with 3D Spatial Tilt */}
         <h1 className="hero-layered-title" aria-label="Abimanyu Jayaganesh">
           <span className="layer-word layer-abimanyu">
             <span className="swash-cap">A</span>bimanyu
@@ -47,19 +114,47 @@ export const HeroSection = () => {
           overflow: hidden;
         }
 
-        /* Controlled Radial Atmosphere Vignette for Focused Readability */
+        /* Inverse Backdrop Parallax */
+        .hero-section .scene-backdrop-img {
+          transform: scale(1.06) translate3d(calc(var(--mouse-x, 0) * -14px), calc(var(--mouse-y, 0) * -10px), 0);
+          transition: transform 120ms linear;
+        }
+
+        /* Controlled Radial Atmosphere Vignette with Dynamic Lantern Glint */
         .hero-atmosphere-mask {
           position: absolute;
           inset: 0;
-          background: radial-gradient(
-            ellipse 80% 65% at 50% 50%,
-            rgba(10, 11, 14, 0.74) 0%,
-            rgba(10, 11, 14, 0.46) 45%,
-            rgba(10, 11, 14, 0.10) 80%,
-            transparent 100%
-          );
+          background: 
+            radial-gradient(
+              circle 520px at var(--cursor-px-x, 50%) var(--cursor-px-y, 50%),
+              rgba(200, 50, 38, 0.08) 0%,
+              rgba(245, 239, 230, 0.03) 35%,
+              transparent 70%
+            ),
+            radial-gradient(
+              ellipse 80% 65% at 50% 50%,
+              rgba(10, 11, 14, 0.72) 0%,
+              rgba(10, 11, 14, 0.46) 45%,
+              rgba(10, 11, 14, 0.10) 80%,
+              transparent 100%
+            );
           pointer-events: none;
           z-index: 1;
+        }
+
+        /* Dynamic Specular Sheen Over Typography */
+        .hero-specular-light {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: radial-gradient(
+            circle 420px at var(--cursor-px-x, 50%) var(--cursor-px-y, 50%),
+            rgba(255, 255, 255, 0.14) 0%,
+            rgba(245, 239, 230, 0.05) 40%,
+            transparent 70%
+          );
+          mix-blend-mode: overlay;
+          z-index: 5;
         }
 
         .hero-container {
@@ -72,9 +167,11 @@ export const HeroSection = () => {
           display: flex;
           align-items: center;
           justify-content: center;
+          perspective: 1200px;
+          transform-style: preserve-3d;
         }
 
-        /* Page-Filling Layered Title: Exactly Dead-Center */
+        /* Page-Filling Layered Title: Exactly Dead-Center with 3D Spatial Tilt */
         .hero-layered-title {
           font-family: var(--font-display);
           font-size: clamp(4.5rem, 14.5vw, 15.0rem);
@@ -91,6 +188,12 @@ export const HeroSection = () => {
           padding: 0;
           text-align: center;
           user-select: none;
+          transform-style: preserve-3d;
+          transform: 
+            rotateX(calc(var(--mouse-y, 0) * -4.5deg))
+            rotateY(calc(var(--mouse-x, 0) * 6.5deg))
+            translate3d(calc(var(--mouse-x, 0) * 8px), calc(var(--mouse-y, 0) * -5px), 0);
+          transition: transform 80ms linear;
         }
 
         /* Surgical OpenType Stylistic Sets for Haute Couture Editorial Elegance */
@@ -107,25 +210,29 @@ export const HeroSection = () => {
         .layer-word {
           display: block;
           white-space: nowrap;
-          transition: transform 300ms ease;
-          text-shadow: 
-            0 4px 45px rgba(0, 0, 0, 0.92),
-            0 2px 10px rgba(0, 0, 0, 0.98);
+          transform-style: preserve-3d;
         }
 
-        /* Abimanyu Layered Over Jayaganesh */
+        /* Abimanyu Layered Over Jayaganesh in 3D Space with Shifting Shadow */
         .layer-abimanyu {
           position: relative;
           z-index: 3;
           margin-bottom: -0.07em; /* Controlled luxury layering overlap */
+          transform: translateZ(26px);
           text-shadow: 
-            0 8px 32px rgba(0, 0, 0, 0.96),
+            calc(var(--mouse-x, 0) * -16px) calc(var(--mouse-y, 0) * -14px + 10px) 35px rgba(0, 0, 0, 0.96),
             0 2px 12px rgba(0, 0, 0, 0.98);
+          transition: text-shadow 80ms linear;
         }
 
         .layer-jayaganesh {
           position: relative;
           z-index: 2;
+          transform: translateZ(10px);
+          text-shadow: 
+            calc(var(--mouse-x, 0) * -10px) calc(var(--mouse-y, 0) * -10px + 6px) 28px rgba(0, 0, 0, 0.94),
+            0 2px 10px rgba(0, 0, 0, 0.98);
+          transition: text-shadow 80ms linear;
         }
 
         /* Descriptor Masthead: Centered between Name and Bottom of Viewport */
@@ -133,7 +240,7 @@ export const HeroSection = () => {
           position: absolute;
           bottom: clamp(84px, 13.5vh, 140px);
           left: 50%;
-          transform: translateX(-50%);
+          transform: translateX(-50%) translate3d(calc(var(--mouse-x, 0) * 4px), 0, 0);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -141,6 +248,7 @@ export const HeroSection = () => {
           z-index: 4;
           width: 100%;
           pointer-events: auto;
+          transition: transform 120ms linear;
         }
 
         /* Subtitle: Refined Bottom Ground Line */
