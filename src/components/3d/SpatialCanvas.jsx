@@ -12,6 +12,11 @@ export const SpatialCanvas = () => {
     // Check reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Detect Firefox engine for engine-specific optimizations
+    const isFirefox = typeof InstallTrigger !== 'undefined' || 
+                      (typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox'));
+    const maxPixelRatio = isFirefox ? 1.5 : 2.0;
+
     // 1. Scene, Camera, Renderer Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -25,9 +30,12 @@ export const SpatialCanvas = () => {
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
-      powerPreference: 'high-performance'
+      depth: false,
+      stencil: false,
+      powerPreference: 'high-performance',
+      premultipliedAlpha: true
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
@@ -71,6 +79,7 @@ export const SpatialCanvas = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
     };
 
     const handleVisibilityChange = () => {

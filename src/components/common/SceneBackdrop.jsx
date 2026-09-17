@@ -53,15 +53,16 @@ export const SceneBackdrop = ({
           height: 100%;
           background-size: cover;
           background-repeat: no-repeat;
-          filter: contrast(1.1) saturate(1.05) brightness(0.9);
+          filter: contrast(1.08) saturate(1.04) brightness(0.92);
           transform: scale(1.02);
+          will-change: transform;
+          backface-visibility: hidden;
           transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scene-backdrop-overlay {
           position: absolute;
           inset: 0;
-          mix-blend-mode: multiply;
         }
 
         .scene-backdrop-vignette {

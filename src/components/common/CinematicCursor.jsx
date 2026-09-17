@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export const CinematicCursor = () => {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Only enable on pointer-fine devices (desktops)
@@ -15,31 +12,51 @@ export const CinematicCursor = () => {
     let mouseY = window.innerHeight / 2;
     let ringX = mouseX;
     let ringY = mouseY;
+    let isVisible = false;
     let animId;
 
     const handleMouseMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (!isVisible) setIsVisible(true);
+
+      if (!isVisible) {
+        isVisible = true;
+        if (dotRef.current) dotRef.current.classList.add('is-visible');
+        if (ringRef.current) ringRef.current.classList.add('is-visible');
+      }
 
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
       }
     };
 
-    const handleMouseDown = () => setIsClicked(true);
-    const handleMouseUp = () => setIsClicked(false);
-    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseDown = () => {
+      if (dotRef.current) dotRef.current.classList.add('is-clicked');
+      if (ringRef.current) ringRef.current.classList.add('is-clicked');
+    };
 
-    // Track hover on interactive elements
+    const handleMouseUp = () => {
+      if (dotRef.current) dotRef.current.classList.remove('is-clicked');
+      if (ringRef.current) ringRef.current.classList.remove('is-clicked');
+    };
+
+    const handleMouseLeave = () => {
+      isVisible = false;
+      if (dotRef.current) dotRef.current.classList.remove('is-visible');
+      if (ringRef.current) ringRef.current.classList.remove('is-visible');
+    };
+
+    // Track hover on interactive elements via direct DOM class mutation
     const handleMouseOver = (e) => {
       const target = e.target;
+      if (!ringRef.current) return;
+
       if (
         target.closest('a, button, [role="button"], input, textarea, .project-card, .patent-card, .timeline-card')
       ) {
-        setIsHovered(true);
+        ringRef.current.classList.add('is-hovered');
       } else {
-        setIsHovered(false);
+        ringRef.current.classList.remove('is-hovered');
       }
     };
 
@@ -69,20 +86,20 @@ export const CinematicCursor = () => {
       document.removeEventListener('mouseover', handleMouseOver);
       cancelAnimationFrame(animId);
     };
-  }, [isVisible]);
+  }, []);
 
   return (
     <>
       {/* Precision Core Dot */}
       <div
         ref={dotRef}
-        className={`cinematic-cursor-dot ${isVisible ? 'is-visible' : ''} ${isClicked ? 'is-clicked' : ''}`}
+        className="cinematic-cursor-dot"
         aria-hidden="true"
       />
       {/* Atmospheric Trailing Aura Ring */}
       <div
         ref={ringRef}
-        className={`cinematic-cursor-ring ${isVisible ? 'is-visible' : ''} ${isHovered ? 'is-hovered' : ''} ${isClicked ? 'is-clicked' : ''}`}
+        className="cinematic-cursor-ring"
         aria-hidden="true"
       />
 
@@ -100,6 +117,8 @@ export const CinematicCursor = () => {
           margin-top: -3px;
           margin-left: -3px;
           opacity: 0;
+          will-change: transform;
+          transform: translate3d(-100px, -100px, 0);
           transition: opacity 200ms ease, scale 150ms cubic-bezier(0.16, 1, 0.3, 1);
           box-shadow: 0 0 10px var(--accent-primary);
         }
@@ -125,6 +144,8 @@ export const CinematicCursor = () => {
           margin-top: -16px;
           margin-left: -16px;
           opacity: 0;
+          will-change: transform;
+          transform: translate3d(-100px, -100px, 0);
           transition: width 250ms cubic-bezier(0.16, 1, 0.3, 1),
                       height 250ms cubic-bezier(0.16, 1, 0.3, 1),
                       margin 250ms cubic-bezier(0.16, 1, 0.3, 1),
