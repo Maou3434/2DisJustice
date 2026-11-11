@@ -736,6 +736,106 @@ export const ExperienceTimeline = () => {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 640px) {
+          .interactive-timeline-wrap {
+            padding-left: 34px;
+          }
+
+          .timeline-scroll-track {
+            left: 11px;
+            top: 20px;
+            bottom: 20px;
+          }
+
+          .exp-spine-node {
+            left: -34px;
+            top: 22px;
+            width: 26px;
+            height: 26px;
+          }
+
+          .node-num {
+            font-size: 0.6rem;
+          }
+
+          .exp-glass-card {
+            padding: 1.25rem 1.15rem;
+            gap: 14px;
+          }
+
+          .exp-Glass-card:hover,
+          .exp-glass-card:hover {
+            transform: none;
+          }
+
+          .exp-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+
+          .exp-role-title {
+            font-size: 1.32rem;
+          }
+
+          .exp-meta-pill {
+            font-size: 0.6875rem;
+            padding: 4px 10px;
+            flex-wrap: wrap;
+          }
+
+          .exp-description {
+            font-size: 0.95rem;
+            line-height: 1.68;
+          }
+
+          .exp-tag-pill {
+            font-size: 0.6875rem;
+            padding: 3px 9px;
+          }
+
+          .sandbox-toggle-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+          }
+
+          .sandbox-top-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px 12px;
+          }
+
+          .sandbox-cycle-tabs {
+            width: 100%;
+          }
+
+          .cycle-tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 6px 8px;
+          }
+
+          .sandbox-body-grid {
+            padding: 12px;
+            gap: 14px;
+          }
+
+          .readout-box {
+            padding: 6px;
+          }
+
+          .readout-val {
+            font-size: 0.78rem;
+          }
+
+          .summary-stat {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+          }
+        }
       `}</style>
     </section>
   );

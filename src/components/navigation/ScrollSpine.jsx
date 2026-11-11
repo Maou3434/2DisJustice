@@ -224,7 +224,7 @@ export const ScrollSpine = () => {
           font-weight: 800;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .scroll-spine-nav {
             display: none;
           }

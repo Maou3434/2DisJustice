@@ -195,6 +195,21 @@ export const TechnicalMatrix = () => {
         @media (max-width: 640px) {
           .skills-bento-grid {
             grid-template-columns: 1fr;
+            gap: 1.125rem;
+          }
+
+          .skill-bento-card {
+            padding: 1.35rem 1.2rem;
+            gap: 14px;
+          }
+
+          .bento-title {
+            font-size: 1.22rem;
+          }
+
+          .bento-skill-chip {
+            font-size: 0.6875rem;
+            padding: 4px 10px;
           }
         }
       `}</style>

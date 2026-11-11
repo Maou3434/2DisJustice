@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 
 export class MapleLeaves {
-  constructor(scene, count = 80) {
+  constructor(scene, count = 80, spreadX = 28) {
     this.scene = scene;
     this.count = count;
+    this.spreadX = spreadX;
+    this.boundX = spreadX * 0.58;
     this.leafGroup = new THREE.Group();
     this.leaves = [];
 
@@ -41,7 +43,7 @@ export class MapleLeaves {
       mesh.scale.set(scale, scale, scale);
 
       mesh.position.set(
-        (Math.random() - 0.5) * 28,
+        (Math.random() - 0.5) * this.spreadX,
         (Math.random() * 14) - 6, // Spans visible Y between -6 and +8
         (Math.random() - 0.5) * 6
       );
@@ -133,11 +135,11 @@ export class MapleLeaves {
       m.position.y += item.baseSpeedY - gust * 1.5 + item.extraVy + Math.sin(elapsedTime * item.swayFreq + item.swayPhase) * 0.006;
 
       // Continuous boundary cycling
-      if (m.position.x > 16) m.position.x = -16;
-      if (m.position.x < -16) m.position.x = 16;
+      if (m.position.x > this.boundX) m.position.x = -this.boundX;
+      if (m.position.x < -this.boundX) m.position.x = this.boundX;
       if (m.position.y < -7.0) {
         m.position.y = 7.5 + Math.random() * 2.0;
-        m.position.x = (Math.random() - 0.5) * 28;
+        m.position.x = (Math.random() - 0.5) * this.spreadX;
         item.extraVx = 0;
         item.extraVy = 0;
       }

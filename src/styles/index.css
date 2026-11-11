@@ -22,6 +22,9 @@ html {
   text-rendering: optimizeLegibility;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -30,9 +33,11 @@ body {
   line-height: 1.8;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  max-width: 100%;
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Hide default OS cursor on devices with fine pointer for CinematicCursor */
@@ -98,8 +103,8 @@ code, pre, .mono {
   max-width: 1180px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(1.5rem, 5vw, 4rem);
-  padding-right: clamp(1.5rem, 5vw, 4rem);
+  padding-left: clamp(1.125rem, 4.5vw, 4rem);
+  padding-right: clamp(1.125rem, 4.5vw, 4rem);
 }
 
 /* Reduced Motion Override */
@@ -218,7 +223,7 @@ code, pre, .mono {
 
 .scene-title-editorial {
   font-family: var(--font-heading);
-  font-size: clamp(2.6rem, 4.8vw, 4.25rem);
+  font-size: clamp(2.0rem, 5.5vw, 4.25rem);
   font-weight: 700;
   line-height: 1.1;
   color: var(--text-primary);
@@ -293,14 +298,44 @@ code, pre, .mono {
 .scene-section.is-inview .reveal-delay-4 { transition-delay: 480ms; }
 
 @media (max-width: 768px) {
+  body {
+    font-size: 0.96875rem;
+    line-height: 1.7;
+  }
+
+  .scene-section:not(.hero-section) {
+    min-height: auto;
+    padding-top: clamp(4.25rem, 9vh, 6rem);
+    padding-bottom: clamp(4.25rem, 9vh, 6rem);
+  }
+
+  .scene-section:not(.hero-section)::before {
+    height: 44px;
+  }
+
+  .scene-head-editorial {
+    margin-bottom: clamp(2rem, 4.5vh, 3rem);
+    gap: var(--space-3);
+  }
+
   .scene-head-top {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-3);
   }
 
+  .scene-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+  }
+
   .section-backdrop-watermark {
-    right: 20px;
+    top: 28px;
+    right: 16px;
     opacity: 0.08;
+  }
+
+  .wm-number {
+    font-size: clamp(3.5rem, 14vw, 5.5rem);
   }
 }

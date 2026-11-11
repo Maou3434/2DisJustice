@@ -479,13 +479,42 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
         }
 
         @media (max-width: 640px) {
-          .project-modal-card {
-            padding: var(--space-5);
+          .project-modal-backdrop {
+            padding: 10px;
           }
+
+          .project-modal-card {
+            padding: 1.25rem 1.125rem;
+            max-height: 90dvh;
+            gap: 1.125rem;
+          }
+
+          .modal-title {
+            font-size: 1.28rem;
+            line-height: 1.25;
+          }
+
+          .modal-media-caption {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+          }
+
+          .topology-box {
+            padding: 12px;
+            font-size: 0.6875rem;
+          }
+
           .modal-footer {
             flex-direction: column;
             align-items: stretch;
             gap: 12px;
+          }
+
+          .footer-btn {
+            width: 100%;
+            text-align: center;
+            padding: 10px 18px;
           }
         }
       `}</style>

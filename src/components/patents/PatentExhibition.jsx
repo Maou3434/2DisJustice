@@ -467,6 +467,59 @@ export const PatentExhibition = () => {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 640px) {
+          .blueprint-top-bar {
+            padding: 10px 12px;
+            font-size: 0.625rem;
+            flex-wrap: wrap;
+            gap: 6px;
+          }
+
+          .blueprint-media-wrap {
+            height: clamp(180px, 24vh, 220px);
+          }
+
+          .patent-card-body {
+            padding: 1.35rem 1.15rem;
+            gap: 12px;
+          }
+
+          .patent-seal-row {
+            flex-wrap: wrap;
+            gap: 8px;
+          }
+
+          .patent-title-editorial {
+            font-size: 1.3rem;
+          }
+
+          .patent-summary-text {
+            font-size: 0.95rem;
+            line-height: 1.68;
+          }
+
+          .drawing-lightbox-backdrop {
+            padding: 10px;
+          }
+
+          .drawing-lightbox-card {
+            max-height: 90dvh;
+          }
+
+          .lightbox-header {
+            padding: 14px 16px;
+          }
+
+          .lightbox-heading {
+            font-size: 1.15rem;
+          }
+
+          .lightbox-body {
+            padding: 16px;
+            gap: 16px;
+          }
+        }
       `}</style>
     </section>
   );

@@ -14,7 +14,8 @@ export const SpatialCanvas = () => {
     const isFirefox =
       typeof InstallTrigger !== 'undefined' ||
       (typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox'));
-    const maxPixelRatio = isFirefox ? 1.5 : 2.0;
+    const isMobileViewport = window.innerWidth < 768;
+    const maxPixelRatio = isFirefox || isMobileViewport ? 1.5 : 2.0;
 
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -64,6 +65,14 @@ export const SpatialCanvas = () => {
     const handleMouseMove = (e) => {
       mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const touch = e.touches[0];
+        mouse.targetX = (touch.clientX / window.innerWidth) * 2 - 1;
+        mouse.targetY = -(touch.clientY / window.innerHeight) * 2 + 1;
+      }
     };
 
     const startLoop = () => {
@@ -135,6 +144,7 @@ export const SpatialCanvas = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -184,6 +194,7 @@ export const SpatialCanvas = () => {
     return () => {
       stopLoop();
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibilityChange);

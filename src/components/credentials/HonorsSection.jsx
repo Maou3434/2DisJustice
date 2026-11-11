@@ -296,6 +296,53 @@ export const HonorsSection = () => {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 640px) {
+          .academic-hero-banner {
+            padding: 1.35rem 1.15rem;
+            gap: 18px;
+          }
+
+          .banner-badge {
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+          }
+
+          .institution-name {
+            font-size: 1.35rem;
+          }
+
+          .degree-name {
+            font-size: 0.95rem;
+          }
+
+          .lang-pill {
+            font-size: 0.6875rem;
+            padding: 3px 10px;
+          }
+
+          .cgpa-giant-val {
+            font-size: 2.75rem;
+          }
+
+          .cred-glass-panel {
+            padding: 1.35rem 1.15rem;
+            gap: 16px;
+          }
+
+          .panel-header {
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+          }
+
+          .panel-item-row {
+            gap: 12px;
+          }
+
+          .item-title {
+            font-size: 1.05rem;
+          }
+        }
       `}</style>
     </section>
   );

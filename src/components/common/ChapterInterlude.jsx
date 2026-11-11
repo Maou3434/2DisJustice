@@ -129,6 +129,34 @@ export const ChapterInterlude = ({ actNumber, kanji, title, subtitle }) => {
           font-size: 0.625rem;
           color: var(--text-muted);
           letter-spacing: 0.24em;
+          text-align: center;
+          padding: 0 16px;
+        }
+
+        @media (max-width: 640px) {
+          .chapter-interlude {
+            height: clamp(108px, 14vh, 140px);
+          }
+
+          .interlude-kanji {
+            font-size: clamp(2.35rem, 11vw, 3.8rem);
+            letter-spacing: 0.1em;
+          }
+
+          .interlude-pill {
+            gap: 7px;
+            padding: 5px 14px;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            max-width: 92vw;
+          }
+
+          .interlude-sub {
+            font-size: 0.5625rem;
+            letter-spacing: 0.12em;
+            line-height: 1.45;
+            max-width: 90vw;
+          }
         }
       `}</style>
     </div>

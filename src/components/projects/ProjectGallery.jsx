@@ -612,6 +612,134 @@ export const ProjectGallery = () => {
             text-align: left;
           }
         }
+
+        @media (max-width: 680px) {
+          /* Horizontal Touch-Swipeable Flagship Selector Strip on Mobile */
+          .flagship-selector-rail {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
+            padding-bottom: 6px;
+            margin-right: -4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+
+          .flagship-selector-rail::-webkit-scrollbar {
+            display: none;
+          }
+
+          .flagship-selector-card {
+            flex: 0 0 78%;
+            min-width: 225px;
+            scroll-snap-align: start;
+            padding: 14px 16px;
+          }
+
+          .selector-title {
+            font-size: 1.1rem;
+          }
+
+          .flagship-active-stage {
+            padding: 1.35rem 1.15rem;
+            gap: 1.5rem;
+          }
+
+          .stage-title {
+            font-size: 1.4rem;
+          }
+
+          .stage-summary {
+            font-size: 0.95rem;
+            line-height: 1.68;
+          }
+
+          .stage-tech-pill {
+            font-size: 0.6875rem;
+            padding: 3px 9px;
+          }
+
+          .stage-cta-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 12px 16px;
+          }
+
+          .blueprint-top-bar {
+            padding: 8px 12px;
+            font-size: 0.625rem;
+            flex-wrap: wrap;
+            gap: 4px;
+          }
+
+          .frame-image-wrapper {
+            height: clamp(175px, 24vh, 215px);
+          }
+
+          .frame-metrics-bar {
+            grid-template-columns: 1fr;
+            gap: 8px;
+            padding: 10px 14px;
+          }
+
+          .metric-item {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(245, 239, 230, 0.06);
+          }
+
+          .metric-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+          }
+
+          .metric-value {
+            font-size: 0.8125rem;
+          }
+
+          .switcher-tabs {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            width: 100%;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+
+          .switcher-tabs::-webkit-scrollbar {
+            display: none;
+          }
+
+          .switcher-tab-btn {
+            flex-shrink: 0;
+            padding: 8px 13px;
+            font-size: 0.6875rem;
+          }
+
+          .archive-compact-preview {
+            padding: 1.25rem 1.15rem;
+            gap: 16px;
+          }
+
+          .archive-preview-title {
+            font-size: 1.25rem;
+          }
+
+          .archive-preview-desc {
+            font-size: 0.9375rem;
+            line-height: 1.65;
+          }
+
+          .archive-preview-actions {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 14px;
+          }
+        }
       `}</style>
     </section>
   );

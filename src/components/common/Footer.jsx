@@ -222,11 +222,14 @@ export const Footer = () => {
 
         .channel-meta-col {
           flex: 1;
+          min-width: 0;
         }
 
         .channel-val {
-          font-size: 0.95rem;
+          font-size: clamp(0.75rem, 3.4vw, 0.95rem);
           color: var(--text-primary);
+          word-break: break-all;
+          overflow-wrap: anywhere;
           transition: color 150ms ease;
         }
 
@@ -303,6 +306,41 @@ export const Footer = () => {
           .footer-glass-deck {
             grid-template-columns: 1fr;
             gap: 28px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .footer-glass-deck {
+            padding: 1.35rem 1.15rem;
+            gap: 22px;
+          }
+
+          .footer-name {
+            font-size: 1.5rem;
+          }
+
+          .footer-bio-text {
+            font-size: 0.95rem;
+            line-height: 1.68;
+          }
+
+          .direct-channel-card {
+            padding: 12px 14px;
+            gap: 10px;
+          }
+
+          .footer-bottom-actions {
+            flex-direction: column;
+            align-items: stretch;
+          }
+
+          .social-links-group {
+            justify-content: space-between;
+          }
+
+          .scroll-top-btn {
+            justify-content: center;
+            padding: 11px 16px;
           }
         }
       `}</style>

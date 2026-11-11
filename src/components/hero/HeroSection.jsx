@@ -143,7 +143,9 @@ export const HeroSection = () => {
         .hero-section {
           position: relative;
           min-height: 100vh;
+          min-height: 100svh;
           height: 100vh;
+          height: 100svh;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -282,7 +284,7 @@ export const HeroSection = () => {
         /* Bottom Masthead & Scroll Thread */
         .hero-bottom-masthead {
           position: absolute;
-          bottom: clamp(28px, 4.5vh, 48px);
+          bottom: calc(clamp(24px, 4.5vh, 48px) + env(safe-area-inset-bottom, 0px));
           left: 50%;
           transform: translateX(-50%);
           will-change: transform;
@@ -292,7 +294,8 @@ export const HeroSection = () => {
           gap: 14px;
           text-align: center;
           z-index: 4;
-          width: auto;
+          width: 92vw;
+          max-width: 560px;
           pointer-events: auto;
         }
 
@@ -340,20 +343,36 @@ export const HeroSection = () => {
           100% { transform: translateY(40px); opacity: 0; }
         }
 
+        @media (pointer: coarse) {
+          .hero-atmosphere-glint,
+          .hero-specular-light {
+            display: none;
+          }
+        }
+
         @media (max-width: 768px) {
+          .hero-container {
+            padding: 0 4vw;
+          }
+
           .hero-layered-title {
-            font-size: clamp(3.0rem, 16vw, 5.5rem);
-            line-height: 0.80;
+            font-size: clamp(2.45rem, 13.2vw, 5.2rem);
+            line-height: 0.84;
           }
 
           .layer-abimanyu {
-            margin-bottom: -0.10em;
+            margin-bottom: -0.08em;
           }
 
           .specimen-sub-primary {
-            letter-spacing: 0.20em;
-            text-indent: 0.20em;
-            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            text-indent: 0.16em;
+            font-size: clamp(0.68rem, 2.8vw, 0.8rem);
+            line-height: 1.5;
+          }
+
+          .scroll-thread-track {
+            height: 28px;
           }
         }
       `}</style>

@@ -139,10 +139,24 @@ export const Header = () => {
         @media (max-width: 900px) {
           .mobile-chapter-btn {
             display: inline-flex;
+            height: 36px;
+            padding: 0 12px;
           }
           .floating-top-controls {
-            top: 14px;
+            top: calc(14px + env(safe-area-inset-top, 0px));
             right: 16px;
+          }
+          .mobile-drawer {
+            padding-top: calc(64px + env(safe-area-inset-top, 0px));
+          }
+          .mobile-drawer-content {
+            padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+            max-height: calc(100dvh - 64px);
+            overflow-y: auto;
+          }
+          .mobile-nav-link {
+            font-size: 1.15rem;
+            padding: 10px 4px;
           }
         }
       `}</style>

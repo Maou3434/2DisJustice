@@ -32,15 +32,17 @@ export class TsushimaScene {
     this.rimLight.position.set(6, -2, 2);
     this.scene.add(this.rimLight);
 
-    // 2. 3D Maple Leaves with Real Assets & Interactive Wind
-    this.mapleLeaves = new MapleLeaves(this.scene, 80);
+    // 2. 3D Maple Leaves with Real Assets & Interactive Wind (Scaled for Mobile Portrait vs Desktop)
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    this.mapleLeaves = new MapleLeaves(this.scene, isMobile ? 42 : 80, isMobile ? 12 : 28);
 
     // 3. Subtle Cinnabar & Gold Ember Sparkles
-    const sparkleCount = 120;
+    const sparkleCount = isMobile ? 60 : 120;
+    const sparkleSpreadX = isMobile ? 12 : 26;
     const sparkleGeom = new THREE.BufferGeometry();
     const sparklePos = new Float32Array(sparkleCount * 3);
     for (let i = 0; i < sparkleCount * 3; i += 3) {
-      sparklePos[i] = (Math.random() - 0.5) * 26;
+      sparklePos[i] = (Math.random() - 0.5) * sparkleSpreadX;
       sparklePos[i + 1] = (Math.random() - 0.5) * 12;
       sparklePos[i + 2] = (Math.random() - 0.5) * 6;
     }
