@@ -13,7 +13,14 @@ export const CinematicCursor = () => {
     let ringX = mouseX;
     let ringY = mouseY;
     let isVisible = false;
+    let isPressed = false;
     let animId;
+
+    const updateDotTransform = () => {
+      if (!dotRef.current) return;
+      const s = isPressed ? 0.55 : 1;
+      dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(${s})`;
+    };
 
     const handleMouseMove = (e) => {
       mouseX = e.clientX;
@@ -21,29 +28,36 @@ export const CinematicCursor = () => {
 
       if (!isVisible) {
         isVisible = true;
+        ringX = mouseX;
+        ringY = mouseY;
         if (dotRef.current) dotRef.current.classList.add('is-visible');
         if (ringRef.current) ringRef.current.classList.add('is-visible');
       }
 
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
-      }
+      updateDotTransform();
     };
 
-    const handleMouseDown = () => {
+    const handleMouseDown = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      isPressed = true;
+      updateDotTransform();
       if (dotRef.current) dotRef.current.classList.add('is-clicked');
       if (ringRef.current) ringRef.current.classList.add('is-clicked');
     };
 
     const handleMouseUp = () => {
+      isPressed = false;
+      updateDotTransform();
       if (dotRef.current) dotRef.current.classList.remove('is-clicked');
       if (ringRef.current) ringRef.current.classList.remove('is-clicked');
     };
 
     const handleMouseLeave = () => {
       isVisible = false;
-      if (dotRef.current) dotRef.current.classList.remove('is-visible');
-      if (ringRef.current) ringRef.current.classList.remove('is-visible');
+      isPressed = false;
+      if (dotRef.current) dotRef.current.classList.remove('is-visible', 'is-clicked');
+      if (ringRef.current) ringRef.current.classList.remove('is-visible', 'is-clicked');
     };
 
     // Track hover on interactive elements via direct DOM class mutation
@@ -52,7 +66,9 @@ export const CinematicCursor = () => {
       if (!ringRef.current) return;
 
       if (
-        target.closest('a, button, [role="button"], input, textarea, .project-card, .patent-card, .timeline-card')
+        target.closest(
+          'a, button, [role="button"], [role="tab"], input, textarea, .project-visual-frame, .patent-blueprint-frame'
+        )
       ) {
         ringRef.current.classList.add('is-hovered');
       } else {
@@ -60,22 +76,23 @@ export const CinematicCursor = () => {
       }
     };
 
-    // Smooth lerp loop for the trailing ring
+    // Smooth lerp loop for the trailing ring (translate3d BEFORE scale so position never drifts)
     const render = () => {
       ringX += (mouseX - ringX) * 0.16;
       ringY += (mouseY - ringY) * 0.16;
 
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+        const ringScale = isPressed ? 0.82 : 1;
+        ringRef.current.style.transform = `translate3d(${ringX.toFixed(2)}px, ${ringY.toFixed(2)}px, 0) scale(${ringScale})`;
       }
       animId = requestAnimationFrame(render);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
     animId = requestAnimationFrame(render);
 
     return () => {
@@ -118,17 +135,13 @@ export const CinematicCursor = () => {
           margin-left: -3px;
           opacity: 0;
           will-change: transform;
-          transform: translate3d(-100px, -100px, 0);
-          transition: opacity 200ms ease, scale 150ms cubic-bezier(0.16, 1, 0.3, 1);
+          transform: translate3d(-100px, -100px, 0) scale(1);
+          transition: opacity 200ms ease;
           box-shadow: 0 0 10px var(--accent-primary);
         }
 
         .cinematic-cursor-dot.is-visible {
           opacity: 1;
-        }
-
-        .cinematic-cursor-dot.is-clicked {
-          scale: 0.5;
         }
 
         .cinematic-cursor-ring {
@@ -145,11 +158,10 @@ export const CinematicCursor = () => {
           margin-left: -16px;
           opacity: 0;
           will-change: transform;
-          transform: translate3d(-100px, -100px, 0);
+          transform: translate3d(-100px, -100px, 0) scale(1);
           transition: width 250ms cubic-bezier(0.16, 1, 0.3, 1),
                       height 250ms cubic-bezier(0.16, 1, 0.3, 1),
                       margin 250ms cubic-bezier(0.16, 1, 0.3, 1),
-                      scale 150ms cubic-bezier(0.16, 1, 0.3, 1),
                       background-color 250ms ease,
                       border-color 250ms ease,
                       opacity 200ms ease;
@@ -172,7 +184,6 @@ export const CinematicCursor = () => {
         }
 
         .cinematic-cursor-ring.is-clicked {
-          scale: 0.85;
           background: rgba(200, 50, 38, 0.25);
         }
 
