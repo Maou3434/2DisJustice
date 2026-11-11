@@ -1,0 +1,289 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="100%" height="100%" style="background:#08090D; font-family:'Space Mono', 'JetBrains Mono', monospace;">
+  <defs>
+    <pattern id="tspGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#151822" stroke-width="1" />
+    </pattern>
+    <linearGradient id="cinnabarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A1212" />
+      <stop offset="100%" stop-color="#140B0D" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#171A24" />
+      <stop offset="100%" stop-color="#0E1017" />
+    </linearGradient>
+    <marker id="arrowCinnabar" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#C83226" />
+    </marker>
+    <marker id="arrowCream" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#F5EFE6" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="640" fill="#08090D" />
+  <rect width="1200" height="640" fill="url(#tspGrid)" opacity="0.85" />
+
+  <!-- Top Header Banner -->
+  <g transform="translate(36, 28)">
+    <rect width="1128" height="44" fill="#101219" stroke="#262A38" stroke-width="1" rx="3" />
+    <circle cx="22" cy="22" r="5" fill="#C83226" />
+    <text x="38" y="27" fill="#F5EFE6" font-size="13" font-weight="700" letter-spacing="0.1em">FRAME ORDER RESTORATION // MULTI-MODAL TSP &amp; DIRECTML GPU PIPELINE</text>
+    <text x="1108" y="27" fill="#C8C0B2" font-size="11" text-anchor="end" letter-spacing="0.08em">SIMILARITY &gt; 99.2% · BEAM + 2-OPT</text>
+  </g>
+
+  <!-- STAGE 1: Shuffled Input & Multi-Core Feature Fusion -->
+  <g transform="translate(36, 94)">
+    <rect width="265" height="496" fill="url(#slateGrad)" stroke="#262A38" stroke-width="1" rx="4" />
+    <text x="18" y="30" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.12em">01 // SHUFFLED INPUT &amp; FUSION</text>
+
+    <!-- Shuffled Frames Strip -->
+    <g transform="translate(16, 46)">
+      <rect width="233" height="84" fill="#0B0D13" stroke="#252936" stroke-width="1" rx="3" />
+      <text x="12" y="20" fill="#F5EFE6" font-size="11" font-weight="700">Randomly Permuted Frames</text>
+      <!-- Mini Frame Boxes -->
+      <g transform="translate(12, 32)">
+        <rect x="0" y="0" width="38" height="28" fill="#181C26" stroke="#C83226" stroke-width="1" rx="2" />
+        <text x="19" y="18" fill="#F5EFE6" font-size="10" text-anchor="middle">F_4</text>
+        <rect x="44" y="0" width="38" height="28" fill="#181C26" stroke="#525866" stroke-width="1" rx="2" />
+        <text x="63" y="18" fill="#C8C0B2" font-size="10" text-anchor="middle">F_1</text>
+        <rect x="88" y="0" width="38" height="28" fill="#181C26" stroke="#C83226" stroke-width="1" rx="2" />
+        <text x="107" y="18" fill="#F5EFE6" font-size="10" text-anchor="middle">F_6</text>
+        <rect x="132" y="0" width="38" height="28" fill="#181C26" stroke="#525866" stroke-width="1" rx="2" />
+        <text x="151" y="18" fill="#C8C0B2" font-size="10" text-anchor="middle">F_2</text>
+        <rect x="176" y="0" width="34" height="28" fill="#181C26" stroke="#525866" stroke-width="1" rx="2" />
+        <text x="193" y="18" fill="#C8C0B2" font-size="10" text-anchor="middle">F_N</text>
+      </g>
+      <text x="12" y="74" fill="#857E73" font-size="9">Temporal Entropy: Maximum (Unordered)</text>
+    </g>
+
+    <!-- 5-Domain Parallel Feature Extraction -->
+    <g transform="translate(16, 146)">
+      <rect width="233" height="330" fill="#0B0D13" stroke="#C83226" stroke-width="1.2" rx="3" />
+      <text x="14" y="24" fill="#F5EFE6" font-size="11" font-weight="700">5-Domain Feature Extraction</text>
+      <text x="14" y="40" fill="#857E73" font-size="9">Multiprocessing CPU Worker Pool</text>
+
+      <!-- Domain 1 -->
+      <rect x="14" y="54" width="205" height="44" fill="#131620" stroke="#252A3A" rx="2" />
+      <text x="24" y="72" fill="#F5EFE6" font-size="10" font-weight="700">1. ORB Local Descriptors</text>
+      <text x="24" y="88" fill="#C8C0B2" font-size="9">Keypoint Hamming Distance</text>
+
+      <!-- Domain 2 -->
+      <rect x="14" y="106" width="205" height="44" fill="#131620" stroke="#252A3A" rx="2" />
+      <text x="24" y="124" fill="#F5EFE6" font-size="10" font-weight="700">2. HSV Color Histograms</text>
+      <text x="24" y="140" fill="#C8C0B2" font-size="9">Bhattacharyya Chromatic Shift</text>
+
+      <!-- Domain 3 -->
+      <rect x="14" y="158" width="205" height="44" fill="#131620" stroke="#252A3A" rx="2" />
+      <text x="24" y="176" fill="#F5EFE6" font-size="10" font-weight="700">3. Perceptual Hashes</text>
+      <text x="24" y="192" fill="#C8C0B2" font-size="9">DCT pHash + Gradient dHash</text>
+
+      <!-- Domain 4 -->
+      <rect x="14" y="210" width="205" height="44" fill="#131620" stroke="#252A3A" rx="2" />
+      <text x="24" y="228" fill="#F5EFE6" font-size="10" font-weight="700">4. Edge-Density Histograms</text>
+      <text x="24" y="244" fill="#C8C0B2" font-size="9">Sobel / Canny Structural Contours</text>
+
+      <!-- Domain 5 -->
+      <rect x="14" y="262" width="205" height="48" fill="#131620" stroke="#252A3A" rx="2" />
+      <text x="24" y="280" fill="#F5EFE6" font-size="10" font-weight="700">5. Spatial Color Moments</text>
+      <text x="24" y="296" fill="#C8C0B2" font-size="9">Mean, Variance &amp; Skewness Tensors</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 301 342 L 335 342" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#arrowCinnabar)" />
+
+  <!-- STAGE 2: DirectML GPU Distance Matrix & Hierarchical Clustering -->
+  <g transform="translate(340, 94)">
+    <rect width="380" height="496" fill="url(#cinnabarGrad)" stroke="#C83226" stroke-width="1.5" rx="4" />
+    <text x="20" y="30" fill="#F5EFE6" font-size="11" font-weight="700" letter-spacing="0.12em">02 // DIRECTML GPU DISTANCE &amp; CLUSTERING</text>
+
+    <!-- Weighted Distance Matrix Visual -->
+    <g transform="translate(20, 48)">
+      <rect width="340" height="232" fill="#0B0C10" stroke="#3A1F20" stroke-width="1" rx="3" />
+      <text x="16" y="24" fill="#C83226" font-size="11" font-weight="700">PyTorch + DirectML Pairwise Matrix D(i, j)</text>
+      <text x="16" y="42" fill="#C8C0B2" font-size="10">D(i,j) = ∑ w_k · d_k(F_i, F_j)  [k ∈ {ORB, HSV, Hash, Edge, Mom}]</text>
+
+      <!-- 6x6 Heatmap Grid -->
+      <g transform="translate(22, 58)">
+        <rect x="0" y="0" width="144" height="144" fill="#12141C" stroke="#2C3040" stroke-width="1" />
+        <!-- Diagonal zeros & off-diagonal weights -->
+        <rect x="4" y="4" width="20" height="20" fill="#181B24" />
+        <rect x="28" y="4" width="20" height="20" fill="#C83226" opacity="0.85" />
+        <rect x="52" y="4" width="20" height="20" fill="#C83226" opacity="0.25" />
+        <rect x="76" y="4" width="20" height="20" fill="#C83226" opacity="0.95" />
+        <rect x="100" y="4" width="20" height="20" fill="#C83226" opacity="0.4" />
+        <rect x="124" y="4" width="16" height="20" fill="#C83226" opacity="0.7" />
+
+        <rect x="4" y="28" width="20" height="20" fill="#C83226" opacity="0.85" />
+        <rect x="28" y="28" width="20" height="20" fill="#181B24" />
+        <rect x="52" y="28" width="20" height="20" fill="#C83226" opacity="0.9" />
+        <rect x="76" y="28" width="20" height="20" fill="#C83226" opacity="0.2" />
+        <rect x="100" y="28" width="20" height="20" fill="#C83226" opacity="0.65" />
+        <rect x="124" y="28" width="16" height="20" fill="#C83226" opacity="0.3" />
+
+        <rect x="4" y="52" width="20" height="20" fill="#C83226" opacity="0.25" />
+        <rect x="28" y="52" width="20" height="20" fill="#C83226" opacity="0.9" />
+        <rect x="52" y="52" width="20" height="20" fill="#181B24" />
+        <rect x="76" y="52" width="20" height="20" fill="#C83226" opacity="0.5" />
+        <rect x="100" y="52" width="20" height="20" fill="#C83226" opacity="0.18" />
+        <rect x="124" y="52" width="16" height="20" fill="#C83226" opacity="0.8" />
+
+        <rect x="4" y="76" width="20" height="20" fill="#C83226" opacity="0.95" />
+        <rect x="28" y="76" width="20" height="20" fill="#C83226" opacity="0.2" />
+        <rect x="52" y="76" width="20" height="20" fill="#C83226" opacity="0.5" />
+        <rect x="76" y="76" width="20" height="20" fill="#181B24" />
+        <rect x="100" y="76" width="20" height="20" fill="#C83226" opacity="0.88" />
+        <rect x="124" y="76" width="16" height="20" fill="#C83226" opacity="0.22" />
+
+        <rect x="4" y="100" width="20" height="20" fill="#C83226" opacity="0.4" />
+        <rect x="28" y="100" width="20" height="20" fill="#C83226" opacity="0.65" />
+        <rect x="52" y="100" width="20" height="20" fill="#C83226" opacity="0.18" />
+        <rect x="76" y="100" width="20" height="20" fill="#C83226" opacity="0.88" />
+        <rect x="100" y="100" width="20" height="20" fill="#181B24" />
+        <rect x="124" y="100" width="16" height="20" fill="#C83226" opacity="0.92" />
+
+        <rect x="4" y="124" width="20" height="16" fill="#C83226" opacity="0.7" />
+        <rect x="28" y="124" width="20" height="16" fill="#C83226" opacity="0.3" />
+        <rect x="52" y="124" width="20" height="16" fill="#C83226" opacity="0.8" />
+        <rect x="76" y="124" width="20" height="16" fill="#C83226" opacity="0.22" />
+        <rect x="100" y="124" width="20" height="16" fill="#C83226" opacity="0.92" />
+        <rect x="124" y="124" width="16" height="16" fill="#181B24" />
+      </g>
+
+      <!-- Matrix Specs Right Side -->
+      <g transform="translate(182, 62)">
+        <text x="0" y="14" fill="#F5EFE6" font-size="11" font-weight="700">GPU Tensor Kernel</text>
+        <text x="0" y="34" fill="#C8C0B2" font-size="9">• Batched L2 / Cosine</text>
+        <text x="0" y="50" fill="#C8C0B2" font-size="9">• Symmetric N×N Graph</text>
+        <text x="0" y="66" fill="#C8C0B2" font-size="9">• Zero-Copy DirectML</text>
+        <rect x="0" y="82" width="142" height="48" fill="#151014" stroke="#C83226" stroke-width="1" rx="2" />
+        <text x="10" y="100" fill="#C8C0B2" font-size="9">Objective Function:</text>
+        <text x="10" y="118" fill="#F5EFE6" font-size="10" font-weight="700">min ∑ D(π_t, π_{t+1})</text>
+      </g>
+    </g>
+
+    <!-- Hierarchical Temporal Clustering -->
+    <g transform="translate(20, 296)">
+      <rect width="340" height="178" fill="#0B0C10" stroke="#262A38" stroke-width="1" rx="3" />
+      <text x="16" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Hierarchical Temporal Region Clustering</text>
+      <text x="16" y="42" fill="#857E73" font-size="9">Partitions long video sequences into coherent sub-tours</text>
+
+      <!-- Cluster Diagram -->
+      <g transform="translate(18, 58)">
+        <rect x="0" y="0" width="94" height="64" fill="#141720" stroke="#52634C" stroke-width="1" rx="3" />
+        <text x="47" y="22" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">Cluster α</text>
+        <text x="47" y="40" fill="#C8C0B2" font-size="9" text-anchor="middle">Scene Cut 1</text>
+        <text x="47" y="54" fill="#857E73" font-size="8" text-anchor="middle">Frames [1..k]</text>
+
+        <path d="M 94 32 L 116 32" stroke="#C83226" stroke-width="1.5" marker-end="url(#arrowCinnabar)" />
+
+        <rect x="118" y="0" width="94" height="64" fill="#141720" stroke="#C83226" stroke-width="1" rx="3" />
+        <text x="165" y="22" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">Cluster β</text>
+        <text x="165" y="40" fill="#C8C0B2" font-size="9" text-anchor="middle">Motion Pan</text>
+        <text x="165" y="54" fill="#857E73" font-size="8" text-anchor="middle">Frames [k+1..m]</text>
+
+        <path d="M 212 32 L 234 32" stroke="#C83226" stroke-width="1.5" marker-end="url(#arrowCinnabar)" />
+
+        <rect x="236" y="0" width="70" height="64" fill="#141720" stroke="#52634C" stroke-width="1" rx="3" />
+        <text x="271" y="22" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">Cluster γ</text>
+        <text x="271" y="40" fill="#C8C0B2" font-size="9" text-anchor="middle">Scene 3</text>
+        <text x="271" y="54" fill="#857E73" font-size="8" text-anchor="middle">[m+1..N]</text>
+      </g>
+      <text x="16" y="158" fill="#C8C0B2" font-size="9">Eliminates O(N²) search explosion on high-frame-count videos</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 720 342 L 754 342" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#arrowCinnabar)" />
+
+  <!-- STAGE 3: Combinatorial TSP Solver & 2-Opt Refinement -->
+  <g transform="translate(759, 94)">
+    <rect width="405" height="496" fill="url(#slateGrad)" stroke="#262A38" stroke-width="1" rx="4" />
+    <text x="20" y="30" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.12em">03 // TSP HEURISTICS &amp; RESTORED STREAM</text>
+
+    <!-- Multi-Start Beam Search -->
+    <g transform="translate(20, 48)">
+      <rect width="365" height="96" fill="#0B0D13" stroke="#262A38" stroke-width="1" rx="3" />
+      <text x="16" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Phase A: Multi-Start Beam Search Init</text>
+      <text x="16" y="44" fill="#C8C0B2" font-size="10">• Explores top-B candidate trajectories in parallel</text>
+      <text x="16" y="62" fill="#C8C0B2" font-size="10">• Avoids greedy nearest-neighbor local minima traps</text>
+      <text x="16" y="80" fill="#857E73" font-size="9">Complexity: O(B · N²) with GPU lookup table</text>
+    </g>
+
+    <!-- 2-Opt & Local Search Refinement -->
+    <g transform="translate(20, 158)">
+      <rect width="365" height="176" fill="#0B0D13" stroke="#C83226" stroke-width="1.2" rx="3" />
+      <text x="16" y="24" fill="#C83226" font-size="11" font-weight="700">Phase B: 4-Stage Iterative Refinement</text>
+
+      <!-- 2-Opt Edge Swap Graphic -->
+      <g transform="translate(16, 38)">
+        <rect width="160" height="120" fill="#12141D" stroke="#252938" rx="2" />
+        <text x="80" y="18" fill="#F5EFE6" font-size="9" font-weight="700" text-anchor="middle">2-OPT EDGE UNCROSSING</text>
+        <!-- Crossed edges (muted dashed) -->
+        <line x1="28" y1="36" x2="132" y2="96" stroke="#857E73" stroke-width="1.2" stroke-dasharray="3,3" />
+        <line x1="28" y1="96" x2="132" y2="36" stroke="#857E73" stroke-width="1.2" stroke-dasharray="3,3" />
+        <!-- Uncrossed optimal edges (cinnabar solid) -->
+        <line x1="28" y1="36" x2="132" y2="36" stroke="#C83226" stroke-width="2" />
+        <line x1="28" y1="96" x2="132" y2="96" stroke="#C83226" stroke-width="2" />
+        <circle cx="28" cy="36" r="5" fill="#F5EFE6" />
+        <circle cx="132" cy="36" r="5" fill="#F5EFE6" />
+        <circle cx="28" cy="96" r="5" fill="#C83226" />
+        <circle cx="132" cy="96" r="5" fill="#C83226" />
+        <text x="80" y="114" fill="#C8C0B2" font-size="8" text-anchor="middle">ΔCost &lt; 0 ⇒ Swap Accepted</text>
+      </g>
+
+      <!-- Refinement Operators List -->
+      <g transform="translate(188, 42)">
+        <text x="0" y="14" fill="#F5EFE6" font-size="10" font-weight="700">Refinement Operators:</text>
+        <text x="0" y="34" fill="#C8C0B2" font-size="9">1. 2-Opt Edge Inversion</text>
+        <text x="0" y="54" fill="#C8C0B2" font-size="9">2. Sliding-Window Exact</text>
+        <text x="0" y="74" fill="#C8C0B2" font-size="9">3. Adjacent-Swap Polish</text>
+        <text x="0" y="94" fill="#C8C0B2" font-size="9">4. Outlier Reinsertion</text>
+        <text x="0" y="114" fill="#C83226" font-size="9" font-weight="700">● Zero Discontinuities</text>
+      </g>
+    </g>
+
+    <!-- Reconstructed Output Sequence -->
+    <g transform="translate(20, 348)">
+      <rect width="365" height="126" fill="#101514" stroke="#52634C" stroke-width="1.5" rx="3" />
+      <text x="16" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Restored Coherent Temporal Sequence</text>
+
+      <g transform="translate(16, 38)">
+        <rect x="0" y="0" width="52" height="34" fill="#18201E" stroke="#52634C" stroke-width="1.2" rx="2" />
+        <text x="26" y="21" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">T = 1</text>
+
+        <path d="M 52 17 L 66 17" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#arrowCream)" />
+
+        <rect x="68" y="0" width="52" height="34" fill="#18201E" stroke="#52634C" stroke-width="1.2" rx="2" />
+        <text x="94" y="21" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">T = 2</text>
+
+        <path d="M 120 17 L 134 17" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#arrowCream)" />
+
+        <rect x="136" y="0" width="52" height="34" fill="#18201E" stroke="#52634C" stroke-width="1.2" rx="2" />
+        <text x="162" y="21" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">T = 3</text>
+
+        <path d="M 188 17 L 202 17" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#arrowCream)" />
+
+        <rect x="204" y="0" width="52" height="34" fill="#18201E" stroke="#52634C" stroke-width="1.2" rx="2" />
+        <text x="230" y="21" fill="#F5EFE6" font-size="10" font-weight="700" text-anchor="middle">T = 4</text>
+
+        <path d="M 256 17 L 270 17" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#arrowCream)" />
+
+        <rect x="272" y="0" width="60" height="34" fill="#C83226" rx="2" />
+        <text x="302" y="21" fill="#FFFFFF" font-size="10" font-weight="700" text-anchor="middle">T = N</text>
+      </g>
+
+      <text x="16" y="96" fill="#C8C0B2" font-size="10">Empirical Frame-Wise Similarity: <tspan fill="#F5EFE6" font-weight="700">&gt; 99.2%</tspan></text>
+      <text x="16" y="114" fill="#857E73" font-size="9">Automated Evaluation &amp; Video Regeneration Pipeline</text>
+    </g>
+  </g>
+
+  <!-- Footer Legend -->
+  <g transform="translate(36, 606)">
+    <circle cx="6" cy="6" r="4" fill="#C83226" />
+    <text x="18" y="10" fill="#C8C0B2" font-size="10">DirectML GPU Distance Kernel &amp; 2-Opt Uncrossing</text>
+    <circle cx="360" cy="6" r="4" fill="#52634C" />
+    <text x="372" y="10" fill="#C8C0B2" font-size="10">Hierarchical Temporal Clustering</text>
+    <text x="1164" y="10" fill="#857E73" font-size="10" text-anchor="end">Abimanyu Jayaganesh · Computer Vision &amp; Combinatorial Optimization</text>
+  </g>
+</svg>

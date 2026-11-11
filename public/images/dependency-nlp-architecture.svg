@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="100%" height="100%" style="background:#08090D; font-family:'Space Mono', monospace;">
+  <defs>
+    <pattern id="nlpGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#151822" stroke-width="1" />
+    </pattern>
+    <marker id="nlpArr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#C83226" />
+    </marker>
+  </defs>
+  <rect width="1200" height="540" fill="#08090D" />
+  <rect width="1200" height="540" fill="url(#nlpGrid)" />
+
+  <g transform="translate(36, 28)">
+    <rect width="1128" height="44" fill="#101219" stroke="#262A38" rx="3" />
+    <circle cx="22" cy="22" r="5" fill="#C83226" />
+    <text x="38" y="27" fill="#F5EFE6" font-size="13" font-weight="700" letter-spacing="0.1em">EMOTIONAL DEPENDENCY DETECTION // SENTENCE TRANSFORMERS &amp; XGBOOST REGRESSION</text>
+    <text x="1108" y="27" fill="#C8C0B2" font-size="11" text-anchor="end">4,049 LABELED PROMPTS · R² ≈ 0.81</text>
+  </g>
+
+  <!-- Stage 1 -->
+  <g transform="translate(36, 96)">
+    <rect width="340" height="404" fill="#0E1017" stroke="#262A38" rx="4" />
+    <text x="20" y="30" fill="#C83226" font-size="11" font-weight="700">01 // CURATED CORPUS (N = 4,049)</text>
+    <g transform="translate(20, 48)">
+      <rect width="300" height="150" fill="#131620" stroke="#252A3A" rx="3" />
+      <text x="14" y="26" fill="#F5EFE6" font-size="11" font-weight="700">Multi-Domain Prompt Stratification</text>
+      <text x="14" y="50" fill="#C8C0B2" font-size="10">• Therapist-Style Support Dialogues</text>
+      <text x="14" y="70" fill="#C8C0B2" font-size="10">• Companion Role-Play Interactions</text>
+      <text x="14" y="90" fill="#C8C0B2" font-size="10">• Reassurance-Seeking &amp; Attachment</text>
+      <text x="14" y="110" fill="#C8C0B2" font-size="10">• Balanced Neutral / Task Queries</text>
+      <text x="14" y="134" fill="#857E73" font-size="9">Mitigates label skew across full spectrum</text>
+    </g>
+    <g transform="translate(20, 214)">
+      <rect width="300" height="166" fill="#131620" stroke="#C83226" stroke-width="1" rx="3" />
+      <text x="14" y="26" fill="#F5EFE6" font-size="11" font-weight="700">Continuous Target y ∈ [0.0, 1.0]</text>
+      <text x="14" y="48" fill="#C8C0B2" font-size="9">Fine-grained attachment intensity scoring</text>
+      <rect x="14" y="68" width="272" height="16" fill="#1C202E" rx="2" />
+      <rect x="14" y="68" width="218" height="16" fill="#C83226" rx="2" />
+      <text x="14" y="104" fill="#857E73" font-size="9">0.0 (Autonomous) ────────► 1.0 (High Reliance)</text>
+      <text x="14" y="142" fill="#F5EFE6" font-size="9" font-weight="700">Replaces Coarse Binary Sentiment Labels</text>
+    </g>
+  </g>
+
+  <path d="M 376 298 L 418 298" stroke="#C83226" stroke-width="2" marker-end="url(#nlpArr)" />
+
+  <!-- Stage 2 -->
+  <g transform="translate(424, 96)">
+    <rect width="352" height="404" fill="#161014" stroke="#C83226" stroke-width="1.5" rx="4" />
+    <text x="20" y="30" fill="#F5EFE6" font-size="11" font-weight="700">02 // 768-D SEMANTIC EMBEDDING</text>
+    <g transform="translate(20, 48)">
+      <rect width="312" height="160" fill="#0B0C10" stroke="#2D2024" rx="3" />
+      <text x="16" y="26" fill="#C83226" font-size="11" font-weight="700">Sentence Transformers Pipeline</text>
+      <text x="16" y="48" fill="#F5EFE6" font-size="11" font-weight="700">Model: all-mpnet-base-v2</text>
+      <text x="16" y="72" fill="#C8C0B2" font-size="9">• Dense 768-D Contextual Vector Space</text>
+      <text x="16" y="92" fill="#C8C0B2" font-size="9">• Captures subtle implicit dependency</text>
+      <text x="16" y="112" fill="#C8C0B2" font-size="9">• Outperforms TF-IDF + Linear/XGBoost</text>
+      <text x="16" y="140" fill="#857E73" font-size="9">L2-Normalized Cosine &amp; Non-Linear Features</text>
+    </g>
+    <g transform="translate(20, 224)">
+      <rect width="312" height="156" fill="#0B0C10" stroke="#2D2024" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="11" font-weight="700">XGBoost Regression &amp; CV Tuning</text>
+      <text x="16" y="50" fill="#C8C0B2" font-size="9">• RandomizedSearchCV (25 Configurations)</text>
+      <text x="16" y="70" fill="#C8C0B2" font-size="9">• Non-Linear Feature Interaction Trees</text>
+      <text x="16" y="90" fill="#C8C0B2" font-size="9">• L1/L2 Regularization &amp; Subsampling</text>
+      <text x="16" y="132" fill="#C83226" font-size="10" font-weight="700">● High Interpretability &amp; Generalization</text>
+    </g>
+  </g>
+
+  <path d="M 776 298 L 818 298" stroke="#C83226" stroke-width="2" marker-end="url(#nlpArr)" />
+
+  <!-- Stage 3 -->
+  <g transform="translate(824, 96)">
+    <rect width="340" height="404" fill="#0E1017" stroke="#262A38" rx="4" />
+    <text x="20" y="30" fill="#C83226" font-size="11" font-weight="700">03 // EMPIRICAL BENCHMARKING</text>
+    <g transform="translate(20, 48)">
+      <rect width="300" height="180" fill="#101514" stroke="#52634C" stroke-width="1.5" rx="3" />
+      <text x="16" y="28" fill="#F5EFE6" font-size="11" font-weight="700">Held-Out Test Set Metrics</text>
+      <text x="16" y="64" fill="#C8C0B2" font-size="10">Coefficient of Determination (R²):</text>
+      <text x="16" y="92" fill="#F5EFE6" font-size="22" font-weight="700">R² ≈ 0.81</text>
+      <line x1="16" y1="108" x2="284" y2="108" stroke="#26332E" />
+      <text x="16" y="132" fill="#C8C0B2" font-size="10">Mean Absolute Error: <tspan fill="#F5EFE6" font-weight="700">MAE = 0.10</tspan></text>
+      <text x="16" y="156" fill="#C8C0B2" font-size="10">Root Mean Squared: <tspan fill="#F5EFE6" font-weight="700">RMSE = 0.14</tspan></text>
+    </g>
+    <g transform="translate(20, 244)">
+      <rect width="300" height="136" fill="#131620" stroke="#252A3A" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="11" font-weight="700">Residual &amp; Linguistic Analysis</text>
+      <text x="16" y="50" fill="#C8C0B2" font-size="9">• Tolerance-Based Agreement Validation</text>
+      <text x="16" y="70" fill="#C8C0B2" font-size="9">• Mixed-Emotion &amp; Ambiguity Profiling</text>
+      <text x="16" y="90" fill="#C8C0B2" font-size="9">• Multi-Turn Sequence Foundation</text>
+    </g>
+  </g>
+</svg>

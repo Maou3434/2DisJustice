@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="100%" height="100%" style="background:#08090D; font-family:'Space Mono', 'JetBrains Mono', monospace;">
+  <defs>
+    <pattern id="paasGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#151822" stroke-width="1" />
+    </pattern>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161924" />
+      <stop offset="100%" stop-color="#0D0F16" />
+    </linearGradient>
+    <linearGradient id="accentBox" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#281214" />
+      <stop offset="100%" stop-color="#120B0D" />
+    </linearGradient>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#C83226" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="640" fill="#08090D" />
+  <rect width="1200" height="640" fill="url(#paasGrid)" opacity="0.85" />
+
+  <!-- Header Banner -->
+  <g transform="translate(36, 28)">
+    <rect width="1128" height="44" fill="#101219" stroke="#262A38" stroke-width="1" rx="3" />
+    <circle cx="22" cy="22" r="5" fill="#C83226" />
+    <text x="38" y="27" fill="#F5EFE6" font-size="13" font-weight="700" letter-spacing="0.1em">OPENDESIGN // ONE-CLICK PAAS DEPLOYMENT &amp; SSH KEY ORCHESTRATION</text>
+    <text x="1108" y="27" fill="#C8C0B2" font-size="11" text-anchor="end" letter-spacing="0.08em">TYPESCRIPT · GITHUB API · NETLIFY · RENDER · RAILWAY</text>
+  </g>
+
+  <!-- COLUMN 1: Frontend Workspace & i18n Layer -->
+  <g transform="translate(36, 94)">
+    <rect width="270" height="496" fill="url(#cardGrad)" stroke="#262A38" stroke-width="1" rx="4" />
+    <text x="18" y="30" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.12em">01 // PLATFORM UI &amp; I18N</text>
+
+    <g transform="translate(16, 48)">
+      <rect width="238" height="136" fill="#0B0D13" stroke="#252936" rx="3" />
+      <text x="14" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Provider Selection UI</text>
+      <text x="14" y="44" fill="#C8C0B2" font-size="9">• Dynamic Credential Schemas</text>
+      <text x="14" y="62" fill="#C8C0B2" font-size="9">• Real-Time Form Validation</text>
+      <text x="14" y="80" fill="#C8C0B2" font-size="9">• Live Deployment Lifecycle</text>
+      <rect x="14" y="96" width="210" height="24" fill="#181216" stroke="#C83226" stroke-width="1" rx="2" />
+      <text x="119" y="112" fill="#F5EFE6" font-size="9" font-weight="700" text-anchor="middle">Zero Local CLI Configuration</text>
+    </g>
+
+    <g transform="translate(16, 200)">
+      <rect width="238" height="136" fill="#0B0D13" stroke="#252936" rx="3" />
+      <text x="14" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Multilingual i18n Engine</text>
+      <text x="14" y="44" fill="#C8C0B2" font-size="9">• Full Locale Coverage</text>
+      <text x="14" y="62" fill="#C8C0B2" font-size="9">• Localized Error &amp; Auth States</text>
+      <text x="14" y="80" fill="#C8C0B2" font-size="9">• Provider Config Translations</text>
+      <text x="14" y="108" fill="#857E73" font-size="9">Namespaces: EN · ES · FR · JA · ZH</text>
+    </g>
+
+    <g transform="translate(16, 352)">
+      <rect width="238" height="122" fill="#0B0D13" stroke="#252936" rx="3" />
+      <text x="14" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Automated Test Suite</text>
+      <text x="14" y="46" fill="#C8C0B2" font-size="9">• Repo Provisioning Mocks</text>
+      <text x="14" y="64" fill="#C8C0B2" font-size="9">• Deploy-Key Fallback Cases</text>
+      <text x="14" y="82" fill="#C8C0B2" font-size="9">• E2E Provider Verification</text>
+      <text x="14" y="104" fill="#C83226" font-size="9" font-weight="700">● 100% Backward Compatible</text>
+    </g>
+  </g>
+
+  <path d="M 306 342 L 342 342" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#arrRed)" />
+
+  <!-- COLUMN 2: GitHub Provisioning & Cryptographic Deploy-Key Fix -->
+  <g transform="translate(348, 94)">
+    <rect width="410" height="496" fill="url(#accentBox)" stroke="#C83226" stroke-width="1.5" rx="4" />
+    <text x="20" y="30" fill="#F5EFE6" font-size="11" font-weight="700" letter-spacing="0.12em">02 // GITHUB PROVISIONING &amp; DEPLOY-KEY ENGINE</text>
+
+    <!-- GitHub Repo Sync -->
+    <g transform="translate(20, 48)">
+      <rect width="370" height="165" fill="#0B0C10" stroke="#2D2024" rx="3" />
+      <text x="16" y="24" fill="#F5EFE6" font-size="11" font-weight="700">Automated Repository &amp; Tree Synchronization</text>
+      <text x="16" y="46" fill="#C8C0B2" font-size="10">1. OAuth Token Validation &amp; Scope Verification</text>
+      <text x="16" y="66" fill="#C8C0B2" font-size="10">2. GitHub Repository Creation (POST /user/repos)</text>
+      <text x="16" y="86" fill="#C8C0B2" font-size="10">3. Git Blob / Tree / Commit Atomic Push</text>
+      <rect x="16" y="104" width="338" height="44" fill="#131620" stroke="#262A38" rx="2" />
+      <text x="28" y="122" fill="#C83226" font-size="9" font-weight="700">SYNCHRONIZED ARTIFACT:</text>
+      <text x="28" y="138" fill="#F5EFE6" font-size="10">Generated Source Bundle + Build Manifest</text>
+    </g>
+
+    <!-- Cryptographic Deploy Key Workflow -->
+    <g transform="translate(20, 232)">
+      <rect width="370" height="242" fill="#0B0C10" stroke="#C83226" stroke-width="1.2" rx="3" />
+      <rect x="16" y="14" width="210" height="20" fill="#C83226" rx="2" />
+      <text x="24" y="28" fill="#FFFFFF" font-size="9" font-weight="700" letter-spacing="0.06em">KEY ENGINEERING BREAKTHROUGH</text>
+      <text x="16" y="54" fill="#F5EFE6" font-size="11" font-weight="700">Cryptographic Deploy-Key Association</text>
+      <text x="16" y="72" fill="#857E73" font-size="9">Resolved Netlify repository-linking failures under GitHub OAuth</text>
+
+      <!-- Step-by-Step Key Diagram -->
+      <g transform="translate(16, 86)">
+        <rect x="0" y="0" width="338" height="38" fill="#141722" stroke="#282E40" rx="2" />
+        <text x="12" y="16" fill="#C83226" font-size="9" font-weight="700">STEP A //</text>
+        <text x="72" y="16" fill="#F5EFE6" font-size="9">Provision Netlify Deploy Key Pair (Public / Private)</text>
+        <text x="12" y="30" fill="#857E73" font-size="8">POST /api/v1/deploy_keys -&gt; returns public_key &amp; key_id</text>
+
+        <rect x="0" y="46" width="338" height="38" fill="#141722" stroke="#282E40" rx="2" />
+        <text x="12" y="62" fill="#C83226" font-size="9" font-weight="700">STEP B //</text>
+        <text x="72" y="62" fill="#F5EFE6" font-size="9">Register Read-Only SSH Key on Target GitHub Repo</text>
+        <text x="12" y="76" fill="#857E73" font-size="8">POST /repos/{owner}/{repo}/keys (read_only: true)</text>
+
+        <rect x="0" y="92" width="338" height="44" fill="#141722" stroke="#52634C" rx="2" />
+        <text x="12" y="110" fill="#F5EFE6" font-size="9" font-weight="700">STEP C // Bind Site Repo &amp; Trigger Continuous Build</text>
+        <text x="12" y="126" fill="#C8C0B2" font-size="8">Eliminates GitHub App installation race conditions &amp; auth drops</text>
+      </g>
+    </g>
+  </g>
+
+  <path d="M 758 342 L 794 342" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#arrRed)" />
+
+  <!-- COLUMN 3: Multi-Cloud PaaS Targets -->
+  <g transform="translate(800, 94)">
+    <rect width="364" height="496" fill="url(#cardGrad)" stroke="#262A38" stroke-width="1" rx="4" />
+    <text x="20" y="30" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.12em">03 // MULTI-PROVIDER PAAS TARGETS</text>
+
+    <!-- Target 1: Netlify -->
+    <g transform="translate(20, 48)">
+      <rect width="324" height="128" fill="#0B0D13" stroke="#C83226" stroke-width="1" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="12" font-weight="700">Netlify Cloud Pipeline</text>
+      <text x="240" y="26" fill="#C83226" font-size="10" font-weight="700">REST API v1</text>
+      <text x="16" y="48" fill="#C8C0B2" font-size="9">• Automated Site Creation &amp; Key Binding</text>
+      <text x="16" y="66" fill="#C8C0B2" font-size="9">• Build Command &amp; Publish Dir Injection</text>
+      <text x="16" y="84" fill="#C8C0B2" font-size="9">• Live SSL URL &amp; Deploy Log Polling</text>
+      <rect x="16" y="96" width="140" height="20" fill="#18221E" rx="2" />
+      <text x="24" y="110" fill="#F5EFE6" font-size="9">● Status: PRODUCTION</text>
+    </g>
+
+    <!-- Target 2: Render -->
+    <g transform="translate(20, 194)">
+      <rect width="324" height="128" fill="#0B0D13" stroke="#262A38" stroke-width="1" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="12" font-weight="700">Render Web Services</text>
+      <text x="240" y="26" fill="#C8C0B2" font-size="10">REST API v1</text>
+      <text x="16" y="48" fill="#C8C0B2" font-size="9">• Static Site &amp; Web Service Provisioning</text>
+      <text x="16" y="66" fill="#C8C0B2" font-size="9">• Environment Variable &amp; Secret Sync</text>
+      <text x="16" y="84" fill="#C8C0B2" font-size="9">• Auto-Deploy Branch Webhook Orchestration</text>
+      <rect x="16" y="96" width="140" height="20" fill="#18221E" rx="2" />
+      <text x="24" y="110" fill="#F5EFE6" font-size="9">● Status: PRODUCTION</text>
+    </g>
+
+    <!-- Target 3: Railway -->
+    <g transform="translate(20, 340)">
+      <rect width="324" height="134" fill="#0B0D13" stroke="#262A38" stroke-width="1" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="12" font-weight="700">Railway Infrastructure</text>
+      <text x="230" y="26" fill="#C8C0B2" font-size="10">GraphQL API v2</text>
+      <text x="16" y="48" fill="#C8C0B2" font-size="9">• Project, Environment &amp; Service Mutations</text>
+      <text x="16" y="66" fill="#C8C0B2" font-size="9">• GitHub Upstream Trigger Attachment</text>
+      <text x="16" y="84" fill="#C8C0B2" font-size="9">• Domain Generation &amp; Healthcheck State</text>
+      <rect x="16" y="100" width="140" height="20" fill="#18221E" rx="2" />
+      <text x="24" y="114" fill="#F5EFE6" font-size="9">● Status: PRODUCTION</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(36, 606)">
+    <circle cx="6" cy="6" r="4" fill="#C83226" />
+    <text x="18" y="10" fill="#C8C0B2" font-size="10">Cryptographic SSH Deploy-Key Handshake</text>
+    <circle cx="310" cy="6" r="4" fill="#52634C" />
+    <text x="322" y="10" fill="#C8C0B2" font-size="10">Multi-Cloud State Machine (Netlify · Render · Railway)</text>
+    <text x="1164" y="10" fill="#857E73" font-size="10" text-anchor="end">Abimanyu Jayaganesh · Open Source Cloud Infrastructure</text>
+  </g>
+</svg>

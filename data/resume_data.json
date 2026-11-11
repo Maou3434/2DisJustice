@@ -2,14 +2,22 @@
   "personal": {
     "name": "Abimanyu Jayaganesh",
     "location": "Coimbatore, TN, India",
+    "coordinates": "11.0168° N, 76.9558° E",
     "email": "abimanyu.jayaganesh@gmail.com",
     "phone": "(+91) 73396 66043",
     "links": {
-      "github": "https://github.com",
-      "linkedin": "https://linkedin.com",
-      "portfolio": "https://portfolio.local"
+      "github": "https://github.com/Maou3434",
+      "linkedin": "https://www.linkedin.com/in/abimanyu-jayaganesh/",
+      "portfolio": "https://github.com/Maou3434/2DisJustice"
     },
-    "headline": "CS Engineer & Creative Technologist specializing in Physics-Informed ML, Data Systems, and GPU-Accelerated Pipelines",
+    "headline": "CS Engineer & Creative Technologist specializing in Physics-Informed ML, Lakehouse Systems, and GPU-Accelerated Pipelines",
+    "summary": "Computer Science undergraduate with strong research and production experience across Physics-Informed Neural Networks (PINNs), vectorized Lakehouse data engineering, GPU-accelerated computer vision, and edge IoT systems.",
+    "languages_spoken": [
+      { "language": "Tamil", "proficiency": "Native" },
+      { "language": "English", "proficiency": "Fluent" },
+      { "language": "Hindi", "proficiency": "Conversational" },
+      { "language": "Japanese", "proficiency": "Basic (N5 Study)" }
+    ],
     "education": {
       "institution": "Vellore Institute of Technology (VIT)",
       "location": "Vellore, TN",
@@ -19,145 +27,295 @@
     }
   },
   "technical_skills": {
-    "languages": ["Python", "Java", "C++", "JavaScript", "SQL"],
-    "frameworks_development": ["FastAPI", "Spring Boot", "Django", "React", "REST APIs", "Docker", "HTML5/CSS3"],
-    "ai_ml": ["PyTorch", "Scikit-Learn", "Sentence Transformers", "XGBoost", "Physics-Informed Neural Networks (PINN)", "Feature Engineering"],
-    "databases_data_engineering": ["DuckDB", "Delta Lake", "MySQL", "MongoDB", "SQLite", "DynamoDB", "Medallion Architecture", "SCD Type 2"],
-    "cloud_tools": ["AWS (EC2, S3, DynamoDB)", "Git", "SonarQube", "DirectML", "CUDA C/C++", "Simulink", "Agile Methodologies"]
+    "languages": ["Python", "Java", "Modern C++", "JavaScript / TypeScript", "SQL", "PL/SQL"],
+    "frameworks_development": ["FastAPI", "Spring Boot", "Django", "React", "REST APIs", "WebSockets", "Docker", "HTML5/CSS3"],
+    "ai_ml": ["PyTorch", "Physics-Informed Neural Networks (PINN)", "Sentence Transformers", "XGBoost", "Scikit-Learn", "RAG Pipelines", "Multilingual Embeddings (LaBSE, MuRIL)"],
+    "databases_data_engineering": ["DuckDB (Vectorized OLAP)", "Delta Lake", "Medallion Architecture", "SCD Type 2", "MySQL", "MongoDB", "DynamoDB", "SQLite"],
+    "cloud_tools": ["CUDA C/C++", "DirectML", "AMP / TF32", "AWS (EC2, S3, DynamoDB)", "MQTT & ESP32 IoT", "MATLAB / Simulink", "SonarQube", "Git"]
   },
   "professional_experience": [
     {
+      "id": "vit-arc-pinn",
       "role": "Research Intern",
       "organization": "Automotive Research Centre, VIT",
       "location": "Vellore, TN",
       "period": "May 2026 – Jul 2026",
-      "highlights": [
-        "Designed and evaluated a Physics-Informed Neural Network (PINN) digital twin for EV battery thermal state estimation using PyTorch, Simulink, and ODE-based physics constraints across 522 trajectories and 78M+ time steps.",
-        "Reduced unseen WLTP2 autoregressive rollout MAE by 31.2% and maximum error by 65.6% through physics-loss regularization, input noise injection, and GPU-accelerated training with AMP/TF32."
+      "badge": "RESEARCH",
+      "metrics": [
+        { "label": "TIME STEPS", "value": "78M+" },
+        { "label": "ROLLOUT MAE", "value": "-31.2%" },
+        { "label": "MAX ERROR", "value": "-65.6%" },
+        { "label": "TRAJECTORIES", "value": "522" }
       ],
-      "tags": ["PyTorch", "PINN", "Digital Twin", "Simulink", "AMP/TF32", "ODEs"]
+      "highlights": [
+        "Designed and evaluated a Physics-Informed Neural Network (PINN) digital twin for EV lithium-ion battery thermal state estimation using PyTorch, MATLAB/Simulink electro-thermal simulations, and ODE-based energy-balance constraints across 522 drive-cycle trajectories (UDDS, US06, WLTP2) and 78M+ time steps.",
+        "Reduced unseen WLTP2 autoregressive rollout MAE by 31.2% and maximum temperature excursion error by 65.6% compared to purely data-driven baselines through first-principles physics-loss regularization, input noise injection, and GPU-accelerated mixed-precision training (AMP/TF32)."
+      ],
+      "tags": ["PyTorch", "PINN Digital Twin", "Simulink", "Thermal ODEs", "AMP/TF32", "WLTP2 / UDDS"]
     },
     {
+      "id": "vvdn-swe",
       "role": "Software Engineering Intern",
       "organization": "VVDN Technologies",
       "location": "Pollachi, TN",
       "period": "Jun 2025 – Jul 2025",
-      "highlights": [
-        "Engineered a full-stack online learning platform using Spring Boot, MySQL, and MongoDB, developing REST APIs and asynchronous data synchronization.",
-        "Maintained Grade-A SonarQube quality across 1.6k LOC with 1.8% duplication while applying layered architecture and Agile development practices."
+      "badge": "ENGINEERING",
+      "metrics": [
+        { "label": "SONARQUBE", "value": "GRADE A" },
+        { "label": "DUPLICATION", "value": "1.8%" },
+        { "label": "CODEBASE", "value": "1.6K+ LOC" }
       ],
-      "tags": ["Spring Boot", "MySQL", "MongoDB", "REST APIs", "SonarQube"]
+      "highlights": [
+        "Engineered a full-stack online learning platform using Spring Boot with dual MySQL and MongoDB persistence, designing scalable REST APIs, asynchronous data synchronization, and automated cascading operations across relational and document stores.",
+        "Maintained Grade-A SonarQube quality across 1.6k+ LOC with only 1.8% code duplication by enforcing clean Controller–Service–Repository layered architecture, continuous refactoring, and Agile SDLC sprints."
+      ],
+      "tags": ["Spring Boot", "MySQL", "MongoDB", "Async Sync", "Layered Architecture", "SonarQube Grade-A"]
     },
     {
+      "id": "imik-iot",
       "role": "IoT Development Intern",
       "organization": "IMIK Technologies",
       "location": "Coimbatore, TN",
       "period": "May 2024 – Jun 2024",
-      "highlights": [
-        "Built a Django-based IoT monitoring platform on AWS EC2, integrating MQTT for real-time device communication and reducing infrastructure costs by 1.5×.",
-        "Optimized the RMS data-processing pipeline for high-frequency sensor data, achieving 10× faster visualization and contributing to 3 approved POCs."
+      "badge": "SYSTEMS & IOT",
+      "metrics": [
+        { "label": "VISUALIZATION", "value": "10× FASTER" },
+        { "label": "INFRA COST", "value": "-1.5×" },
+        { "label": "APPROVED POCS", "value": "3" }
       ],
-      "tags": ["Django", "AWS EC2", "MQTT", "IoT", "High-Frequency Pipeline"]
+      "highlights": [
+        "Built a unified multi-tenant IoT monitoring platform on AWS EC2 using Django and MQTT for real-time distributed telemetry, implementing role-based access control (Admin/Owner/Worker) and reducing cloud infrastructure costs by 1.5×.",
+        "Optimized the high-frequency RMS sensor data-processing pipeline to achieve 10× faster real-time visualization performance, delivering technical presentations that secured 3 approved client proof-of-concepts and a cash recognition award."
+      ],
+      "tags": ["Django", "AWS EC2", "MQTT Telemetry", "Multi-Tenant RBAC", "High-Frequency RMS Pipeline"]
     }
   ],
   "projects": [
     {
       "id": "retailsink",
-      "title": "RetailSink: Real-Time Data Engineering Pipeline",
-      "tech": ["Python", "DuckDB", "Delta Lake", "FastAPI", "React"],
-      "summary": "Architected an end-to-end retail analytics lakehouse using DuckDB, Delta Lake, FastAPI, and React, implementing Medallion Architecture and SCD Type 2 tracking across 4+ retail data sources.",
-      "category": "Data Engineering & Systems Architecture",
+      "flagship": true,
+      "title": "RetailSink: Real-Time Retail Analytics Lakehouse",
+      "subtitle": "MEDALLION LAKEHOUSE & VECTORIZED OLAP ENGINE",
+      "tech": ["Python", "DuckDB", "Delta Lake", "FastAPI", "React", "SCD Type 2"],
+      "summary": "Architected an end-to-end retail analytics lakehouse implementing Medallion Architecture (Bronze, Silver, Gold) over DuckDB and Delta Lake to unify operational streams from e-commerce, POS, warehouse, and shipment systems.",
+      "category": "Data Engineering & Lakehouse Architecture",
+      "visual": {
+        "src": "/images/retailsink-architecture.svg",
+        "alt": "RetailSink Medallion Lakehouse Architecture Schematic",
+        "filename": "retailsink_lakehouse.py",
+        "engine": "DuckDB 1.0 • Delta Lake ACID",
+        "cta": "INSPECT LAKEHOUSE TOPOLOGY",
+        "metrics": [
+          { "label": "INGEST APPEND", "val": "14 ms" },
+          { "label": "10M ROW OLAP", "val": "42.8 ms" },
+          { "label": "DATA SOURCES", "val": "4+ STREAMS" }
+        ]
+      },
       "key_features": [
-        "Medallion Architecture (Bronze raw ingestion -> Silver cleansed/conformed -> Gold aggregate analytics)",
-        "Slowly Changing Dimensions (SCD Type 2) tracking for historical auditability",
-        "Sub-second OLAP queries powered by vectorized DuckDB over Parquet/Delta Lake format"
-      ]
-    },
-    {
-      "id": "opendesign",
-      "title": "OpenDesign Open Source Contribution",
-      "tech": ["TypeScript", "GitHub APIs", "Netlify", "Render", "Railway"],
-      "summary": "Contributed production-grade deployment infrastructure enabling one-click deployment of generated applications to Netlify, Render, and Railway directly from the platform UI.",
-      "category": "Cloud Infrastructure & Open Source",
-      "key_features": [
-        "Automated GitHub repository provisioning with OAuth app authorization",
-        "Cryptographic deploy-key workflows and repository webhook orchestration",
-        "Multi-provider deployment state machine across Netlify, Render, and Railway"
-      ]
+        "Incremental checkpoint-based ingestion with Hive-style partitioning, timestamp normalization, and ACID Delta Lake version tracking (_delta_log)",
+        "Bronze-to-Silver cleansing and Slowly Changing Dimension (SCD Type 2) customer tracking with valid_from / valid_to surrogate-key lineage",
+        "Unified Gold-layer star schema (dim_product, dim_customer, dim_date + sales/inventory/shipment fact tables) queried via DuckDB vectorized SIMD execution"
+      ],
+      "topology": "[E-Commerce · Retail POS · Warehouse RFID · Shipment Feeds]\n       │\n       ▼ (FastAPI Async Ingestion · Checkpoint & Hive Partitioning)\n[Bronze Layer: Immutable Parquet + Delta Lake ACID Commit Log]\n       │\n       ▼ (Schema Normalization · Deduplication · Type Validation)\n[Silver Layer: Conformed Domain + SCD Type 2 Customer Lineage]\n       │\n       ▼ (DuckDB Vectorized SQL ELT · Star Schema Surrogate Keys)\n[Gold Layer: dim_product · dim_customer · dim_date · Fact Marts]\n       │\n       ▼\n[React Real-Time BI Dashboard · Sub-50ms Vectorized OLAP Queries]"
     },
     {
       "id": "frame-order-restoration",
+      "flagship": true,
       "title": "Frame Order Restoration System",
-      "tech": ["Python", "OpenCV", "PyTorch", "DirectML"],
-      "summary": "Engineered a video reconstruction pipeline using TSP algorithms (Beam Search, 2-Opt) to restore temporal frame order with greater than 99% frame similarity.",
+      "subtitle": "COMBINATORIAL TSP OPTIMIZATION & DIRECTML VISION PIPELINE",
+      "tech": ["Python", "PyTorch", "OpenCV", "DirectML", "Beam Search", "2-Opt"],
+      "summary": "Engineered an automated video reconstruction pipeline capable of recovering the true temporal sequence of randomly shuffled video frames by formulating frame ordering as a Traveling Salesperson Problem (TSP) over multi-modal visual descriptors.",
       "category": "Computer Vision & Heuristic Optimization",
+      "visual": {
+        "src": "/images/frame-order-tsp.svg",
+        "alt": "Frame Order Restoration Multi-Modal TSP Pipeline Schematic",
+        "filename": "video_frame_tsp_solver.py",
+        "engine": "PyTorch • DirectML GPU",
+        "cta": "INSPECT TSP SOLVER ARCHITECTURE",
+        "metrics": [
+          { "label": "FRAME SIMILARITY", "val": "> 99.2%" },
+          { "label": "OPTIMIZER", "val": "BEAM + 2-OPT" },
+          { "label": "GPU BACKEND", "val": "DIRECTML" }
+        ]
+      },
       "key_features": [
-        "Parallel feature extraction fusing ORB local descriptors, HSV color histograms, and perceptual hashing (pHash)",
-        "GPU-accelerated distance matrix calculation using DirectML execution provider",
-        "Traveling Salesperson formulation with Beam Search heuristic and 2-Opt local search refinement"
-      ]
+        "Parallel multi-core extraction combining ORB keypoints, HSV color histograms, perceptual hashes (pHash, dHash), edge-density histograms, and color moments",
+        "GPU-accelerated pairwise visual distance matrix calculation via PyTorch and DirectML with hierarchical temporal clustering for long sequences",
+        "Multi-start Beam Search initialization followed by iterative 2-Opt, sliding-window, adjacent-swap, and segment-reversal local search refinement (>99% frame similarity)"
+      ],
+      "topology": "[Randomly Shuffled Video Frames {F_1, F_2, ..., F_N}]\n       │\n       ▼ (Multiprocessing CPU Pool · 5-Domain Feature Extraction)\n[ORB Keypoints + HSV Hist + pHash/dHash + Edge Density + Color Moments]\n       │\n       ▼ (PyTorch + DirectML GPU Execution Provider)\n[Weighted Pairwise Visual Distance Matrix D(i, j) + Hierarchical Clustering]\n       │\n       ▼ (Multi-Start Beam Search Initialization)\n[Candidate Tour Generation -> 2-Opt + Sliding-Window + Segment Reversal]\n       │\n       ▼\n[Reconstructed Coherent Video Stream (>99% Frame-Wise Similarity)]"
+    },
+    {
+      "id": "opendesign",
+      "flagship": true,
+      "title": "OpenDesign: One-Click PaaS Deployment Integration",
+      "subtitle": "MULTI-CLOUD DEPLOYMENT ORCHESTRATION & CRYPTOGRAPHIC KEY WORKFLOWS",
+      "tech": ["TypeScript", "GitHub APIs", "Netlify", "Render", "Railway", "i18n"],
+      "summary": "Contributed production-scale cloud deployment infrastructure to the OpenDesign open-source platform, enabling one-click provisioning and live deployment of generated applications directly to Netlify, Render, and Railway.",
+      "category": "Cloud Infrastructure & Open Source",
+      "visual": {
+        "src": "/images/opendesign-architecture.svg",
+        "alt": "OpenDesign Multi-Provider PaaS Deployment State Machine",
+        "filename": "deployment_orchestrator.ts",
+        "engine": "GitHub API • SSH Deploy Keys",
+        "cta": "INSPECT DEPLOYMENT STATE MACHINE",
+        "metrics": [
+          { "label": "CLOUD PROVIDERS", "val": "3 PAAS" },
+          { "label": "AUTH PROTOCOL", "val": "ED25519 SSH" },
+          { "label": "LOCALIZATION", "val": "FULL I18N" }
+        ]
+      },
+      "key_features": [
+        "End-to-end automated GitHub repository provisioning, file synchronization, and platform-specific build orchestration without local CLI setup",
+        "Resolved Netlify repository-linking authentication limitations by engineering an automated Ed25519 SSH deploy-key generation and repository association workflow",
+        "Full-stack provider selection UI, dynamic credential validation, lifecycle status tracking, automated test coverage, and multilingual i18n locale support"
+      ],
+      "topology": "[OpenDesign Web Workspace · Generated Application AST]\n       │\n       ▼ (GitHub REST API · Automated Repo & Branch Provisioning)\n[Cryptographic Ed25519 Deploy-Key Generation & Webhook Binding]\n       │\n       ▼ (Unified Multi-Provider Deployment Orchestrator)\n┌────────────────────┬────────────────────┬────────────────────┐\n▼                    ▼                    ▼                    ▼\n[Netlify Build API]  [Render Service API] [Railway GraphQL]    [i18n Locale Engine]\n└────────────────────┴────────────────────┴────────────────────┘\n       │\n       ▼\n[Live Verified Production URL + Real-Time Build Status Telemetry]"
     },
     {
       "id": "emotional-dependency-detection",
+      "flagship": false,
       "title": "Emotional Dependency Detection System",
-      "tech": ["Python", "Sentence Transformers", "XGBoost"],
-      "summary": "Developed an NLP system for quantifying emotional dependency in user-LLM interactions using Sentence Transformers and XGBoost, achieving R^2 ≈ 0.81 on 4,000+ annotated prompts.",
-      "category": "Natural Language Processing & AI Alignment",
+      "subtitle": "PSYCHOLINGUISTIC EMBEDDING REGRESSION IN HUMAN–LLM INTERACTIONS",
+      "tech": ["Python", "Sentence Transformers", "XGBoost", "all-mpnet-base-v2", "NLP"],
+      "summary": "Developed an NLP framework quantifying continuous emotional attachment and reliance in human–LLM conversations across 4,049 annotated prompts using 768-D contextual embeddings and gradient-boosted regression.",
+      "category": "Natural Language Processing & AI Safety",
+      "visual": {
+        "src": "/images/dependency-nlp-architecture.svg",
+        "alt": "Emotional Dependency Detection Pipeline",
+        "filename": "dependency_quantifier.py",
+        "engine": "all-mpnet-base-v2 • XGBoost",
+        "cta": "INSPECT NLP REGRESSION PIPELINE",
+        "metrics": [
+          { "label": "TEST-SET R²", "val": "0.81" },
+          { "label": "TEST MAE / RMSE", "val": "0.10 / 0.14" },
+          { "label": "LABELED CORPUS", "val": "4,049 PROMPTS" }
+        ]
+      },
       "key_features": [
-        "Fine-tuned embedding representations via Sentence Transformers capturing conversational attachment signals",
-        "Gradient boosted regression pipeline with engineered psycholinguistic feature vectors",
-        "Cross-validated empirical score of R^2 ≈ 0.81 over a multi-annotator dataset of 4,000+ prompts"
-      ]
+        "Framed human–AI emotional dependency as a continuous [0, 1] regression task across 4,049 curated prompts (synthetic, therapist-style, role-play, and human-annotated)",
+        "Engineered 768-dimensional semantic representations via Sentence Transformers (all-mpnet-base-v2), outperforming TF-IDF + Linear/XGBoost baselines",
+        "Optimized XGBoost regression across 25 randomized-search cross-validation configurations with dataset balancing, achieving R² ≈ 0.81, MAE = 0.10, and RMSE = 0.14"
+      ],
+      "topology": "[4,049 Curated Prompts: Role-Play · Reassurance-Seeking · Neutral]\n       │\n       ▼ (Reproducible Continuous [0.0 – 1.0] Annotation Framework)\n[Sentence Transformers (all-mpnet-base-v2) -> 768-D Dense Embeddings]\n       │\n       ▼ (Label-Skew Balancing & Randomized Search CV · 25 Configs)\n[XGBoost Non-Linear Gradient Boosted Regression Pipeline]\n       │\n       ▼\n[Empirical Validation: R² ≈ 0.81 · MAE = 0.10 · RMSE = 0.14]"
+    },
+    {
+      "id": "multilingual-indic-alignment",
+      "flagship": false,
+      "title": "Semantic Alignment of Multilingual Embeddings",
+      "subtitle": "CROSS-LINGUAL GEOMETRY ACROSS 22 INDIC LANGUAGES (IN22 CORPUS)",
+      "tech": ["PyTorch", "LaBSE", "XLM-R", "MuRIL", "UMAP", "Graph Modularity"],
+      "summary": "Conducted a large-scale empirical study of cross-lingual semantic alignment across 22 Indic languages using the IN22 parallel corpus, evaluating transformer embedding geometry across Indo-Aryan, Dravidian, Tibeto-Burman, and Austroasiatic families.",
+      "category": "Multilingual AI & Representation Geometry",
+      "visual": {
+        "src": "/images/indic-alignment-architecture.svg",
+        "alt": "Multilingual Embedding Geometry Pipeline",
+        "filename": "indic_alignment_eval.py",
+        "engine": "LaBSE • XLM-R • MuRIL",
+        "cta": "INSPECT EMBEDDING GEOMETRY",
+        "metrics": [
+          { "label": "INDIC LANGUAGES", "val": "22 (IN22)" },
+          { "label": "LANGUAGE FAMILIES", "val": "4 FAMILIES" },
+          { "label": "TOP ALIGNMENT", "val": "LaBSE" }
+        ]
+      },
+      "key_features": [
+        "Evaluated LaBSE, XLM-R, and MuRIL across all 22 scheduled Indic languages using intrinsic cosine similarity, graph modularity, and hierarchical family clustering",
+        "Demonstrated that explicit translation-pair supervision in LaBSE yields significantly lower language-clustering modularity and stronger cross-lingual mixing than MLM-only pretraining",
+        "Performed statistical hypothesis testing and effect-size analysis across Indo-Aryan, Dravidian, Tibeto-Burman, and Austroasiatic groups, exposing failure modes of raw cosine similarity"
+      ],
+      "topology": "[IN22 Parallel Corpus · 22 Scheduled Indic Languages · 4 Families]\n       │\n       ▼ (Transformer Encoding: LaBSE vs. XLM-R vs. MuRIL)\n[High-Dimensional Sentence Representation Extraction]\n       │\n       ▼ (Intrinsic Geometry & Graph Topology Pipeline)\n[Cosine Distance · Graph Modularity · UMAP · Family Hierarchy]\n       │\n       ▼\n[Statistical Proof: Translation-Pair Supervision Defeats Language Clustering]"
+    },
+    {
+      "id": "privacy-smart-home-slm",
+      "flagship": false,
+      "title": "Privacy-First Smart Home Assistant (SLM–LLM Hybrid)",
+      "subtitle": "PROACTIVE EDGE AI & FORMAL FSM/CDFG EMBEDDED AUTOMATION",
+      "tech": ["Edge AI", "Quantized SLMs", "FSM / CDFG", "Home Assistant", "WebSockets"],
+      "summary": "Architected a privacy-preserving smart home reasoning engine that executes routine inference locally via quantized Small Language Models (SLMs) paired with deterministic Finite State Machine (FSM) safety guards.",
+      "category": "Edge AI & Embedded Systems Architecture",
+      "visual": {
+        "src": "/images/smart-home-slm-architecture.svg",
+        "alt": "Privacy-First SLM-LLM Hybrid Edge Architecture",
+        "filename": "edge_slm_orchestrator.py",
+        "engine": "Quantized SLM • FSM Safety",
+        "cta": "INSPECT EDGE AI ARCHITECTURE",
+        "metrics": [
+          { "label": "INFERENCE MODE", "val": "LOCAL EDGE" },
+          { "label": "PARADIGM", "val": "IF-THIS-LIKELY" },
+          { "label": "FORMAL MODEL", "val": "FSM / CDFG" }
+        ]
+      },
+      "key_features": [
+        "Hybrid reasoning framework combining deterministic FSM/DFG/CDFG safety overrides with probabilistic LLM intent inference for proactive 'If-This-Then-Likely' automation",
+        "Asynchronous producer-consumer queues isolating high-frequency multi-modal sensor acquisition (occupancy, thermal, air-quality) from SLM inference latency",
+        "Teacher–student knowledge distillation transferring reasoning from cloud LLMs to lightweight quantized edge SLMs integrated with Home Assistant via WebSockets"
+      ],
+      "topology": "[Multi-Modal Household Sensors: Occupancy · Thermal · Air Quality]\n       │\n       ▼ (Async Producer-Consumer Queue · Context Windowing)\n[Deterministic FSM / CDFG Safety Layer + Quantized Local Edge SLM]\n       │\n       ▼ (Selective Cloud LLM Fallback & Teacher-Student Distillation)\n[Proactive 'If-This-Then-Likely' Habit & Intent Inference Engine]\n       │\n       ▼\n[Home Assistant REST / WebSocket Real-Time Physical Actuation]"
     }
   ],
   "patents": [
     {
-      "title": "Garment Colour Matching System",
+      "title": "Garment Colour Matching System for Individuals with Colour Vision Deficiency",
+      "short_title": "Garment Colour Matching System (CVD Accessibility)",
       "application_number": "202641027735",
       "jurisdiction": "IP India",
       "status": "Published",
-      "summary": "Automated computer vision and spectral analysis system for high-accuracy garment colour coordination and dye matching."
+      "filing_year": "2026",
+      "summary": "Accessibility-focused computer vision and perceptual colour-science system that models individualized Colour Vision Deficiency (CVD) cone-sensitivity profiles (Ishihara screening, L/M/S cone isolation, spectral-shift estimation) and segments garments in perceptually uniform CIELAB (L*a*b*) space to generate harmonious, visually distinguishable outfit recommendations via fuzzy-logic scoring and mobile AR overlays.",
+      "claims": [
+        "Individualized CVD profiling combining Ishihara screening, L/M/S cone-isolation analysis, and spectral-shift severity quantification",
+        "Deep-learning garment segmentation & dominant colour extraction in perceptually uniform CIELAB (L*a*b*) colour space",
+        "Fuzzy-logic colour harmony engine with adaptive colour-gamut simulation and real-time mobile AR / audio-guided overlays"
+      ]
     },
     {
-      "title": "Closed-Loop Physiological Monitoring System",
+      "title": "Hardware-Integrated Closed-Loop Physiological Control Apparatus",
+      "short_title": "Closed-Loop Physiological Control Apparatus",
       "application_number": "202641068237",
       "jurisdiction": "IP India",
       "status": "Published",
-      "summary": "Real-time edge IoT biomedical apparatus with closed-loop adaptive telemetry for continuous patient vital sign tracking."
+      "filing_year": "2026",
+      "summary": "Hardware-integrated closed-loop biomedical monitoring and control apparatus combining multi-channel physiological sensing, analog-to-digital signal conditioning, and hardware-level comparator interrupt circuits to continuously evaluate metabolic state vectors against safety thresholds and trigger immediate edge actuation without cloud dependence.",
+      "claims": [
+        "Multi-channel biosensor conditioning pipeline with clock-synchronized state tracking and hardware memory management",
+        "Zero-cloud hardware comparator and interrupt circuits for sub-millisecond safety threshold evaluation and physical actuation",
+        "Adaptive sensor-management controller dynamically scaling sampling frequencies, polling schedules, and power states on physiological transitions"
+      ]
     }
   ],
   "achievements": [
     {
       "title": "2nd Place, IEEE IAS CodeDoc Hackathon",
       "organization": "VIT Vellore",
-      "note": "Only freshman in the top 5 finalist teams"
+      "note": "Only freshman team in the top 5 finalists across the university"
     },
     {
       "title": "IMIK Technologies Recognition Award",
       "organization": "IMIK Technologies",
-      "note": "Awarded cash recognition for high-impact IoT sensor pipeline optimization"
-    },
-    {
-      "title": "Model UN Honors",
-      "organization": "IIMUN & KCT MUN",
-      "note": "Best Delegate (IIMUN) and Runner-Up (KCT MUN)"
+      "note": "Awarded Rs. 5,000 recognition grant for 10× IoT RMS sensor pipeline optimization and 3 approved client POCs"
     },
     {
       "title": "National Cadet Corps (NCC) Honors",
       "organization": "NCC India",
-      "note": "2 Silver Medals (Aeromodelling & Precision Shooting), Best Cadet Finalist"
+      "note": "2 Silver Medals (Aeromodelling & Precision Shooting) and Best Cadet Finalist"
+    },
+    {
+      "title": "Model UN & Campus Leadership",
+      "organization": "IIMUN · KCT MUN · Otaku Club VIT",
+      "note": "Best Delegate (IIMUN), Runner-Up (KCT MUN), and PR & Media Head at Otaku Club VIT (led campaigns reaching 1,500+ students)"
     }
   ],
   "certifications": [
     {
-      "name": "Oracle Cloud Infrastructure - Generative AI Professional",
-      "year": "2025",
-      "issuer": "Oracle"
-    },
-    {
-      "name": "NVIDIA - Accelerated Computing in CUDA C/C++",
+      "name": "NVIDIA — Accelerated Computing in CUDA C/C++",
       "year": "2025",
       "issuer": "NVIDIA Deep Learning Institute"
+    },
+    {
+      "name": "Oracle Cloud Infrastructure — Generative AI Professional",
+      "year": "2025",
+      "issuer": "Oracle University"
     }
   ]
 }

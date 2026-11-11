@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="100%" height="100%" style="background:#07090E; font-family:'Space Mono', 'JetBrains Mono', monospace;">
+  <defs>
+    <pattern id="bioGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#121722" stroke-width="1" />
+    </pattern>
+    <pattern id="bioMajor" width="120" height="120" patternUnits="userSpaceOnUse">
+      <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#192030" stroke-width="1" />
+    </pattern>
+    <marker id="bioArr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#F5EFE6" />
+    </marker>
+    <marker id="bioArrRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#C83226" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="680" fill="#07090E" />
+  <rect width="1200" height="680" fill="url(#bioGrid)" />
+  <rect width="1200" height="680" fill="url(#bioMajor)" />
+
+  <!-- Outer Patent Border -->
+  <rect x="24" y="24" width="1152" height="632" fill="none" stroke="#C8C0B2" stroke-width="1.5" opacity="0.6" />
+  <rect x="30" y="30" width="1140" height="620" fill="none" stroke="#C8C0B2" stroke-width="0.6" opacity="0.35" />
+
+  <!-- Official IP India Patent Header Block -->
+  <g transform="translate(30, 30)">
+    <rect width="1140" height="72" fill="#0C0F17" stroke="#C8C0B2" stroke-width="0.8" stroke-opacity="0.4" />
+    <line x1="760" y1="0" x2="760" y2="72" stroke="#C8C0B2" stroke-width="0.8" stroke-opacity="0.4" />
+    <line x1="760" y1="36" x2="1140" y2="36" stroke="#C8C0B2" stroke-width="0.8" stroke-opacity="0.4" />
+
+    <text x="24" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.14em">THE PATENT OFFICE OF INDIA (IP INDIA) · OFFICIAL SPECIFICATION SCHEMATIC</text>
+    <text x="24" y="54" fill="#F5EFE6" font-size="15" font-weight="700" letter-spacing="0.05em">HARDWARE-INTEGRATED CLOSED-LOOP PHYSIOLOGICAL CONTROL APPARATUS</text>
+
+    <text x="778" y="23" fill="#C8C0B2" font-size="11">APPLICATION NO: <tspan fill="#F5EFE6" font-weight="700">202641068237</tspan></text>
+    <text x="1120" y="23" fill="#C83226" font-size="11" font-weight="700" text-anchor="end">STATUS: PUBLISHED</text>
+    <text x="778" y="58" fill="#C8C0B2" font-size="11">INVENTOR: <tspan fill="#F5EFE6">ABIMANYU JAYAGANESH</tspan></text>
+    <text x="1120" y="58" fill="#857E73" font-size="10" text-anchor="end">SHEET 1 OF 1</text>
+  </g>
+
+  <!-- FIG. 1: Multi-Channel Biosensor & Signal Conditioning Pipeline (100) -->
+  <g transform="translate(48, 124)">
+    <rect width="340" height="390" fill="#0B0E15" stroke="#C8C0B2" stroke-width="1" stroke-opacity="0.45" rx="2" />
+    <text x="18" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.1em">FIG. 1 // MULTI-CHANNEL SENSING (100)</text>
+    <line x1="18" y1="38" x2="322" y2="38" stroke="#252B3B" stroke-width="1" />
+
+    <!-- Biosensor Nodes -->
+    <g transform="translate(20, 52)">
+      <rect width="300" height="106" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="20" fill="#C83226" font-size="10" font-weight="700">[102] PHYSIOLOGICAL TRANSDUCER ARRAY</text>
+      <rect x="12" y="32" width="84" height="28" fill="#161C2C" stroke="#384358" />
+      <text x="54" y="50" fill="#F5EFE6" font-size="9" text-anchor="middle">ECG / PPG</text>
+      <rect x="108" y="32" width="84" height="28" fill="#161C2C" stroke="#384358" />
+      <text x="150" y="50" fill="#F5EFE6" font-size="9" text-anchor="middle">SpO2 / Temp</text>
+      <rect x="204" y="32" width="84" height="28" fill="#161C2C" stroke="#384358" />
+      <text x="246" y="50" fill="#F5EFE6" font-size="9" text-anchor="middle">Metabolic</text>
+      <text x="12" y="80" fill="#C8C0B2" font-size="9">• Continuous Multi-Modal Bio-Signal Capture</text>
+      <text x="12" y="96" fill="#857E73" font-size="8">Dynamic Polling &amp; Resolution Control</text>
+    </g>
+
+    <path d="M 170 158 L 170 184" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bioArr)" />
+
+    <!-- Analog Front-End & ADC -->
+    <g transform="translate(20, 188)">
+      <rect width="300" height="86" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="20" fill="#C83226" font-size="10" font-weight="700">[104] SIGNAL CONDITIONING &amp; ADC</text>
+      <text x="12" y="42" fill="#F5EFE6" font-size="9">• Low-Noise Instrumentation Amp &amp; Bandpass</text>
+      <text x="12" y="60" fill="#F5EFE6" font-size="9">• High-Speed Analog-to-Digital Conversion</text>
+      <text x="12" y="76" fill="#C8C0B2" font-size="8">Baseline Wander &amp; Motion Artifact Rejection</text>
+    </g>
+
+    <path d="M 170 274 L 170 298" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bioArr)" />
+
+    <!-- Hardware Memory & Clock Sync -->
+    <g transform="translate(20, 302)">
+      <rect width="300" height="70" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="20" fill="#C83226" font-size="10" font-weight="700">[106] CLOCK-SYNCHRONIZED DMA BUFFER</text>
+      <text x="12" y="40" fill="#C8C0B2" font-size="9">• Deterministic Ring-Buffer Memory Mgmt</text>
+      <text x="12" y="56" fill="#C8C0B2" font-size="9">• Real-Time Physiological State Vector S(t)</text>
+    </g>
+  </g>
+
+  <path d="M 388 318 L 424 318" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#bioArrRed)" />
+
+  <!-- FIG. 2: Hardware Comparator & Interrupt Safety Architecture (200) -->
+  <g transform="translate(430, 124)">
+    <rect width="340" height="390" fill="#0B0E15" stroke="#C83226" stroke-width="1.5" rx="2" />
+    <text x="18" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.1em">FIG. 2 // HARDWARE COMPARATOR (200)</text>
+    <line x1="18" y1="38" x2="322" y2="38" stroke="#3A1F20" stroke-width="1" />
+
+    <!-- Hardware Comparator Schematic -->
+    <g transform="translate(20, 52)">
+      <rect width="300" height="156" fill="#161218" stroke="#C83226" stroke-width="1.2" />
+      <text x="12" y="22" fill="#F5EFE6" font-size="10" font-weight="700">[202] ZERO-CLOUD HARDWARE COMPARATOR</text>
+
+      <!-- Comparator Triangle Symbol -->
+      <g transform="translate(24, 42)">
+        <polygon points="40,8 40,76 105,42" fill="#0C0F17" stroke="#C83226" stroke-width="1.8" />
+        <line x1="0" y1="26" x2="40" y2="26" stroke="#F5EFE6" stroke-width="1.5" />
+        <text x="2" y="20" fill="#F5EFE6" font-size="8">S(t)</text>
+        <line x1="0" y1="58" x2="40" y2="58" stroke="#C83226" stroke-width="1.5" />
+        <text x="2" y="52" fill="#C83226" font-size="8">V_ref</text>
+        <text x="46" y="30" fill="#F5EFE6" font-size="10">+</text>
+        <text x="46" y="62" fill="#C83226" font-size="10">-</text>
+        <line x1="105" y1="42" x2="145" y2="42" stroke="#C83226" stroke-width="2" marker-end="url(#bioArrRed)" />
+        <rect x="148" y="24" width="112" height="36" fill="#C83226" rx="2" />
+        <text x="204" y="40" fill="#FFFFFF" font-size="9" font-weight="700" text-anchor="middle">HW INTERRUPT</text>
+        <text x="204" y="52" fill="#F5EFE6" font-size="8" text-anchor="middle">ISR_SAFETY_TRIG</text>
+      </g>
+
+      <text x="12" y="138" fill="#C8C0B2" font-size="9">Evaluates state vectors against safety thresholds</text>
+      <text x="12" y="150" fill="#857E73" font-size="8">Zero cloud latency or network outage vulnerability</text>
+    </g>
+
+    <path d="M 170 208 L 170 236" fill="none" stroke="#C83226" stroke-width="1.5" marker-end="url(#bioArrRed)" />
+
+    <!-- Adaptive Sensor Management Controller -->
+    <g transform="translate(20, 240)">
+      <rect width="300" height="132" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="22" fill="#C83226" font-size="10" font-weight="700">[204] ADAPTIVE SENSOR MANAGER</text>
+      <text x="12" y="44" fill="#F5EFE6" font-size="9">Dynamically reconfigures hardware on transition:</text>
+      <text x="12" y="64" fill="#C8C0B2" font-size="9">• Scales Sampling Frequency (f_s: 25Hz ↔ 500Hz)</text>
+      <text x="12" y="82" fill="#C8C0B2" font-size="9">• Modifies Polling Schedules &amp; ADC Bit Depth</text>
+      <text x="12" y="100" fill="#C8C0B2" font-size="9">• Transitions Power States (Deep Sleep ↔ Active)</text>
+      <text x="12" y="120" fill="#C83226" font-size="9" font-weight="700">● Maximizes Battery Life &amp; Critical Resolution</text>
+    </g>
+  </g>
+
+  <path d="M 770 318 L 806 318" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#bioArrRed)" />
+
+  <!-- FIG. 3: Edge Personalization & Physical Actuation Pathways (300) -->
+  <g transform="translate(812, 124)">
+    <rect width="340" height="390" fill="#0B0E15" stroke="#C8C0B2" stroke-width="1" stroke-opacity="0.45" rx="2" />
+    <text x="18" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.1em">FIG. 3 // EDGE ACTUATION (300)</text>
+    <line x1="18" y1="38" x2="322" y2="38" stroke="#252B3B" stroke-width="1" />
+
+    <!-- Edge Personalization -->
+    <g transform="translate(20, 52)">
+      <rect width="300" height="128" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="22" fill="#C83226" font-size="10" font-weight="700">[302] EDGE PERSONALIZATION ENGINE</text>
+      <text x="12" y="44" fill="#F5EFE6" font-size="9">• Patient-Specific Baseline Envelope Learning</text>
+      <text x="12" y="64" fill="#F5EFE6" font-size="9">• Scenario-Driven Metabolic State Analysis</text>
+      <text x="12" y="84" fill="#C8C0B2" font-size="9">• Long-Horizon Risk Assessment Workflows</text>
+      <text x="12" y="108" fill="#857E73" font-size="8">Validated across physiological &amp; lifestyle datasets</text>
+    </g>
+
+    <path d="M 170 180 L 170 212" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bioArr)" />
+
+    <!-- Physical Actuation & Safety Alert Driver -->
+    <g transform="translate(20, 216)">
+      <rect width="300" height="156" fill="#101514" stroke="#52634C" stroke-width="1.5" />
+      <text x="12" y="22" fill="#F5EFE6" font-size="10" font-weight="700">[304] PHYSICAL ACTUATION &amp; SAFETY DRIVER</text>
+      <text x="12" y="44" fill="#C8C0B2" font-size="9">• Immediate Device-Level Actuation Output</text>
+      <text x="12" y="64" fill="#C8C0B2" font-size="9">• Automated Hardware Safety-Alert Generation</text>
+      <text x="12" y="84" fill="#C8C0B2" font-size="9">• Low-Latency Closed-Loop Stabilization</text>
+      <rect x="12" y="102" width="276" height="38" fill="#0B0D13" stroke="#52634C" />
+      <text x="150" y="125" fill="#F5EFE6" font-size="9" font-weight="700" text-anchor="middle">CLOSED-LOOP FEEDBACK PATH [400] → [102]</text>
+    </g>
+  </g>
+
+  <!-- FIG. 4: Closed-Loop Feedback Return Bus Across Bottom -->
+  <g transform="translate(48, 530)">
+    <rect width="1104" height="72" fill="#0E111A" stroke="#C83226" stroke-width="1.2" rx="2" />
+    <text x="20" y="24" fill="#C83226" font-size="10" font-weight="700" letter-spacing="0.1em">FIG. 4 // CLOSED-LOOP BIOFEEDBACK &amp; DYNAMIC RECONFIGURATION BUS (400)</text>
+    <path d="M 1060 46 L 60 46" fill="none" stroke="#C83226" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#bioArrRed)" />
+    <text x="552" y="40" fill="#F5EFE6" font-size="9" text-anchor="middle">REAL-TIME HARDWARE FEEDBACK: SAMPLING RATE f_s(t) · POWER STATE P(t) · THRESHOLD V_ref(t)</text>
+  </g>
+
+  <!-- Bottom Patent Verification Bar -->
+  <g transform="translate(48, 618)">
+    <text x="0" y="14" fill="#C8C0B2" font-size="10">FIG. 1–4 CLOSED-LOOP HARDWARE ARCHITECTURE · GAZETTE OF THE PATENT OFFICE OF INDIA</text>
+    <text x="1104" y="14" fill="#C83226" font-size="10" font-weight="700" text-anchor="end">PATENT APPLICATION NO. 202641068237 (PUBLISHED)</text>
+  </g>
+</svg>

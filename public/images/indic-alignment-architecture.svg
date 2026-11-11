@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="100%" height="100%" style="background:#08090D; font-family:'Space Mono', monospace;">
+  <defs>
+    <pattern id="indGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#151822" stroke-width="1" />
+    </pattern>
+    <marker id="indArr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#C83226" />
+    </marker>
+  </defs>
+  <rect width="1200" height="540" fill="#08090D" />
+  <rect width="1200" height="540" fill="url(#indGrid)" />
+
+  <g transform="translate(36, 28)">
+    <rect width="1128" height="44" fill="#101219" stroke="#262A38" rx="3" />
+    <circle cx="22" cy="22" r="5" fill="#C83226" />
+    <text x="38" y="27" fill="#F5EFE6" font-size="13" font-weight="700" letter-spacing="0.1em">SEMANTIC ALIGNMENT OF MULTILINGUAL EMBEDDINGS // 22 INDIC LANGUAGES (IN22)</text>
+    <text x="1108" y="27" fill="#C8C0B2" font-size="11" text-anchor="end">LaBSE · XLM-R · MuRIL · UMAP GEOMETRY</text>
+  </g>
+
+  <g transform="translate(36, 96)">
+    <rect width="340" height="404" fill="#0E1017" stroke="#262A38" rx="4" />
+    <text x="20" y="30" fill="#C83226" font-size="11" font-weight="700">01 // IN22 PARALLEL CORPUS (22 LANGS)</text>
+    <g transform="translate(20, 48)">
+      <rect width="300" height="175" fill="#131620" stroke="#252A3A" rx="3" />
+      <text x="14" y="26" fill="#F5EFE6" font-size="11" font-weight="700">4 Linguistic Families Evaluated</text>
+      <text x="14" y="52" fill="#C83226" font-size="10" font-weight="700">• Indo-Aryan</text>
+      <text x="24" y="68" fill="#C8C0B2" font-size="9">Hindi, Bengali, Marathi, Gujarati, etc.</text>
+      <text x="14" y="90" fill="#C83226" font-size="10" font-weight="700">• Dravidian</text>
+      <text x="24" y="106" fill="#C8C0B2" font-size="9">Tamil, Telugu, Kannada, Malayalam</text>
+      <text x="14" y="128" fill="#C83226" font-size="10" font-weight="700">• Tibeto-Burman &amp; Austroasiatic</text>
+      <text x="24" y="144" fill="#C8C0B2" font-size="9">Manipuri, Bodo, Santali, Assamese</text>
+    </g>
+    <g transform="translate(20, 240)">
+      <rect width="300" height="140" fill="#131620" stroke="#252A3A" rx="3" />
+      <text x="14" y="26" fill="#F5EFE6" font-size="11" font-weight="700">Transformer Encoders Benchmarked</text>
+      <text x="14" y="52" fill="#C8C0B2" font-size="10">1. LaBSE (Translation-Pair Supervised)</text>
+      <text x="14" y="74" fill="#C8C0B2" font-size="10">2. MuRIL (Indic MLM + Transliterated)</text>
+      <text x="14" y="96" fill="#C8C0B2" font-size="10">3. XLM-RoBERTa (Multilingual MLM)</text>
+    </g>
+  </g>
+
+  <path d="M 376 298 L 418 298" stroke="#C83226" stroke-width="2" marker-end="url(#indArr)" />
+
+  <g transform="translate(424, 96)">
+    <rect width="352" height="404" fill="#161014" stroke="#C83226" stroke-width="1.5" rx="4" />
+    <text x="20" y="30" fill="#F5EFE6" font-size="11" font-weight="700">02 // EMBEDDING SPACE GEOMETRY</text>
+    <g transform="translate(20, 48)">
+      <rect width="312" height="165" fill="#0B0C10" stroke="#2D2024" rx="3" />
+      <text x="16" y="26" fill="#C83226" font-size="11" font-weight="700">Intrinsic Geometric Pipeline</text>
+      <text x="16" y="50" fill="#C8C0B2" font-size="10">• Graph Modularity Q (Language Clustering)</text>
+      <text x="16" y="72" fill="#C8C0B2" font-size="10">• Hierarchical Genealogical Dendrograms</text>
+      <text x="16" y="94" fill="#C8C0B2" font-size="10">• UMAP Manifold Projection &amp; Mixing</text>
+      <text x="16" y="116" fill="#C8C0B2" font-size="10">• Within-Family vs. Cross-Family Effect Size</text>
+      <text x="16" y="144" fill="#857E73" font-size="9">Hypothesis Testing (p-value &amp; Cohen's d)</text>
+    </g>
+    <g transform="translate(20, 230)">
+      <rect width="312" height="150" fill="#0B0C10" stroke="#2D2024" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="11" font-weight="700">Anisotropy &amp; Cosine Metric Audit</text>
+      <text x="16" y="50" fill="#C8C0B2" font-size="9">Proved that raw high cosine-similarity scores</text>
+      <text x="16" y="68" fill="#C8C0B2" font-size="9">in MLM models mask severe language-specific</text>
+      <text x="16" y="86" fill="#C8C0B2" font-size="9">clustering and poor semantic retrieval alignment.</text>
+      <text x="16" y="122" fill="#C83226" font-size="9" font-weight="700">● Exposes False-Positive Cosine Alignment</text>
+    </g>
+  </g>
+
+  <path d="M 776 298 L 818 298" stroke="#C83226" stroke-width="2" marker-end="url(#indArr)" />
+
+  <g transform="translate(824, 96)">
+    <rect width="340" height="404" fill="#0E1017" stroke="#262A38" rx="4" />
+    <text x="20" y="30" fill="#C83226" font-size="11" font-weight="700">03 // KEY EMPIRICAL FINDINGS</text>
+    <g transform="translate(20, 48)">
+      <rect width="300" height="170" fill="#101514" stroke="#52634C" stroke-width="1.5" rx="3" />
+      <text x="16" y="28" fill="#F5EFE6" font-size="11" font-weight="700">LaBSE Translation Supervision</text>
+      <text x="16" y="54" fill="#C8C0B2" font-size="9">Explicit translation-pair training achieves:</text>
+      <text x="16" y="80" fill="#F5EFE6" font-size="10" font-weight="700">• Lowest Language Graph Modularity</text>
+      <text x="16" y="102" fill="#F5EFE6" font-size="10" font-weight="700">• True Cross-Lingual Semantic Mixing</text>
+      <text x="16" y="124" fill="#F5EFE6" font-size="10" font-weight="700">• Superior Bitext Retrieval Accuracy</text>
+    </g>
+    <g transform="translate(20, 236)">
+      <rect width="300" height="144" fill="#131620" stroke="#252A3A" rx="3" />
+      <text x="16" y="26" fill="#F5EFE6" font-size="11" font-weight="700">Phylogenetic Preservation</text>
+      <text x="16" y="50" fill="#C8C0B2" font-size="9">Demonstrated that script diversity and</text>
+      <text x="16" y="68" fill="#C8C0B2" font-size="9">morphological genealogy (Dravidian vs.</text>
+      <text x="16" y="86" fill="#C8C0B2" font-size="9">Indo-Aryan) are geometrically preserved</text>
+      <text x="16" y="104" fill="#C8C0B2" font-size="9">inside multilingual transformer manifolds.</text>
+    </g>
+  </g>
+</svg>

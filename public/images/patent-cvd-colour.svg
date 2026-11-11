@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="100%" height="100%" style="background:#07090E; font-family:'Space Mono', 'JetBrains Mono', monospace;">
+  <defs>
+    <pattern id="bpGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#121722" stroke-width="1" />
+    </pattern>
+    <pattern id="bpMajor" width="120" height="120" patternUnits="userSpaceOnUse">
+      <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#192030" stroke-width="1" />
+    </pattern>
+    <marker id="bpArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#F5EFE6" />
+    </marker>
+    <marker id="bpArrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#C83226" />
+    </marker>
+  </defs>
+
+  <!-- Technical Blueprint Substrate -->
+  <rect width="1200" height="680" fill="#07090E" />
+  <rect width="1200" height="680" fill="url(#bpGrid)" />
+  <rect width="1200" height="680" fill="url(#bpMajor)" />
+
+  <!-- Outer Patent Specification Frame -->
+  <rect x="24" y="24" width="1152" height="632" fill="none" stroke="#C8C0B2" stroke-width="1.5" opacity="0.6" />
+  <rect x="30" y="30" width="1140" height="620" fill="none" stroke="#C8C0B2" stroke-width="0.6" opacity="0.35" />
+
+  <!-- Official IP India Patent Header Block -->
+  <g transform="translate(30, 30)">
+    <rect width="1140" height="72" fill="#0C0F17" stroke="#C8C0B2" stroke-width="0.8" stroke-opacity="0.4" />
+    <line x1="760" y1="0" x2="760" y2="72" stroke="#C8C0B2" stroke-width="0.8" stroke-opacity="0.4" />
+    <line x1="760" y1="36" x2="1140" y2="36" stroke="#C8C0B2" stroke-width="0.8" stroke-opacity="0.4" />
+
+    <!-- Left Title -->
+    <text x="24" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.14em">THE PATENT OFFICE OF INDIA (IP INDIA) · OFFICIAL SPECIFICATION SCHEMATIC</text>
+    <text x="24" y="54" fill="#F5EFE6" font-size="15" font-weight="700" letter-spacing="0.05em">GARMENT COLOUR MATCHING SYSTEM FOR INDIVIDUALS WITH COLOUR VISION DEFICIENCY</text>
+
+    <!-- Right Metadata Stamp -->
+    <text x="778" y="23" fill="#C8C0B2" font-size="11">APPLICATION NO: <tspan fill="#F5EFE6" font-weight="700">202641027735</tspan></text>
+    <text x="1120" y="23" fill="#C83226" font-size="11" font-weight="700" text-anchor="end">STATUS: PUBLISHED</text>
+    <text x="778" y="58" fill="#C8C0B2" font-size="11">INVENTOR: <tspan fill="#F5EFE6">ABIMANYU JAYAGANESH</tspan></text>
+    <text x="1120" y="58" fill="#857E73" font-size="10" text-anchor="end">SHEET 1 OF 1</text>
+  </g>
+
+  <!-- FIG. 1: Individualized CVD Cone-Isolation & Spectral-Shift Profiling (100) -->
+  <g transform="translate(48, 124)">
+    <rect width="340" height="476" fill="#0B0E15" stroke="#C8C0B2" stroke-width="1" stroke-opacity="0.45" rx="2" />
+    <text x="18" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.1em">FIG. 1 // CVD CONE PROFILING (100)</text>
+    <line x1="18" y1="38" x2="322" y2="38" stroke="#252B3B" stroke-width="1" />
+
+    <!-- Block 102: Ishihara & Cone Isolation -->
+    <g transform="translate(20, 54)">
+      <rect width="300" height="104" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="20" fill="#C83226" font-size="10" font-weight="700">[102] ISHIHARA &amp; CONE-ISOLATION STIMULI</text>
+      <!-- L / M / S Cone Spectral Curves -->
+      <path d="M 24 84 Q 65 25 106 84" fill="none" stroke="#38BDF8" stroke-width="1.5" />
+      <text x="62" y="44" fill="#38BDF8" font-size="9">S-Cone</text>
+      <path d="M 90 84 Q 140 20 190 84" fill="none" stroke="#4ADE80" stroke-width="1.5" />
+      <text x="122" y="38" fill="#4ADE80" font-size="9">M-Cone</text>
+      <path d="M 125 84 Q 175 20 225 84" fill="none" stroke="#C83226" stroke-width="2" stroke-dasharray="4,2" />
+      <text x="182" y="38" fill="#C83226" font-size="9">L-Cone (Δλ Shift)</text>
+      <line x1="20" y1="84" x2="280" y2="84" stroke="#857E73" stroke-width="1" />
+      <text x="20" y="96" fill="#857E73" font-size="8">400nm (Spectral Wavelength λ) 700nm</text>
+    </g>
+
+    <path d="M 170 158 L 170 186" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bpArrow)" />
+
+    <!-- Block 104: Spectral Shift & Severity Estimator -->
+    <g transform="translate(20, 190)">
+      <rect width="300" height="114" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="22" fill="#C83226" font-size="10" font-weight="700">[104] SPECTRAL-SHIFT &amp; SEVERITY ENGINE</text>
+      <text x="12" y="44" fill="#F5EFE6" font-size="10">• Cone Sensitivity Deviation (δ_L, δ_M, δ_S)</text>
+      <text x="12" y="64" fill="#F5EFE6" font-size="10">• Luminosity Function V(λ) Calibration</text>
+      <text x="12" y="84" fill="#C8C0B2" font-size="9">• Continuous Severity Index α ∈ [0.0, 1.0]</text>
+      <text x="12" y="102" fill="#857E73" font-size="8">Replaces coarse Protan/Deutan/Tritan buckets</text>
+    </g>
+
+    <path d="M 170 304 L 170 332" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bpArrow)" />
+
+    <!-- Block 106: Personalized Perceptual Gamut Tensor -->
+    <g transform="translate(20, 336)">
+      <rect width="300" height="118" fill="#161218" stroke="#C83226" stroke-width="1.2" />
+      <text x="12" y="22" fill="#F5EFE6" font-size="10" font-weight="700">[106] USER PERCEPTUAL GAMUT MATRIX</text>
+      <text x="12" y="44" fill="#C8C0B2" font-size="9">Maps standard LMS cone space to user-specific</text>
+      <text x="12" y="60" fill="#C8C0B2" font-size="9">distinguishable colour manifold T_user(α):</text>
+      <rect x="12" y="72" width="276" height="32" fill="#0B0D13" stroke="#2D232A" />
+      <text x="150" y="92" fill="#C83226" font-size="10" font-weight="700" text-anchor="middle">ΔE*_CVD(c_1, c_2) ≥ τ_distinguish</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector FIG. 1 -> FIG. 2 -->
+  <path d="M 388 362 L 424 362" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#bpArrowRed)" />
+
+  <!-- FIG. 2: Computer Vision Segmentation & CIELAB Space (200) -->
+  <g transform="translate(430, 124)">
+    <rect width="340" height="476" fill="#0B0E15" stroke="#C8C0B2" stroke-width="1" stroke-opacity="0.45" rx="2" />
+    <text x="18" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.1em">FIG. 2 // CIELAB CV PIPELINE (200)</text>
+    <line x1="18" y1="38" x2="322" y2="38" stroke="#252B3B" stroke-width="1" />
+
+    <!-- Block 202: Deep Learning Garment Segmentation -->
+    <g transform="translate(20, 54)">
+      <rect width="300" height="104" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="20" fill="#C83226" font-size="10" font-weight="700">[202] DEEP GARMENT SEGMENTATION</text>
+      <text x="12" y="42" fill="#F5EFE6" font-size="10">• Foreground Mask Isolation &amp; Shadow Removal</text>
+      <text x="12" y="62" fill="#F5EFE6" font-size="10">• Illumination-Invariant White Balance</text>
+      <text x="12" y="82" fill="#C8C0B2" font-size="9">• Multi-Region Apparel Parsing (Top/Bottom/Acc)</text>
+    </g>
+
+    <path d="M 170 158 L 170 186" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bpArrow)" />
+
+    <!-- Block 204: Perceptually Uniform CIELAB (L*a*b*) Clustering -->
+    <g transform="translate(20, 190)">
+      <rect width="300" height="148" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="22" fill="#C83226" font-size="10" font-weight="700">[204] CIELAB (L*a*b*) CHROMATIC CLUSTERING</text>
+
+      <!-- CIELAB Coordinate Sphere Schematic -->
+      <g transform="translate(24, 38)">
+        <circle cx="48" cy="48" r="40" fill="none" stroke="#C8C0B2" stroke-width="1" stroke-dasharray="3,3" />
+        <line x1="8" y1="48" x2="88" y2="48" stroke="#C83226" stroke-width="1.2" />
+        <line x1="48" y1="8" x2="48" y2="88" stroke="#F5EFE6" stroke-width="1.2" />
+        <circle cx="64" cy="34" r="5" fill="#C83226" />
+        <circle cx="32" cy="62" r="4" fill="#F5EFE6" />
+        <text x="92" y="52" fill="#C83226" font-size="8">+a*</text>
+        <text x="42" y="6" fill="#F5EFE6" font-size="8">+b*</text>
+      </g>
+
+      <g transform="translate(132, 42)">
+        <text x="0" y="14" fill="#F5EFE6" font-size="9" font-weight="700">Dominant Extraction:</text>
+        <text x="0" y="32" fill="#C8C0B2" font-size="9">• Primary Hue Cluster</text>
+        <text x="0" y="48" fill="#C8C0B2" font-size="9">• Secondary Accent</text>
+        <text x="0" y="66" fill="#C8C0B2" font-size="9">• Perceptual Distance</text>
+        <text x="0" y="82" fill="#C83226" font-size="9" font-weight="700">CIE ΔE* 2000 Metric</text>
+      </g>
+    </g>
+
+    <path d="M 170 338 L 170 364" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bpArrow)" />
+
+    <!-- Block 206: Wardrobe Diversity & Distribution Sub-system -->
+    <g transform="translate(20, 368)">
+      <rect width="300" height="86" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="22" fill="#C83226" font-size="10" font-weight="700">[206] WARDROBE DISTRIBUTION TRACKER</text>
+      <text x="12" y="44" fill="#C8C0B2" font-size="9">• Detects underrepresented colour families</text>
+      <text x="12" y="62" fill="#C8C0B2" font-size="9">• Prevents duplicate confusion-line purchases</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector FIG. 2 -> FIG. 3 -->
+  <path d="M 770 362 L 806 362" fill="none" stroke="#C83226" stroke-width="2" marker-end="url(#bpArrowRed)" />
+
+  <!-- FIG. 3: Fuzzy-Logic Harmony & Mobile Edge AR Overlay (300) -->
+  <g transform="translate(812, 124)">
+    <rect width="340" height="476" fill="#0B0E15" stroke="#C8C0B2" stroke-width="1" stroke-opacity="0.45" rx="2" />
+    <text x="18" y="28" fill="#C83226" font-size="11" font-weight="700" letter-spacing="0.1em">FIG. 3 // HARMONY &amp; AR OVERLAY (300)</text>
+    <line x1="18" y1="38" x2="322" y2="38" stroke="#252B3B" stroke-width="1" />
+
+    <!-- Block 302: Fuzzy-Logic Recommendation Engine -->
+    <g transform="translate(20, 54)">
+      <rect width="300" height="134" fill="#161218" stroke="#C83226" stroke-width="1.2" />
+      <text x="12" y="22" fill="#F5EFE6" font-size="10" font-weight="700">[302] FUZZY-LOGIC HARMONY ENGINE</text>
+      <text x="12" y="44" fill="#C8C0B2" font-size="9">Jointly optimizes aesthetic colour-harmony</text>
+      <text x="12" y="60" fill="#C8C0B2" font-size="9">rules AND user-specific CVD distinguishability:</text>
+      <rect x="12" y="74" width="276" height="44" fill="#0B0D13" stroke="#2D232A" />
+      <text x="20" y="92" fill="#F5EFE6" font-size="9">Score = μ_harmony(L*a*b*) ∧ μ_CVD(T_user)</text>
+      <text x="20" y="108" fill="#C83226" font-size="9">Context: Formal · Casual · High-Contrast</text>
+    </g>
+
+    <path d="M 170 188 L 170 216" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bpArrow)" />
+
+    <!-- Block 304: Adaptive CVD Gamut Simulation -->
+    <g transform="translate(20, 220)">
+      <rect width="300" height="100" fill="#101420" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.6" />
+      <text x="12" y="22" fill="#C83226" font-size="10" font-weight="700">[304] CVD PERCEPTION VERIFIER</text>
+      <text x="12" y="44" fill="#F5EFE6" font-size="10">• Simulates outfit appearance under user profile</text>
+      <text x="12" y="64" fill="#F5EFE6" font-size="10">• Rejects combinations along confusion lines</text>
+      <text x="12" y="84" fill="#C8C0B2" font-size="9">• Guarantees both aesthetic &amp; perceptual clarity</text>
+    </g>
+
+    <path d="M 170 320 L 170 348" fill="none" stroke="#F5EFE6" stroke-width="1.5" marker-end="url(#bpArrow)" />
+
+    <!-- Block 306: Edge Mobile AR & Audio Guidance -->
+    <g transform="translate(20, 352)">
+      <rect width="300" height="102" fill="#101514" stroke="#52634C" stroke-width="1.5" />
+      <text x="12" y="22" fill="#F5EFE6" font-size="10" font-weight="700">[306] EDGE MOBILE AR &amp; AUDIO GUIDANCE</text>
+      <text x="12" y="44" fill="#C8C0B2" font-size="9">• Real-Time AR Garment Highlighting Overlays</text>
+      <text x="12" y="62" fill="#C8C0B2" font-size="9">• Audio-Guided Garment Localization Cues</text>
+      <text x="12" y="80" fill="#F5EFE6" font-size="9" font-weight="700">● On-Device Edge Inference (Consumer Mobile)</text>
+    </g>
+  </g>
+
+  <!-- Bottom Patent Verification Bar -->
+  <g transform="translate(48, 618)">
+    <text x="0" y="14" fill="#C8C0B2" font-size="10">FIG. 1–3 ORTHOGRAPHIC SYSTEM SCHEMATIC · GAZETTE OF THE PATENT OFFICE OF INDIA</text>
+    <text x="1104" y="14" fill="#C83226" font-size="10" font-weight="700" text-anchor="end">PATENT APPLICATION NO. 202641027735 (PUBLISHED)</text>
+  </g>
+</svg>
