@@ -1,4 +1,5 @@
 import React from 'react';
+import { Code2, Cpu, Database, Terminal, Zap, Cloud } from 'lucide-react';
 import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const TechnicalMatrix = () => {
@@ -6,43 +7,49 @@ export const TechnicalMatrix = () => {
     {
       idx: '01',
       title: 'Core Languages',
+      icon: <Code2 size={18} />,
       skills: ['Python', 'Modern C++', 'Java', 'TypeScript / JS', 'SQL / PL-SQL', 'C']
     },
     {
       idx: '02',
       title: 'Physics-ML & Deep Learning',
+      icon: <Cpu size={18} />,
       skills: ['PyTorch', 'PINN Digital Twins', 'Sentence Transformers', 'XGBoost', 'LaBSE / MuRIL', 'Local RAG']
     },
     {
       idx: '03',
       title: 'Lakehouse & Data Systems',
+      icon: <Database size={18} />,
       skills: ['DuckDB (Vectorized OLAP)', 'Delta Lake', 'Medallion Architecture', 'SCD Type 2', 'MySQL', 'MongoDB']
     },
     {
       idx: '04',
       title: 'Distributed Backends & Web',
+      icon: <Terminal size={18} />,
       skills: ['FastAPI (Async)', 'Spring Boot', 'Django', 'React 19', 'Three.js / WebGL', 'Docker']
     },
     {
       idx: '05',
       title: 'GPU Acceleration & Simulation',
+      icon: <Zap size={18} />,
       skills: ['CUDA C/C++', 'DirectML GPU', 'AMP / TF32', 'MATLAB / Simulink', 'OpenCV', 'Quantized Edge SLMs']
     },
     {
       idx: '06',
       title: 'Cloud, PaaS & Embedded IoT',
+      icon: <Cloud size={18} />,
       skills: ['AWS (EC2, S3, DynamoDB)', 'ESP32 & MQTT Telemetry', 'GitHub / Netlify / Railway APIs', 'SonarQube', 'FSM / CDFG']
     }
   ];
 
   return (
     <section id="skills" className="scene-section skills-section">
-      {/* Dedicated Cedar Lantern Shrine Backdrop */}
+      {/* Vivid Cedar Lantern Shrine Backdrop */}
       <SceneBackdrop
         image="/images/cinematic_shrine.png"
         position="center 40%"
-        opacity={0.78}
-        overlayDarkness={0.84}
+        opacity={0.92}
+        overlayDarkness={0.45}
       />
 
       {/* Restrained Chapter Number Watermark */}
@@ -63,26 +70,30 @@ export const TechnicalMatrix = () => {
           <div className="scene-divider-rule" />
         </div>
 
-        {/* Breathable Left-to-Right Architectural Ledger */}
-        <div className="skills-ledger">
+        {/* Interactive 3x2 Lantern-Lit Frosted Bento Grid (Distinct from Text Lists!) */}
+        <div className="skills-bento-grid">
           {skillCategories.map((cat, idx) => (
-            <div
+            <article
               key={cat.title}
-              className={`ledger-row reveal-item reveal-delay-${(idx % 3) + 1}`}
+              className={`skill-bento-card reveal-item reveal-delay-${(idx % 3) + 1}`}
             >
-              <div className="ledger-left">
-                <span className="ledger-idx mono">{cat.idx}</span>
-                <h3 className="ledger-title">{cat.title}</h3>
+              <div className="bento-card-top">
+                <div className="bento-icon-box">
+                  {cat.icon}
+                </div>
+                <span className="bento-idx mono">0{idx + 1}</span>
               </div>
 
-              <div className="ledger-right mono">
+              <h3 className="bento-title">{cat.title}</h3>
+
+              <div className="bento-pills-wrap mono">
                 {cat.skills.map((skill) => (
-                  <span key={skill} className="ledger-skill-chip">
+                  <span key={skill} className="bento-skill-chip">
                     {skill}
                   </span>
                 ))}
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
@@ -93,76 +104,97 @@ export const TechnicalMatrix = () => {
           background-color: var(--bg-primary);
         }
 
-        .skills-ledger {
+        .skills-bento-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: clamp(1.5rem, 2.8vw, 2.25rem);
+        }
+
+        .skill-bento-card {
+          background: rgba(10, 12, 18, 0.76);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(245, 239, 230, 0.14);
+          border-radius: var(--radius-md);
+          padding: clamp(1.75rem, 3vw, 2.25rem);
           display: flex;
           flex-direction: column;
+          gap: 16px;
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+          transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 260ms ease,
+                      box-shadow 260ms ease;
         }
 
-        .ledger-row {
-          display: grid;
-          grid-template-columns: 340px 1fr;
-          align-items: center;
-          gap: clamp(2rem, 4.5vw, 4rem);
-          padding: clamp(1.75rem, 3.4vh, 2.35rem) 0;
-          border-bottom: 1px solid var(--border-subtle);
-          transition: border-color 220ms ease;
+        .skill-bento-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(200, 50, 38, 0.6);
+          box-shadow: 0 22px 48px rgba(0, 0, 0, 0.72), 0 0 28px rgba(200, 50, 38, 0.18);
         }
 
-        .ledger-row:first-child {
-          padding-top: 0.5rem;
-        }
-
-        .ledger-row:hover {
-          border-bottom-color: var(--border-accent);
-        }
-
-        .ledger-left {
+        .bento-card-top {
           display: flex;
-          align-items: baseline;
-          gap: 18px;
+          align-items: center;
+          justify-content: space-between;
         }
 
-        .ledger-idx {
-          font-size: 0.875rem;
-          font-weight: 700;
+        .bento-icon-box {
+          width: 38px;
+          height: 38px;
+          border-radius: var(--radius-sm);
+          background: rgba(200, 50, 38, 0.16);
+          border: 1px solid var(--border-accent);
           color: var(--accent-primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .bento-idx {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--text-muted);
           letter-spacing: 0.1em;
         }
 
-        .ledger-title {
+        .bento-title {
           font-family: var(--font-heading);
-          font-size: clamp(1.35rem, 1.8vw, 1.65rem);
+          font-size: clamp(1.25rem, 1.6vw, 1.45rem);
           font-weight: 700;
           color: var(--text-primary);
-          letter-spacing: -0.01em;
+          line-height: 1.25;
         }
 
-        .ledger-right {
+        .bento-pills-wrap {
           display: flex;
           flex-wrap: wrap;
-          align-items: center;
-          gap: 12px;
+          gap: 8px;
+          margin-top: 2px;
         }
 
-        .ledger-skill-chip {
-          font-size: 0.875rem;
+        .bento-skill-chip {
+          font-size: 0.75rem;
           color: var(--text-secondary);
-          padding: 6px 14px;
-          background: rgba(245, 239, 230, 0.04);
+          padding: 5px 11px;
+          background: rgba(245, 239, 230, 0.05);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-sm);
-          transition: all 180ms ease;
+          transition: all 160ms ease;
         }
 
-        .ledger-row:hover .ledger-skill-chip {
+        .skill-bento-card:hover .bento-skill-chip {
           color: var(--text-primary);
-          border-color: var(--border-prominent);
+          border-color: rgba(245, 239, 230, 0.22);
         }
 
-        @media (max-width: 860px) {
-          .ledger-row {
+        @media (max-width: 960px) {
+          .skills-bento-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .skills-bento-grid {
             grid-template-columns: 1fr;
-            gap: 14px;
           }
         }
       `}</style>

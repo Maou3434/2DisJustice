@@ -18,12 +18,12 @@ export const Footer = () => {
 
   return (
     <footer id="contact" className="scene-section site-footer">
-      {/* Dedicated Evening Shrine & Lantern Backdrop */}
+      {/* Vivid Evening Shrine & Lantern Backdrop */}
       <SceneBackdrop
         image="/images/cinematic_shrine.png"
         position="center 70%"
-        opacity={0.72}
-        overlayDarkness={0.86}
+        opacity={0.88}
+        overlayDarkness={0.48}
       />
 
       {/* Restrained Chapter Number Watermark */}
@@ -44,11 +44,11 @@ export const Footer = () => {
           <div className="scene-divider-rule" />
         </div>
 
-        {/* Breathable 2-Column Contact Layout */}
-        <div className="footer-main-grid">
+        {/* Frosted Contact Card Deck */}
+        <div className="footer-glass-deck reveal-item reveal-delay-1">
           
           {/* Left Column: Concise Identity */}
-          <div className="footer-identity-col reveal-item reveal-delay-1">
+          <div className="footer-identity-col">
             <h3 className="footer-name">{resumeData.personal.name}</h3>
             <p className="footer-bio-text">
               {resumeData.personal.summary}
@@ -60,7 +60,7 @@ export const Footer = () => {
           </div>
 
           {/* Right Column: Direct Channels */}
-          <div className="footer-actions-col reveal-item reveal-delay-2">
+          <div className="footer-actions-col">
             <div className="channels-card-list">
               
               {/* Email Row */}
@@ -147,17 +147,23 @@ export const Footer = () => {
           background-color: var(--bg-primary);
         }
 
-        .footer-main-grid {
+        .footer-glass-deck {
           display: grid;
           grid-template-columns: 1.1fr 1fr;
-          gap: clamp(3rem, 6vw, 5rem);
-          align-items: start;
+          gap: clamp(2.5rem, 5vw, 4rem);
+          align-items: center;
+          padding: clamp(2rem, 4vw, 3.25rem);
+          background: rgba(10, 12, 18, 0.78);
+          backdrop-filter: blur(18px);
+          border: 1px solid rgba(245, 239, 230, 0.16);
+          border-radius: var(--radius-md);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
         }
 
         .footer-identity-col {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 18px;
         }
 
         .footer-name {
@@ -169,8 +175,8 @@ export const Footer = () => {
         }
 
         .footer-bio-text {
-          font-size: clamp(1.05rem, 1.15vw, 1.125rem);
-          line-height: 1.82;
+          font-size: 1.05rem;
+          line-height: 1.8;
           color: var(--text-secondary);
           max-width: 54ch;
         }
@@ -179,7 +185,7 @@ export const Footer = () => {
           font-size: 0.75rem;
           color: var(--text-muted);
           letter-spacing: 0.08em;
-          padding-top: 16px;
+          padding-top: 12px;
         }
 
         .footer-actions-col {
@@ -198,8 +204,8 @@ export const Footer = () => {
           display: flex;
           align-items: center;
           gap: 16px;
-          padding: 18px 22px;
-          background: rgba(12, 14, 20, 0.78);
+          padding: 16px 20px;
+          background: rgba(18, 22, 32, 0.85);
           border: 1px solid var(--border-prominent);
           border-radius: var(--radius-sm);
           transition: border-color 180ms ease;
@@ -248,7 +254,7 @@ export const Footer = () => {
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
-          margin-top: 8px;
+          margin-top: 6px;
           gap: 16px;
         }
 
@@ -294,9 +300,9 @@ export const Footer = () => {
         }
 
         @media (max-width: 900px) {
-          .footer-main-grid {
+          .footer-glass-deck {
             grid-template-columns: 1fr;
-            gap: 32px;
+            gap: 28px;
           }
         }
       `}</style>

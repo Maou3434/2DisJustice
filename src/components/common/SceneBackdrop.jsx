@@ -2,14 +2,14 @@ import React from 'react';
 
 /**
  * SceneBackdrop Component
- * Provides a full-screen atmospheric backdrop with seamless top/bottom Sumi-ink
- * crossfade transitions and a dedicated reading-zone contrast gradient.
+ * Renders vivid, high-contrast Tsushima landscape paintings with live scroll parallax
+ * and smooth top/bottom vignette blending so the artwork shines clearly.
  */
 export const SceneBackdrop = ({
   image,
   position = 'center',
-  opacity = 0.78,
-  overlayDarkness = 0.82
+  opacity = 0.92,
+  overlayDarkness = 0.44
 }) => {
   return (
     <div className="scene-backdrop" aria-hidden="true">
@@ -24,10 +24,9 @@ export const SceneBackdrop = ({
       <div
         className="scene-backdrop-overlay"
         style={{
-          background: `rgba(10, 11, 14, ${overlayDarkness})`
+          background: `rgba(8, 9, 13, ${overlayDarkness})`
         }}
       />
-      <div className="scene-backdrop-reading-shield" />
       <div className="scene-backdrop-vignette" />
       <div className="scene-backdrop-edge-blend" />
 
@@ -44,19 +43,15 @@ export const SceneBackdrop = ({
 
         .scene-backdrop-img {
           position: absolute;
-          inset: 0;
+          inset: -8% 0;
           width: 100%;
-          height: 100%;
+          height: 116%;
           background-size: cover;
           background-repeat: no-repeat;
-          filter: contrast(1.06) saturate(1.02) brightness(0.88);
-          transform: scale(1.04);
+          filter: contrast(1.12) saturate(1.18) brightness(1.05);
+          transform: translate3d(0, var(--bg-parallax, 0px), 0) scale(var(--bg-scale, 1.04));
           will-change: transform;
-          transition: transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .scene-section.is-inview .scene-backdrop-img {
-          transform: scale(1.0);
+          transition: transform 90ms linear;
         }
 
         .scene-backdrop-overlay {
@@ -64,40 +59,28 @@ export const SceneBackdrop = ({
           inset: 0;
         }
 
-        /* Calm left-to-right reading shield so typography never fights background details */
-        .scene-backdrop-reading-shield {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            90deg,
-            rgba(10, 11, 14, 0.75) 0%,
-            rgba(10, 11, 14, 0.45) 55%,
-            rgba(10, 11, 14, 0.25) 100%
-          );
-        }
-
         .scene-backdrop-vignette {
           position: absolute;
           inset: 0;
           background: radial-gradient(
-            ellipse 85% 75% at 50% 50%,
-            transparent 0%,
-            rgba(10, 11, 14, 0.45) 55%,
-            rgba(10, 11, 14, 0.94) 100%
+            ellipse 90% 80% at 50% 50%,
+            rgba(8, 9, 13, 0.10) 0%,
+            rgba(8, 9, 13, 0.38) 65%,
+            rgba(8, 9, 13, 0.82) 100%
           );
         }
 
-        /* Deep seamless crossfade into pure #0A0B0E Sumi ink at top & bottom of every page */
+        /* Smooth feather at top & bottom edges without crushing the middle image brightness */
         .scene-backdrop-edge-blend {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             180deg,
             #0A0B0E 0%,
-            rgba(10, 11, 14, 0.75) 9%,
-            transparent 24%,
-            transparent 76%,
-            rgba(10, 11, 14, 0.78) 91%,
+            rgba(10, 11, 14, 0.55) 7%,
+            transparent 18%,
+            transparent 82%,
+            rgba(10, 11, 14, 0.58) 93%,
             #0A0B0E 100%
           );
         }

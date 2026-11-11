@@ -84,12 +84,12 @@ export const ExperienceTimeline = () => {
 
   return (
     <section id="experience" className="scene-section experience-section">
-      {/* Dedicated Coastal Bluffs Backdrop */}
+      {/* Vivid Coastal Bluffs Backdrop */}
       <SceneBackdrop
         image="/images/cinematic_sea.png"
         position="center 40%"
-        opacity={0.78}
-        overlayDarkness={0.84}
+        opacity={0.92}
+        overlayDarkness={0.44}
       />
 
       {/* Restrained Chapter Number Watermark */}
@@ -110,30 +110,38 @@ export const ExperienceTimeline = () => {
           <div className="scene-divider-rule" />
         </div>
 
-        {/* Guided 2-Column Editorial Spine (Left: Date & Index -> Right: Spacious Narrative) */}
-        <div className="experience-ledger">
-          {resumeData.professional_experience.map((exp, idx) => {
-            const isRecent = idx === 0;
+        {/* Scroll-Interactive Vertical Timeline with Frosted Glass Cards */}
+        <div className="interactive-timeline-wrap">
+          {/* Scroll-Filling Cinnabar Laser Spine */}
+          <div className="timeline-scroll-track" aria-hidden="true">
+            <div className="timeline-scroll-fill" />
+          </div>
 
-            return (
-              <article
-                key={exp.id || idx}
-                className={`experience-row reveal-item reveal-delay-${idx + 1}`}
-              >
-                {/* Left Anchor Column: Index, Date, Location */}
-                <div className="exp-left-anchor mono">
-                  <span className="exp-index">0{idx + 1}</span>
-                  <div className="exp-meta-stack">
-                    <span className="exp-period">{exp.period}</span>
-                    <span className="exp-location">{exp.location}</span>
+          <div className="timeline-cards-stack">
+            {resumeData.professional_experience.map((exp, idx) => {
+              const isRecent = idx === 0;
+
+              return (
+                <article
+                  key={exp.id || idx}
+                  className={`exp-glass-card reveal-item reveal-delay-${idx + 1} ${isRecent ? 'is-featured' : ''}`}
+                >
+                  {/* Glowing Node on the Scroll Spine */}
+                  <div className={`exp-spine-node ${isRecent ? 'node-active' : ''}`} aria-hidden="true">
+                    <span className="node-num mono">0{idx + 1}</span>
                   </div>
-                </div>
 
-                {/* Right Reading Column: Role, Organization, Narrative & Action */}
-                <div className="exp-right-body">
-                  <div className="exp-title-group">
-                    <h3 className="exp-role-title">{exp.role}</h3>
-                    <span className="exp-company mono">{exp.organization}</span>
+                  <div className="exp-card-header">
+                    <div className="exp-title-block">
+                      <span className="exp-company mono">{exp.organization}</span>
+                      <h3 className="exp-role-title">{exp.role}</h3>
+                    </div>
+
+                    <div className="exp-meta-pill mono">
+                      <span>{exp.period}</span>
+                      <span className="meta-sep">•</span>
+                      <span>{exp.location}</span>
+                    </div>
                   </div>
 
                   <p className="exp-description">
@@ -337,10 +345,10 @@ export const ExperienceTimeline = () => {
                     </div>
                   )}
 
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
+          </div>
         </div>
 
       </div>
@@ -350,93 +358,146 @@ export const ExperienceTimeline = () => {
           background-color: var(--bg-primary);
         }
 
-        .experience-ledger {
+        .interactive-timeline-wrap {
+          position: relative;
+          padding-left: clamp(48px, 6vw, 76px);
+        }
+
+        /* Scroll-Driven Cinnabar Timeline Spine */
+        .timeline-scroll-track {
+          position: absolute;
+          left: 18px;
+          top: 24px;
+          bottom: 24px;
+          width: 2px;
+          background: rgba(245, 239, 230, 0.14);
+          border-radius: 2px;
+          overflow: hidden;
+        }
+
+        .timeline-scroll-fill {
+          width: 100%;
+          height: var(--section-fill, 35%);
+          background: linear-gradient(180deg, var(--accent-primary) 0%, #FF6B5B 100%);
+          box-shadow: 0 0 16px var(--accent-primary);
+          transition: height 120ms linear;
+        }
+
+        .timeline-cards-stack {
           display: flex;
           flex-direction: column;
+          gap: clamp(2rem, 4vh, 3rem);
         }
 
-        .experience-row {
-          display: grid;
-          grid-template-columns: 240px 1fr;
-          gap: clamp(2rem, 5vw, 4.5rem);
-          padding: clamp(2.75rem, 5.5vh, 4.25rem) 0;
-          border-bottom: 1px solid var(--border-subtle);
-          align-items: start;
-        }
-
-        .experience-row:first-child {
-          padding-top: 0.5rem;
-        }
-
-        .exp-left-anchor {
+        /* Frosted Obsidian Glass Card */
+        .exp-glass-card {
+          position: relative;
+          background: rgba(10, 12, 18, 0.76);
+          backdrop-filter: blur(16px);
+          border: 1px solid rgba(245, 239, 230, 0.14);
+          border-radius: var(--radius-md);
+          padding: clamp(1.75rem, 3.2vw, 2.5rem);
           display: flex;
-          align-items: baseline;
+          flex-direction: column;
           gap: 18px;
-          padding-top: 6px;
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+          transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 280ms ease,
+                      box-shadow 280ms ease;
         }
 
-        .exp-index {
-          font-size: 0.875rem;
-          font-weight: 700;
-          color: var(--accent-primary);
-          letter-spacing: 0.1em;
+        .exp-glass-card:hover {
+          transform: translateX(6px);
+          border-color: rgba(200, 50, 38, 0.55);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 28px rgba(200, 50, 38, 0.15);
         }
 
-        .exp-meta-stack {
+        .exp-glass-card.is-featured {
+          border-left: 3px solid var(--accent-primary);
+        }
+
+        /* Spine Node Badge */
+        .exp-spine-node {
+          position: absolute;
+          left: calc(-1 * clamp(48px, 6vw, 76px) + 2px);
+          top: 32px;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          background: #0C0E14;
+          border: 1.5px solid var(--border-prominent);
           display: flex;
-          flex-direction: column;
-          gap: 6px;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+          transition: border-color 250ms ease, box-shadow 250ms ease;
         }
 
-        .exp-period {
-          font-size: 0.8125rem;
+        .exp-spine-node.node-active,
+        .exp-glass-card:hover .exp-spine-node {
+          border-color: var(--accent-primary);
+          box-shadow: 0 0 16px rgba(200, 50, 38, 0.65);
+        }
+
+        .node-num {
+          font-size: 0.6875rem;
           font-weight: 700;
           color: var(--text-primary);
-          letter-spacing: 0.06em;
         }
 
-        .exp-location {
-          font-size: 0.75rem;
-          color: var(--text-muted);
-          letter-spacing: 0.04em;
-        }
-
-        .exp-right-body {
+        .exp-card-header {
           display: flex;
-          flex-direction: column;
-          gap: 18px;
-          max-width: 780px;
+          align-items: flex-start;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 16px;
         }
 
-        .exp-title-group {
+        .exp-title-block {
           display: flex;
           flex-direction: column;
           gap: 6px;
+        }
+
+        .exp-company {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--accent-primary);
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
         }
 
         .exp-role-title {
           font-family: var(--font-heading);
-          font-size: clamp(1.65rem, 2.4vw, 2.15rem);
+          font-size: clamp(1.5rem, 2.2vw, 1.95rem);
           font-weight: 700;
           color: var(--text-primary);
           letter-spacing: -0.015em;
           line-height: 1.2;
         }
 
-        .exp-company {
-          font-size: 0.875rem;
-          font-weight: 700;
+        .exp-meta-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          background: rgba(245, 239, 230, 0.05);
+          border: 1px solid var(--border-subtle);
+          border-radius: 999px;
+          font-size: 0.75rem;
+          color: var(--text-secondary);
+        }
+
+        .meta-sep {
           color: var(--accent-primary);
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
         }
 
         .exp-description {
           font-family: var(--font-body);
-          font-size: clamp(1.05rem, 1.15vw, 1.125rem);
-          line-height: 1.82;
+          font-size: clamp(1.025rem, 1.12vw, 1.1rem);
+          line-height: 1.8;
           color: var(--text-secondary);
-          max-width: 65ch;
+          max-width: 72ch;
         }
 
         .exp-footer-bar {
@@ -445,23 +506,23 @@ export const ExperienceTimeline = () => {
           justify-content: space-between;
           flex-wrap: wrap;
           gap: 16px;
-          margin-top: 4px;
+          padding-top: 8px;
+          border-top: 1px solid rgba(245, 239, 230, 0.08);
         }
 
         .exp-tags-list {
           display: flex;
           flex-wrap: wrap;
-          gap: 10px;
+          gap: 8px;
         }
 
         .exp-tag-pill {
           font-size: 0.75rem;
-          color: var(--text-secondary);
+          color: var(--text-primary);
           padding: 4px 12px;
-          background: rgba(245, 239, 230, 0.04);
+          background: rgba(245, 239, 230, 0.06);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-sm);
-          letter-spacing: 0.03em;
         }
 
         .sandbox-toggle-btn {
@@ -473,21 +534,21 @@ export const ExperienceTimeline = () => {
           font-weight: 700;
           letter-spacing: 0.08em;
           color: var(--text-primary);
-          background: rgba(200, 50, 38, 0.14);
+          background: rgba(200, 50, 38, 0.18);
           border: 1px solid var(--border-accent);
           border-radius: var(--radius-sm);
           transition: all 180ms ease;
         }
 
         .sandbox-toggle-btn:hover {
-          background: rgba(200, 50, 38, 0.28);
+          background: rgba(200, 50, 38, 0.32);
           border-color: var(--accent-primary);
         }
 
         /* Interactive PINN Telemetry Sandbox */
         .pinn-telemetry-sandbox {
-          margin-top: 12px;
-          background: rgba(12, 14, 20, 0.92);
+          margin-top: 8px;
+          background: rgba(8, 10, 15, 0.92);
           border: 1px solid var(--border-prominent);
           border-left: 2px solid var(--accent-primary);
           border-radius: var(--radius-sm);
@@ -671,10 +732,6 @@ export const ExperienceTimeline = () => {
         }
 
         @media (max-width: 900px) {
-          .experience-row {
-            grid-template-columns: 1fr;
-            gap: 14px;
-          }
           .sandbox-body-grid {
             grid-template-columns: 1fr;
           }
