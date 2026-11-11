@@ -9,22 +9,18 @@ export const SpatialCanvas = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Check reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Detect Firefox engine for engine-specific optimizations
-    const isFirefox = typeof InstallTrigger !== 'undefined' || 
-                      (typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox'));
+    const isFirefox =
+      typeof InstallTrigger !== 'undefined' ||
+      (typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().includes('firefox'));
     const maxPixelRatio = isFirefox ? 1.5 : 2.0;
 
-    // 1. Scene, Camera, Renderer Setup
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      45,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      100
-    );
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.set(0, 0, 8);
 
     const renderer = new THREE.WebGLRenderer({
@@ -36,15 +32,22 @@ export const SpatialCanvas = () => {
       premultipliedAlpha: true
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(width, height);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
+
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.width = '100vw';
+    renderer.domElement.style.height = '100vh';
+    renderer.domElement.style.pointerEvents = 'none';
+
     container.appendChild(renderer.domElement);
 
-    // 2. Active Scene Controller (Tsushima atmospheric falling leaves & embers)
+    // Active Scene Controller (Tsushima atmospheric falling momiji leaves & embers)
     const activeSceneController = new TsushimaScene(scene, camera);
 
-    // 3. Mouse & Scroll Velocity Tracking
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     const mouseVelocity = { vx: 0, vy: 0, speed: 0 };
     let prevMouseX = 0;
@@ -53,37 +56,82 @@ export const SpatialCanvas = () => {
     let targetScrollOffset = 0;
     let lastScrollY = window.scrollY;
     let scrollVelocity = 0;
-    let isVisible = true;
 
-    const checkVisibility = () => {
-      isVisible = !document.hidden;
-    };
+    let animationFrameId = null;
+    let isRunning = false;
+    let isPageVisible = !document.hidden;
 
     const handleMouseMove = (e) => {
       mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
     };
 
+    const startLoop = () => {
+      if (isRunning || prefersReducedMotion || !isPageVisible) return;
+      isRunning = true;
+      animate();
+    };
+
+    const stopLoop = () => {
+      isRunning = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    };
+
+    const updateSpatialAtmosphere = () => {
+      if (document.hidden) {
+        isPageVisible = false;
+        stopLoop();
+        return;
+      }
+      isPageVisible = true;
+
+      // Natural fade-out as user scrolls out of the Homepage (#top)
+      // At scrollY = 0 -> opacity = 1.0
+      // By scrollY = 82% of Hero height -> opacity = 0.0 & WebGL loop pauses for pure reading clarity
+      const heroHeight = window.innerHeight || 800;
+      const scrollY = window.scrollY;
+      const fadeDistance = heroHeight * 0.82;
+      const rawRatio = Math.max(0, Math.min(1, 1 - scrollY / fadeDistance));
+      const smoothOpacity = Math.pow(rawRatio, 1.5);
+
+      if (smoothOpacity <= 0.01) {
+        container.style.opacity = '0';
+        container.style.visibility = 'hidden';
+        stopLoop();
+      } else {
+        container.style.visibility = 'visible';
+        container.style.opacity = smoothOpacity.toFixed(3);
+        startLoop();
+      }
+    };
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      scrollVelocity = Math.abs(currentScrollY - lastScrollY);
+      scrollVelocity = Math.min(Math.abs(currentScrollY - lastScrollY), 60);
       lastScrollY = currentScrollY;
 
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       targetScrollOffset = maxScroll > 0 ? currentScrollY / maxScroll : 0;
 
-      checkVisibility();
+      updateSpatialAtmosphere();
     };
 
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      if (w === 0 || h === 0) return;
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(w, h);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
+      updateSpatialAtmosphere();
     };
 
     const handleVisibilityChange = () => {
-      checkVisibility();
+      updateSpatialAtmosphere();
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -91,23 +139,19 @@ export const SpatialCanvas = () => {
     window.addEventListener('resize', handleResize);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // 4. Render Loop
-    let animationFrameId;
-    const animate = () => {
+    updateSpatialAtmosphere();
+
+    function animate() {
+      if (!isRunning) return;
       animationFrameId = requestAnimationFrame(animate);
 
-      if (!isVisible) return; // Throttles GPU/battery when reading lower text tables
-
-      // Decay scroll velocity smoothly
       scrollVelocity *= 0.92;
       scrollOffset += (targetScrollOffset - scrollOffset) * 0.08;
 
       if (!prefersReducedMotion) {
-        // Smooth lerp mouse coordinates
         mouse.x += (mouse.targetX - mouse.x) * 0.08;
         mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
-        // Calculate smooth mouse velocity for wind vortex physics
         const deltaX = mouse.x - prevMouseX;
         const deltaY = mouse.y - prevMouseY;
         prevMouseX = mouse.x;
@@ -117,7 +161,6 @@ export const SpatialCanvas = () => {
         mouseVelocity.vy += (deltaY - mouseVelocity.vy) * 0.35;
         mouseVelocity.speed = Math.hypot(mouseVelocity.vx, mouseVelocity.vy);
 
-        // Steady camera with subtle mouse sway
         const targetCamX = mouse.x * 0.45;
         const targetCamY = mouse.y * 0.32;
         const targetCamRotX = mouse.y * 0.02;
@@ -136,12 +179,10 @@ export const SpatialCanvas = () => {
       }
 
       renderer.render(scene, camera);
-    };
-    animate();
+    }
 
-    // 5. Cleanup
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopLoop();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
@@ -160,17 +201,20 @@ export const SpatialCanvas = () => {
   return (
     <div
       ref={containerRef}
+      className="spatial-canvas-layer"
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
+        inset: 0,
         width: '100vw',
         height: '100vh',
         pointerEvents: 'none',
-        zIndex: 12,
-        overflow: 'hidden'
+        zIndex: 'var(--z-spatial)',
+        overflow: 'hidden',
+        transition: 'opacity 220ms ease-out'
       }}
       aria-hidden="true"
     />
   );
 };
+
+export default SpatialCanvas;

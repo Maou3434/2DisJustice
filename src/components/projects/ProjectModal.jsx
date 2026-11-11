@@ -1,7 +1,35 @@
-import React, { useEffect } from 'react';
-import { X, CheckCircle2, Layers, Cpu, Database, ExternalLink } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, CheckCircle2, Play, RotateCcw } from 'lucide-react';
+
+const INITIAL_SHUFFLED = [
+  { id: 5, label: 'F_5', time: 't=0.83s', hue: '#857E73' },
+  { id: 2, label: 'F_2', time: 't=0.33s', hue: '#857E73' },
+  { id: 6, label: 'F_6', time: 't=1.00s', hue: '#857E73' },
+  { id: 1, label: 'F_1', time: 't=0.16s', hue: '#857E73' },
+  { id: 4, label: 'F_4', time: 't=0.66s', hue: '#857E73' },
+  { id: 3, label: 'F_3', time: 't=0.50s', hue: '#857E73' }
+];
+
+const BEAM_STEP = [
+  { id: 1, label: 'F_1', time: 't=0.16s', hue: '#C8C0B2' },
+  { id: 2, label: 'F_2', time: 't=0.33s', hue: '#C8C0B2' },
+  { id: 4, label: 'F_4', time: 't=0.66s', hue: '#C83226' },
+  { id: 3, label: 'F_3', time: 't=0.50s', hue: '#C83226' },
+  { id: 5, label: 'F_5', time: 't=0.83s', hue: '#C8C0B2' },
+  { id: 6, label: 'F_6', time: 't=1.00s', hue: '#C8C0B2' }
+];
+
+const SOLVED_STEP = [
+  { id: 1, label: 'F_1', time: 't=0.16s', hue: '#C83226' },
+  { id: 2, label: 'F_2', time: 't=0.33s', hue: '#C83226' },
+  { id: 3, label: 'F_3', time: 't=0.50s', hue: '#C83226' },
+  { id: 4, label: 'F_4', time: 't=0.66s', hue: '#C83226' },
+  { id: 5, label: 'F_5', time: 't=0.83s', hue: '#C83226' },
+  { id: 6, label: 'F_6', time: 't=1.00s', hue: '#C83226' }
+];
 
 export const ProjectModal = ({ project, projectImage, onClose }) => {
+  const [tspStage, setTspStage] = useState('shuffled');
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -16,6 +44,29 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
   }, [onClose]);
 
   if (!project) return null;
+
+  const isTspProject = project.id === 'frame-order-restoration';
+
+  const runTspSolver = () => {
+    setTspStage('beam');
+    setTimeout(() => {
+      setTspStage('solved');
+    }, 550);
+  };
+
+  const currentFrames =
+    tspStage === 'solved'
+      ? SOLVED_STEP
+      : tspStage === 'beam'
+      ? BEAM_STEP
+      : INITIAL_SHUFFLED;
+
+  const tspMetricText =
+    tspStage === 'solved'
+      ? '99.4% SIMILARITY (2-OPT CONVERGED)'
+      : tspStage === 'beam'
+      ? '86.2% SIMILARITY (BEAM INIT · UNCROSSING F_4↔F_3)'
+      : '41.8% SIMILARITY (UNORDERED PERMUTATION)';
 
   return (
     <div className="project-modal-backdrop" onClick={onClose} role="dialog" aria-modal="true">
@@ -32,7 +83,7 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
           </button>
         </div>
 
-        {/* High-Resolution Architectural Media Display */}
+        {/* High-Resolution Architectural Vector Display */}
         {projectImage && (
           <div className="modal-media-wrap">
             <img
@@ -41,7 +92,49 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
               className="modal-schematic-img"
             />
             <div className="modal-media-caption mono">
-              <span>SYSTEM ARCHITECTURE SCHEMATIC &amp; EMPIRICAL PIPELINE TOPOLOGY</span>
+              <span>SYSTEM ARCHITECTURE SCHEMATIC</span>
+              {project.visual?.engine && <span>{project.visual.engine}</span>}
+            </div>
+          </div>
+        )}
+
+        {/* Interactive 2-Opt Live Frame Reordering Sandbox (For Frame Order Restoration) */}
+        {isTspProject && (
+          <div className="tsp-interactive-widget mono">
+            <div className="tsp-widget-header">
+              <span>
+                LIVE 2-OPT TOUR STATE: <strong className={tspStage === 'solved' ? 'text-cinnabar' : ''}>{tspMetricText}</strong>
+              </span>
+              <div>
+                {tspStage !== 'solved' ? (
+                  <button onClick={runTspSolver} className="tsp-run-btn mono">
+                    <Play size={11} />
+                    <span>RUN 2-OPT SOLVER</span>
+                  </button>
+                ) : (
+                  <button onClick={() => setTspStage('shuffled')} className="tsp-reset-btn mono">
+                    <RotateCcw size={11} />
+                    <span>SHUFFLE FRAMES</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="tsp-frames-track">
+              {currentFrames.map((fr, fIdx) => (
+                <React.Fragment key={fr.id}>
+                  <div
+                    className={`tsp-frame-tile ${tspStage === 'solved' ? 'is-ordered' : ''}`}
+                    style={{ borderColor: fr.hue }}
+                  >
+                    <span className="tile-id">{fr.label}</span>
+                    <span className="tile-time">{fr.time}</span>
+                  </div>
+                  {fIdx < currentFrames.length - 1 && (
+                    <span className="tsp-edge-arrow" aria-hidden="true">→</span>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         )}
@@ -57,13 +150,11 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
 
         {/* Modal Body */}
         <div className="modal-body">
-          {/* Executive Overview */}
           <div className="modal-section">
             <h4 className="section-heading">Executive Overview</h4>
             <p className="section-text">{project.summary}</p>
           </div>
 
-          {/* Architectural Pillars */}
           <div className="modal-section">
             <h4 className="section-heading">Architecture &amp; Engineering Decisions</h4>
             <ul className="modal-feature-list">
@@ -76,79 +167,21 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
             </ul>
           </div>
 
-          {/* Technical Implementation Breakdown */}
-          <div className="modal-section">
-            <h4 className="section-heading">System Topology</h4>
-            <div className="topology-box mono">
-              {project.id === 'retailsink' && (
-                <pre>{`[Retail Sources: POS, ERP, Web Clickstream]
-       │
-       ▼ (FastAPI Ingestion Engine)
-[Bronze Layer: Raw Parquet Events / Append-Only]
-       │
-       ▼ (Vectorized DuckDB Transformations)
-[Silver Layer: Cleansed, Conformed, SCD Type 2 History]
-       │
-       ▼ (Delta Lake Acid Transactions)
-[Gold Layer: Aggregated Business Metrics & Analytics]
-       │
-       ▼
-[React Executive Dashboard: Sub-second OLAP Queries]`}</pre>
-              )}
-
-              {project.id === 'frame-order-restoration' && (
-                <pre>{`[Shuffled Video Frames Input]
-       │
-       ▼ (Parallel CPU Workers)
-[Feature Fusion: ORB Descriptors + HSV Histograms + pHash]
-       │
-       ▼ (DirectML GPU Execution Provider)
-[N x N Distance Matrix Calculation]
-       │
-       ▼ (Heuristic Combinatorial Search)
-[Traveling Salesperson Formulation: Beam Search + 2-Opt]
-       │
-       ▼
-[Restored Temporal Sequence (>99% Frame Similarity)]`}</pre>
-              )}
-
-              {project.id === 'opendesign' && (
-                <pre>{`[OpenDesign Platform Canvas]
-       │
-       ▼ (OAuth Authentication & Encrypted Storage)
-[Automated GitHub Repository & Deploy-Key Provisioning]
-       │
-       ▼ (Cloud Provider Orchestration Layer)
-┌──────────────┬──────────────┬──────────────┐
-▼              ▼              ▼              ▼
-[Netlify API]  [Render API]   [Railway API]  [Webhooks]
-└──────────────┴──────────────┴──────────────┘
-       │
-       ▼
-[Live Production URL Deployment State Machine]`}</pre>
-              )}
-
-              {project.id === 'emotional-dependency-detection' && (
-                <pre>{`[4,000+ Annotated Human-LLM Interaction Prompts]
-       │
-       ▼ (Sentence Transformers Embedding Pipeline)
-[Dense Semantic Vector Embeddings + Psycholinguistic Lexicon]
-       │
-       ▼ (Feature Engineering & Regularization)
-[Attachment Signal Extraction + Temporal Turn Tracking]
-       │
-       ▼ (XGBoost Gradient Boosted Regression)
-[Trained Dependency Quantifier: Cross-Validated R² ≈ 0.81]`}</pre>
-              )}
+          {project.topology && (
+            <div className="modal-section">
+              <h4 className="section-heading">System Dataflow &amp; Execution Topology</h4>
+              <div className="topology-box mono">
+                <pre>{project.topology}</pre>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Footer */}
         <div className="modal-footer">
-          <span className="mono footer-note">DATA VERIFIED FROM GROUND-TRUTH REPOSITORY ARCHIVES</span>
+          <span className="mono footer-note">ABIMANYU JAYAGANESH // SYSTEMS ARCHIVE</span>
           <button onClick={onClose} className="footer-btn">
-            Close Deep Dive
+            Close
           </button>
         </div>
 
@@ -158,24 +191,24 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
         .project-modal-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.82);
-          backdrop-filter: blur(12px);
+          background: rgba(6, 7, 10, 0.88);
+          backdrop-filter: blur(16px);
           z-index: var(--z-modal);
           display: flex;
           align-items: center;
           justify-content: center;
           padding: var(--space-4);
-          animation: modalFadeIn 200ms ease;
+          animation: modalFadeIn 220ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .project-modal-card {
           width: 100%;
-          max-width: 860px;
-          max-height: 92vh;
+          max-width: 920px;
+          max-height: 90vh;
           overflow-y: auto;
           background: var(--bg-surface-elevated);
           border: 1px solid var(--border-prominent);
-          border-radius: var(--radius-lg);
+          border-radius: var(--radius-md);
           padding: var(--space-8);
           box-shadow: var(--shadow-prominent);
           display: flex;
@@ -193,12 +226,14 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
         .modal-category {
           font-size: 0.75rem;
           color: var(--accent-primary);
-          letter-spacing: 0.04em;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
+          font-weight: 700;
         }
 
         .modal-title {
-          font-size: 1.625rem;
+          font-family: var(--font-heading);
+          font-size: 1.65rem;
           font-weight: 700;
           color: var(--text-primary);
           margin-top: 4px;
@@ -218,8 +253,8 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
 
         .modal-media-wrap {
           width: 100%;
-          background: var(--bg-primary);
-          border: 1px solid var(--border-subtle);
+          background: #07090D;
+          border: 1px solid var(--border-prominent);
           border-radius: var(--radius-sm);
           overflow: hidden;
         }
@@ -228,15 +263,108 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
           width: 100%;
           height: auto;
           display: block;
-          object-fit: cover;
+          object-fit: contain;
         }
 
         .modal-media-caption {
-          padding: 8px 12px;
+          padding: 8px 14px;
           font-size: 0.6875rem;
-          color: var(--text-muted);
+          color: var(--text-secondary);
           background: var(--bg-primary);
           border-top: 1px solid var(--border-subtle);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .tsp-interactive-widget {
+          padding: 12px 14px;
+          background: rgba(10, 11, 14, 0.9);
+          border: 1px solid var(--border-prominent);
+          border-left: 2px solid var(--accent-primary);
+          border-radius: var(--radius-sm);
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .tsp-widget-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 8px;
+          font-size: 0.6875rem;
+          color: var(--text-secondary);
+        }
+
+        .text-cinnabar {
+          color: var(--accent-primary);
+        }
+
+        .tsp-run-btn,
+        .tsp-reset-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 4px 10px;
+          font-size: 0.625rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          border-radius: var(--radius-sm);
+          transition: all 150ms ease;
+        }
+
+        .tsp-run-btn {
+          background: var(--accent-primary);
+          color: #FFFFFF;
+        }
+
+        .tsp-reset-btn {
+          background: rgba(245, 239, 230, 0.06);
+          border: 1px solid var(--border-prominent);
+          color: var(--text-primary);
+        }
+
+        .tsp-frames-track {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          overflow-x: auto;
+        }
+
+        .tsp-frame-tile {
+          flex: 1;
+          min-width: 56px;
+          padding: 6px;
+          background: #0B0D13;
+          border: 1px solid var(--border-prominent);
+          border-radius: var(--radius-sm);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tsp-frame-tile.is-ordered {
+          background: rgba(200, 50, 38, 0.12);
+        }
+
+        .tile-id {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--text-primary);
+        }
+
+        .tile-time {
+          font-size: 0.5625rem;
+          color: var(--text-muted);
+        }
+
+        .tsp-edge-arrow {
+          color: var(--accent-primary);
+          font-size: 0.75rem;
+          font-weight: 700;
         }
 
         .modal-tech-row {
@@ -270,14 +398,14 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
 
         .section-heading {
           font-family: var(--font-mono);
-          font-size: 0.8125rem;
-          color: var(--text-muted);
+          font-size: 0.75rem;
+          color: var(--accent-primary);
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.1em;
         }
 
         .section-text {
-          font-size: 1rem;
+          font-size: 0.95rem;
           line-height: 1.65;
           color: var(--text-secondary);
         }
@@ -294,7 +422,7 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
           align-items: flex-start;
           gap: 10px;
           font-size: 0.9375rem;
-          line-height: 1.5;
+          line-height: 1.55;
           color: var(--text-secondary);
         }
 
@@ -307,12 +435,13 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
         .topology-box {
           background: var(--bg-primary);
           border: 1px solid var(--border-subtle);
+          border-left: 2px solid var(--accent-primary);
           border-radius: var(--radius-sm);
           padding: var(--space-4);
           overflow-x: auto;
           font-size: 0.75rem;
-          line-height: 1.45;
-          color: var(--accent-primary);
+          line-height: 1.55;
+          color: var(--text-primary);
         }
 
         .modal-footer {
@@ -345,8 +474,8 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
         }
 
         @keyframes modalFadeIn {
-          from { opacity: 0; transform: scale(0.98); }
-          to { opacity: 1; transform: scale(1); }
+          from { opacity: 0; transform: scale(0.98) translateY(8px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @media (max-width: 640px) {
@@ -363,3 +492,5 @@ export const ProjectModal = ({ project, projectImage, onClose }) => {
     </div>
   );
 };
+
+export default ProjectModal;

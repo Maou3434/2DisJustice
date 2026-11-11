@@ -143,9 +143,9 @@ export const ScrollSpine = () => {
           padding: 0 9px;
           background: rgba(12, 14, 20, 0.88);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.14);
+          border: 1px solid var(--border-prominent);
           border-radius: 17px;
-          color: #9CA3AF;
+          color: var(--text-secondary);
           cursor: pointer;
           overflow: hidden;
           white-space: nowrap;
@@ -162,7 +162,7 @@ export const ScrollSpine = () => {
           font-size: 0.6875rem;
           font-weight: 700;
           letter-spacing: 0.05em;
-          color: #9CA3AF;
+          color: var(--text-secondary);
           flex-shrink: 0;
           width: 18px;
           text-align: center;
@@ -191,7 +191,7 @@ export const ScrollSpine = () => {
           font-size: 0.6875rem;
           font-weight: 700;
           letter-spacing: 0.09em;
-          color: #FFFFFF;
+          color: var(--text-primary);
           text-transform: uppercase;
         }
 

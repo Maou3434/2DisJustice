@@ -1,111 +1,91 @@
 import React from 'react';
 import resumeData from '../../../data/resume_data.json';
-import { Trophy, Award, GraduationCap, CheckCircle } from 'lucide-react';
 import { SceneBackdrop } from '../common/SceneBackdrop.jsx';
 
 export const HonorsSection = () => {
   return (
     <section id="education" className="scene-section honors-section">
-      {/* Dedicated Mountain Stone Path & Lanterns Backdrop */}
+      {/* Dedicated Sunrise Maple & Mountain Mist Backdrop */}
       <SceneBackdrop
-        image="/images/tsushima-hero-bg.jpg"
-        position="center 25%"
-        opacity={0.84}
-        overlayDarkness={0.78}
+        image="/images/cinematic_maple.png"
+        position="center 65%"
+        opacity={0.76}
+        overlayDarkness={0.84}
       />
 
-      {/* Side Numbered Equation & Chapter Watermark */}
+      {/* Restrained Chapter Number Watermark */}
       <div className="section-backdrop-watermark" aria-hidden="true">
-        <span className="wm-number mono">06</span>
-        <div className="wm-equation mono">DEFENSE CADET &amp; COMPETITIVE EXCELLENCE</div>
+        <span className="wm-number">06</span>
       </div>
 
       <div className="container scene-content honors-content">
         
-        {/* Editorial Scene Header */}
+        {/* Clean Editorial Scene Header */}
         <div className="scene-head-editorial">
           <div className="scene-head-top">
             <div className="scene-head-left">
-              <span className="scene-eyebrow">06 // ACADEMIC FOUNDATIONS &amp; MILITARY HONORS</span>
-              <h2 className="scene-title-editorial">
-                Education, Service &amp; Honors
-              </h2>
+              <span className="scene-eyebrow">06 // CREDENTIALS</span>
+              <h2 className="scene-title-editorial">Education &amp; Honors</h2>
             </div>
-            <p className="scene-head-right-subtext">
-              ACADEMIC FOUNDATION AT VIT VELLORE, NATIONAL DEFENSE CADET DISCIPLINE, AND RECOGNIZED ACCELERATED COMPUTING CERTIFICATIONS.
-            </p>
           </div>
           <div className="scene-divider-rule" />
         </div>
 
-        {/* 3-Column Editorial Grid (No Boxy Cards) */}
-        <div className="education-grid-editorial">
+        {/* Guided 3-Row Editorial Ledger (Consistent Left Anchor -> Right Content Stream) */}
+        <div className="credentials-rows-flow">
           
-          {/* Column 1: Academic Degree & Institution */}
-          <div className="credential-col">
-            <div className="col-header-row">
-              <GraduationCap size={18} className="col-icon" />
-              <h3 className="col-title">Academic Degree</h3>
+          {/* Row 01: Academic Degree */}
+          <div className="credential-row reveal-item reveal-delay-1">
+            <div className="cred-left-anchor mono">
+              <span className="cred-idx">01</span>
+              <span className="cred-label">ACADEMIC DEGREE</span>
             </div>
 
-            <div className="academic-feature-block">
-              <span className="institution-name">{resumeData.personal.education.institution}</span>
-              <h4 className="degree-name">{resumeData.personal.education.degree}</h4>
+            <div className="cred-right-body">
+              <h3 className="institution-name">{resumeData.personal.education.institution}</h3>
+              <p className="degree-name">{resumeData.personal.education.degree}</p>
               
-              <div className="academic-stats-row mono">
-                <div className="stat-pill">
-                  <span className="stat-label">CGPA</span>
-                  <strong className="stat-val">{resumeData.personal.education.cgpa}</strong>
-                </div>
-                <div className="stat-pill">
-                  <span className="stat-label">STATUS</span>
-                  <strong className="stat-val">{resumeData.personal.education.graduation}</strong>
-                </div>
+              <div className="academic-meta-strip mono">
+                <span className="meta-badge">CGPA: <strong>{resumeData.personal.education.cgpa}</strong></span>
+                <span className="meta-badge">{resumeData.personal.education.graduation}</span>
+                {resumeData.personal.languages_spoken && (
+                  <span className="meta-badge">
+                    LANGUAGES: {resumeData.personal.languages_spoken.map((l) => l.language).join(' · ')}
+                  </span>
+                )}
               </div>
-
-              <p className="academic-desc">
-                Core coursework spanning Analysis of Algorithms, Operating Systems, Database Management Systems, Distributed Computing, and Compilers.
-              </p>
             </div>
           </div>
 
-          {/* Column 2: Industry Certifications */}
-          <div className="credential-col">
-            <div className="col-header-row">
-              <Award size={18} className="col-icon" />
-              <h3 className="col-title">Recognized Credentials</h3>
+          {/* Row 02: Honors & Distinctions */}
+          <div className="credential-row reveal-item reveal-delay-2">
+            <div className="cred-left-anchor mono">
+              <span className="cred-idx">02</span>
+              <span className="cred-label">DISTINCTIONS</span>
             </div>
 
-            <div className="credentials-list">
-              {resumeData.certifications.map((cert, idx) => (
-                <div key={idx} className="cert-item-editorial">
-                  <div className="cert-top-meta mono">
-                    <span className="cert-year">{cert.year}</span>
-                    <span className="cert-issuer">{cert.issuer}</span>
-                  </div>
-                  <h4 className="cert-name-text">{cert.name}</h4>
-                  <div className="cert-verified-cue mono">
-                    <CheckCircle size={13} className="check-icon" />
-                    <span>Credential Verified</span>
-                  </div>
+            <div className="cred-right-grid">
+              {resumeData.achievements.map((ach, idx) => (
+                <div key={idx} className="cred-card-item">
+                  <h4 className="cred-item-title">{ach.title}</h4>
+                  <span className="cred-item-org mono">{ach.organization}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Column 3: Competitive & Cadet Honors */}
-          <div className="credential-col">
-            <div className="col-header-row">
-              <Trophy size={18} className="col-icon" />
-              <h3 className="col-title">Honors &amp; Service</h3>
+          {/* Row 03: Industry Certifications */}
+          <div className="credential-row reveal-item reveal-delay-3">
+            <div className="cred-left-anchor mono">
+              <span className="cred-idx">03</span>
+              <span className="cred-label">CERTIFICATIONS</span>
             </div>
 
-            <div className="honors-list-editorial">
-              {resumeData.achievements.map((ach, idx) => (
-                <div key={idx} className="honor-item-editorial">
-                  <h4 className="honor-name-text">{ach.title}</h4>
-                  <span className="honor-org-meta mono">{ach.organization}</span>
-                  <p className="honor-note-text">{ach.note}</p>
+            <div className="cred-right-grid">
+              {resumeData.certifications.map((cert, idx) => (
+                <div key={idx} className="cred-card-item">
+                  <h4 className="cred-item-title">{cert.name}</h4>
+                  <span className="cred-item-org mono">{cert.issuer} · {cert.year}</span>
                 </div>
               ))}
             </div>
@@ -117,189 +97,125 @@ export const HonorsSection = () => {
 
       <style>{`
         .honors-section {
-          background-color: #0A0B0E;
+          background-color: var(--bg-primary);
         }
 
-        .honors-content {
-          padding-top: clamp(1rem, 2.5vh, 2rem);
-          padding-bottom: clamp(1rem, 2.5vh, 2rem);
+        .credentials-rows-flow {
+          display: flex;
+          flex-direction: column;
         }
 
-        .education-grid-editorial {
+        .credential-row {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: clamp(1.25rem, 3vw, 2.5rem);
-          margin-top: clamp(0.75rem, 2vh, 1.5rem);
+          grid-template-columns: 280px 1fr;
+          gap: clamp(2rem, 5vw, 4.5rem);
+          padding: clamp(2.75rem, 5.5vh, 4.25rem) 0;
+          border-bottom: 1px solid var(--border-subtle);
+          align-items: start;
         }
 
-        .credential-col {
+        .credential-row:first-child {
+          padding-top: 0.5rem;
+        }
+
+        .cred-left-anchor {
           display: flex;
-          flex-direction: column;
-          gap: clamp(0.75rem, 1.8vh, 1.25rem);
-          border-left: 1px solid rgba(255, 255, 255, 0.12);
-          padding-left: clamp(12px, 1.5vw, 20px);
-          transition: border-color 200ms ease;
+          align-items: baseline;
+          gap: 16px;
+          padding-top: 6px;
         }
 
-        .credential-col:hover {
-          border-color: var(--accent-primary);
-        }
-
-        .col-header-row {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .col-icon {
-          color: var(--accent-primary);
-        }
-
-        .col-title {
-          font-family: var(--font-body);
-          font-size: clamp(1rem, 1.25vw, 1.2rem);
+        .cred-idx {
+          font-size: 0.875rem;
           font-weight: 700;
-          color: #FFFFFF;
-          letter-spacing: -0.01em;
+          color: var(--accent-primary);
+          letter-spacing: 0.1em;
         }
 
-        /* Academic Block */
-        .academic-feature-block {
+        .cred-label {
+          font-size: 0.8125rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          letter-spacing: 0.14em;
+        }
+
+        .cred-right-body {
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 14px;
         }
 
         .institution-name {
-          font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+          font-family: var(--font-heading);
+          font-size: clamp(1.65rem, 2.3vw, 2.15rem);
           font-weight: 700;
-          color: var(--accent-primary);
+          color: var(--text-primary);
           line-height: 1.2;
         }
 
         .degree-name {
-          font-size: clamp(0.8125rem, 1vw, 0.9375rem);
-          color: #F5EFE6;
-          font-weight: 600;
+          font-family: var(--font-body);
+          font-size: clamp(1.05rem, 1.15vw, 1.15rem);
+          color: var(--text-secondary);
+          line-height: 1.65;
         }
 
-        .academic-stats-row {
+        .academic-meta-strip {
           display: flex;
-          gap: 10px;
-          margin-top: 4px;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 6px;
         }
 
-        .stat-pill {
-          display: flex;
-          flex-direction: column;
-          padding: 4px 10px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+        .meta-badge {
+          font-size: 0.75rem;
+          color: var(--text-secondary);
+          padding: 6px 14px;
+          background: rgba(245, 239, 230, 0.04);
+          border: 1px solid var(--border-subtle);
           border-radius: var(--radius-sm);
+          letter-spacing: 0.04em;
         }
 
-        .stat-label {
-          font-size: 0.5625rem;
-          color: #9CA3AF;
-          letter-spacing: 0.06em;
-        }
-
-        .stat-val {
-          font-size: 0.8125rem;
+        .meta-badge strong {
           color: var(--accent-primary);
-          font-weight: 700;
         }
 
-        .academic-desc {
-          font-size: clamp(0.6875rem, 0.85vw, 0.78125rem);
-          line-height: 1.5;
-          color: #9CA3AF;
-          margin-top: 4px;
+        .cred-right-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: clamp(1.75rem, 3.5vh, 2.5rem) clamp(2rem, 4vw, 3.5rem);
         }
 
-        /* Credentials List */
-        .credentials-list {
+        .cred-card-item {
           display: flex;
           flex-direction: column;
-          gap: clamp(0.75rem, 1.8vh, 1.25rem);
-        }
-
-        .cert-item-editorial {
-          display: flex;
-          flex-direction: column;
-          gap: 3px;
-        }
-
-        .cert-top-meta {
-          display: flex;
-          align-items: center;
           gap: 8px;
-          font-size: 0.6875rem;
         }
 
-        .cert-year {
-          color: var(--accent-primary);
-        }
-
-        .cert-issuer {
-          color: #9CA3AF;
-        }
-
-        .cert-name-text {
-          font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+        .cred-item-title {
+          font-family: var(--font-heading);
+          font-size: clamp(1.2rem, 1.5vw, 1.4rem);
           font-weight: 700;
-          color: #FFFFFF;
-          line-height: 1.25;
+          color: var(--text-primary);
+          line-height: 1.3;
         }
 
-        .cert-verified-cue {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          font-size: 0.625rem;
+        .cred-item-org {
+          font-size: 0.75rem;
           color: var(--accent-primary);
-          margin-top: 1px;
-        }
-
-        .check-icon {
-          color: var(--accent-primary);
-        }
-
-        /* Honors List */
-        .honors-list-editorial {
-          display: flex;
-          flex-direction: column;
-          gap: clamp(0.65rem, 1.5vh, 1rem);
-        }
-
-        .honor-item-editorial {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-        }
-
-        .honor-name-text {
-          font-size: clamp(0.8125rem, 1vw, 0.875rem);
+          letter-spacing: 0.08em;
           font-weight: 700;
-          color: #FFFFFF;
-          line-height: 1.2;
-        }
-
-        .honor-org-meta {
-          font-size: 0.6875rem;
-          color: var(--accent-primary);
-        }
-
-        .honor-note-text {
-          font-size: clamp(0.6875rem, 0.85vw, 0.75rem);
-          line-height: 1.4;
-          color: #9CA3AF;
         }
 
         @media (max-width: 900px) {
-          .education-grid-editorial {
+          .credential-row {
             grid-template-columns: 1fr;
-            gap: 24px;
+            gap: 20px;
+          }
+
+          .cred-right-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

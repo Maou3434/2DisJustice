@@ -2,19 +2,14 @@ import React from 'react';
 
 /**
  * SceneBackdrop Component
- * Provides a dedicated, full-screen background image with atmospheric darkening,
- * radial vignette, and linear contrast gradient to guarantee typography legibility.
- *
- * @param {string} image - Path to the background image
- * @param {string} position - CSS background position (default: 'center')
- * @param {number} opacity - Background image opacity (default: 0.85)
- * @param {number} overlayDarkness - Opacity of dark overlay (default: 0.72)
+ * Provides a full-screen atmospheric backdrop with seamless top/bottom Sumi-ink
+ * crossfade transitions and a dedicated reading-zone contrast gradient.
  */
 export const SceneBackdrop = ({
   image,
   position = 'center',
-  opacity = 0.82,
-  overlayDarkness = 0.75
+  opacity = 0.78,
+  overlayDarkness = 0.82
 }) => {
   return (
     <div className="scene-backdrop" aria-hidden="true">
@@ -29,9 +24,10 @@ export const SceneBackdrop = ({
       <div
         className="scene-backdrop-overlay"
         style={{
-          background: `rgba(8, 9, 13, ${overlayDarkness})`
+          background: `rgba(10, 11, 14, ${overlayDarkness})`
         }}
       />
+      <div className="scene-backdrop-reading-shield" />
       <div className="scene-backdrop-vignette" />
       <div className="scene-backdrop-edge-blend" />
 
@@ -53,16 +49,31 @@ export const SceneBackdrop = ({
           height: 100%;
           background-size: cover;
           background-repeat: no-repeat;
-          filter: contrast(1.08) saturate(1.04) brightness(0.92);
-          transform: scale(1.02);
+          filter: contrast(1.06) saturate(1.02) brightness(0.88);
+          transform: scale(1.04);
           will-change: transform;
-          backface-visibility: hidden;
-          transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scene-section.is-inview .scene-backdrop-img {
+          transform: scale(1.0);
         }
 
         .scene-backdrop-overlay {
           position: absolute;
           inset: 0;
+        }
+
+        /* Calm left-to-right reading shield so typography never fights background details */
+        .scene-backdrop-reading-shield {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            90deg,
+            rgba(10, 11, 14, 0.75) 0%,
+            rgba(10, 11, 14, 0.45) 55%,
+            rgba(10, 11, 14, 0.25) 100%
+          );
         }
 
         .scene-backdrop-vignette {
@@ -71,20 +82,23 @@ export const SceneBackdrop = ({
           background: radial-gradient(
             ellipse 85% 75% at 50% 50%,
             transparent 0%,
-            rgba(6, 7, 10, 0.45) 55%,
-            rgba(6, 7, 10, 0.92) 100%
+            rgba(10, 11, 14, 0.45) 55%,
+            rgba(10, 11, 14, 0.94) 100%
           );
         }
 
+        /* Deep seamless crossfade into pure #0A0B0E Sumi ink at top & bottom of every page */
         .scene-backdrop-edge-blend {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             180deg,
-            rgba(6, 7, 10, 0.75) 0%,
-            transparent 12%,
-            transparent 88%,
-            rgba(6, 7, 10, 0.85) 100%
+            #0A0B0E 0%,
+            rgba(10, 11, 14, 0.75) 9%,
+            transparent 24%,
+            transparent 76%,
+            rgba(10, 11, 14, 0.78) 91%,
+            #0A0B0E 100%
           );
         }
       `}</style>
